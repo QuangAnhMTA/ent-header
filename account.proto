@@ -3,6 +3,13 @@ syntax = "proto3";
 package account;
 option go_package = "github.com/QuangAnhMTA/ent-header/account";
 
+
+service AccountService {
+	// ---------------- -----------------
+  rpc ListAccounts(AccountRequest) returns (Accounts);
+
+}
+
 message AccountRequest {
   int64 id = 1;
   int64 role_id = 2;
