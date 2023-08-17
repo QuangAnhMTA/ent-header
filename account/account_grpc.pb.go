@@ -24,6 +24,10 @@ const _ = grpc.SupportPackageIsVersion7
 type AccountServiceClient interface {
 	// ---------------- -----------------
 	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
+	CheckRegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error)
+	VerifyOtpRegister(ctx context.Context, in *VerifyOtpRegisterRequest, opts ...grpc.CallOption) (*VerifyOtpRegisterResponse, error)
+	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error)
+	Login(ctx context.Context, in *LoginAccountRequest, opts ...grpc.CallOption) (*LoginAccountResponse, error)
 }
 
 type accountServiceClient struct {
@@ -43,12 +47,52 @@ func (c *accountServiceClient) ListAccounts(ctx context.Context, in *AccountRequ
 	return out, nil
 }
 
+func (c *accountServiceClient) CheckRegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error) {
+	out := new(RegisterAccountResponse)
+	err := c.cc.Invoke(ctx, "/account.AccountService/CheckRegisterAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) VerifyOtpRegister(ctx context.Context, in *VerifyOtpRegisterRequest, opts ...grpc.CallOption) (*VerifyOtpRegisterResponse, error) {
+	out := new(VerifyOtpRegisterResponse)
+	err := c.cc.Invoke(ctx, "/account.AccountService/VerifyOtpRegister", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error) {
+	out := new(RegisterAccountResponse)
+	err := c.cc.Invoke(ctx, "/account.AccountService/RegisterAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) Login(ctx context.Context, in *LoginAccountRequest, opts ...grpc.CallOption) (*LoginAccountResponse, error) {
+	out := new(LoginAccountResponse)
+	err := c.cc.Invoke(ctx, "/account.AccountService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations should embed UnimplementedAccountServiceServer
 // for forward compatibility
 type AccountServiceServer interface {
 	// ---------------- -----------------
 	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
+	CheckRegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error)
+	VerifyOtpRegister(context.Context, *VerifyOtpRegisterRequest) (*VerifyOtpRegisterResponse, error)
+	RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error)
+	Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error)
 }
 
 // UnimplementedAccountServiceServer should be embedded to have forward compatible implementations.
@@ -57,6 +101,18 @@ type UnimplementedAccountServiceServer struct {
 
 func (UnimplementedAccountServiceServer) ListAccounts(context.Context, *AccountRequest) (*Accounts, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
+}
+func (UnimplementedAccountServiceServer) CheckRegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckRegisterAccount not implemented")
+}
+func (UnimplementedAccountServiceServer) VerifyOtpRegister(context.Context, *VerifyOtpRegisterRequest) (*VerifyOtpRegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyOtpRegister not implemented")
+}
+func (UnimplementedAccountServiceServer) RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterAccount not implemented")
+}
+func (UnimplementedAccountServiceServer) Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 
 // UnsafeAccountServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -88,6 +144,78 @@ func _AccountService_ListAccounts_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_CheckRegisterAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).CheckRegisterAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/CheckRegisterAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).CheckRegisterAccount(ctx, req.(*RegisterAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_VerifyOtpRegister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyOtpRegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).VerifyOtpRegister(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/VerifyOtpRegister",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).VerifyOtpRegister(ctx, req.(*VerifyOtpRegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_RegisterAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).RegisterAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/RegisterAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).RegisterAccount(ctx, req.(*RegisterAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).Login(ctx, req.(*LoginAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +226,22 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListAccounts",
 			Handler:    _AccountService_ListAccounts_Handler,
+		},
+		{
+			MethodName: "CheckRegisterAccount",
+			Handler:    _AccountService_CheckRegisterAccount_Handler,
+		},
+		{
+			MethodName: "VerifyOtpRegister",
+			Handler:    _AccountService_VerifyOtpRegister_Handler,
+		},
+		{
+			MethodName: "RegisterAccount",
+			Handler:    _AccountService_RegisterAccount_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _AccountService_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

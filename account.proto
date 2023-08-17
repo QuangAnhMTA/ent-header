@@ -7,7 +7,15 @@ option go_package = "github.com/QuangAnhMTA/ent-header/account";
 service AccountService {
 	// ---------------- -----------------
   rpc ListAccounts(AccountRequest) returns (Accounts);
+  rpc CheckRegisterAccount(RegisterAccountRequest) returns (RegisterAccountResponse);
+  rpc VerifyOtpRegister(VerifyOtpRegisterRequest) returns (VerifyOtpRegisterResponse);
+  rpc RegisterAccount(RegisterAccountRequest) returns (RegisterAccountResponse);
+  rpc Login(LoginAccountRequest) returns (LoginAccountResponse);
+}
 
+message Claims {
+	int64 acount_id = 1;
+	int64 device_id = 2;
 }
 
 message AccountRequest {
@@ -36,3 +44,56 @@ message Accounts {
   repeated Account accounts = 1;
   int64 total = 2;
 }
+
+
+
+message CheckRegisterAccountRequest {
+    string phone = 1;
+    string device_id = 2;
+  }
+  
+  message CheckRegisterAccountResponse {
+    string phone = 1;
+    string device_id = 2;
+  }
+  
+  message VerifyOtpRegisterRequest {
+    string phone = 1;
+    string device_id = 2;
+    string otp = 3;
+  }
+  message VerifyOtpRegisterResponse {
+    string token = 1;
+    string device_id = 2;
+  }
+
+
+message RegisterAccountRequest {
+    string token = 1;
+    string password = 2;
+    string device_id = 3;
+}
+message RegisterAccountResponse {
+    string token = 1;
+    string password = 2;
+    string device_id = 3;
+}
+
+  message LoginAccountRequest {
+    string phone = 1;
+    string password = 2;
+    string device_id = 3;
+  }
+  
+  
+  message LoginAccountResponse {
+   string token = 1;
+   Claims claim = 2;
+   
+  }
+  
+  message AccessToken {
+    int64 account_id = 1;
+    int64 role_id = 2;
+    string phone = 3;
+  }
