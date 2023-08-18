@@ -22,12 +22,13 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountServiceClient interface {
-	// ---------------- -----------------
-	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
 	CheckRegisterAccount(ctx context.Context, in *CheckRegisterAccountRequest, opts ...grpc.CallOption) (*CheckRegisterAccountResponse, error)
 	VerifyOtpRegister(ctx context.Context, in *VerifyOtpRegisterRequest, opts ...grpc.CallOption) (*VerifyOtpRegisterResponse, error)
 	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error)
 	Login(ctx context.Context, in *LoginAccountRequest, opts ...grpc.CallOption) (*LoginAccountResponse, error)
+	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
+	// -----------------member------------------------
+	ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error)
 }
 
 type accountServiceClient struct {
@@ -36,15 +37,6 @@ type accountServiceClient struct {
 
 func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
 	return &accountServiceClient{cc}
-}
-
-func (c *accountServiceClient) ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error) {
-	out := new(Accounts)
-	err := c.cc.Invoke(ctx, "/account.AccountService/ListAccounts", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *accountServiceClient) CheckRegisterAccount(ctx context.Context, in *CheckRegisterAccountRequest, opts ...grpc.CallOption) (*CheckRegisterAccountResponse, error) {
@@ -83,25 +75,41 @@ func (c *accountServiceClient) Login(ctx context.Context, in *LoginAccountReques
 	return out, nil
 }
 
+func (c *accountServiceClient) ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error) {
+	out := new(Accounts)
+	err := c.cc.Invoke(ctx, "/account.AccountService/ListAccounts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error) {
+	out := new(Members)
+	err := c.cc.Invoke(ctx, "/account.AccountService/ListMembers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations should embed UnimplementedAccountServiceServer
 // for forward compatibility
 type AccountServiceServer interface {
-	// ---------------- -----------------
-	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
 	CheckRegisterAccount(context.Context, *CheckRegisterAccountRequest) (*CheckRegisterAccountResponse, error)
 	VerifyOtpRegister(context.Context, *VerifyOtpRegisterRequest) (*VerifyOtpRegisterResponse, error)
 	RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error)
 	Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error)
+	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
+	// -----------------member------------------------
+	ListMembers(context.Context, *MemberRequest) (*Members, error)
 }
 
 // UnimplementedAccountServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAccountServiceServer struct {
 }
 
-func (UnimplementedAccountServiceServer) ListAccounts(context.Context, *AccountRequest) (*Accounts, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
-}
 func (UnimplementedAccountServiceServer) CheckRegisterAccount(context.Context, *CheckRegisterAccountRequest) (*CheckRegisterAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckRegisterAccount not implemented")
 }
@@ -114,6 +122,12 @@ func (UnimplementedAccountServiceServer) RegisterAccount(context.Context, *Regis
 func (UnimplementedAccountServiceServer) Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
+func (UnimplementedAccountServiceServer) ListAccounts(context.Context, *AccountRequest) (*Accounts, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
+}
+func (UnimplementedAccountServiceServer) ListMembers(context.Context, *MemberRequest) (*Members, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMembers not implemented")
+}
 
 // UnsafeAccountServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to AccountServiceServer will
@@ -124,24 +138,6 @@ type UnsafeAccountServiceServer interface {
 
 func RegisterAccountServiceServer(s grpc.ServiceRegistrar, srv AccountServiceServer) {
 	s.RegisterService(&AccountService_ServiceDesc, srv)
-}
-
-func _AccountService_ListAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServiceServer).ListAccounts(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/account.AccountService/ListAccounts",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).ListAccounts(ctx, req.(*AccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _AccountService_CheckRegisterAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -216,6 +212,42 @@ func _AccountService_Login_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_ListAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).ListAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/ListAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).ListAccounts(ctx, req.(*AccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_ListMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).ListMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/ListMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).ListMembers(ctx, req.(*MemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -223,10 +255,6 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "account.AccountService",
 	HandlerType: (*AccountServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "ListAccounts",
-			Handler:    _AccountService_ListAccounts_Handler,
-		},
 		{
 			MethodName: "CheckRegisterAccount",
 			Handler:    _AccountService_CheckRegisterAccount_Handler,
@@ -242,6 +270,14 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _AccountService_Login_Handler,
+		},
+		{
+			MethodName: "ListAccounts",
+			Handler:    _AccountService_ListAccounts_Handler,
+		},
+		{
+			MethodName: "ListMembers",
+			Handler:    _AccountService_ListMembers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

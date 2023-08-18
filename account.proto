@@ -5,13 +5,23 @@ option go_package = "github.com/QuangAnhMTA/ent-header/account";
 
 
 service AccountService {
-	// ---------------- -----------------
-  rpc ListAccounts(AccountRequest) returns (Accounts);
-  rpc CheckRegisterAccount(CheckRegisterAccountRequest) returns (CheckRegisterAccountResponse);
-  rpc VerifyOtpRegister(VerifyOtpRegisterRequest) returns (VerifyOtpRegisterResponse);
-  rpc RegisterAccount(RegisterAccountRequest) returns (RegisterAccountResponse);
-  rpc Login(LoginAccountRequest) returns (LoginAccountResponse);
+	// ---------------- authentication-----------------
+
+   rpc CheckRegisterAccount(CheckRegisterAccountRequest) returns (CheckRegisterAccountResponse);
+   rpc VerifyOtpRegister(VerifyOtpRegisterRequest) returns (VerifyOtpRegisterResponse);
+   rpc RegisterAccount(RegisterAccountRequest) returns (RegisterAccountResponse);
+   rpc Login(LoginAccountRequest) returns (LoginAccountResponse);
+
+    // -----------------account------------------------
+
+   rpc ListAccounts(AccountRequest) returns (Accounts);
+
+     // -----------------member------------------------
+   rpc ListMembers(MemberRequest) returns (Members);
+
 }
+
+
 
 message Claims {
 	int64 acount_id = 1;
@@ -89,11 +99,37 @@ message RegisterAccountResponse {
   message LoginAccountResponse {
    string token = 1;
    Claims claim = 2;
-   
   }
   
   message AccessToken {
     int64 account_id = 1;
     int64 role_id = 2;
-    string phone = 3;
+    Claims claims = 3;
+  }
+
+  message MemberRequest {
+    int64 id = 1;
+    int64 account_id = 2;
+    string fullname = 3;
+    string avatar = 4;
+    string password = 5;
+    int32 created = 6;
+    int32 status = 7;
+    int32 role_id = 8;
+  }
+  
+  message Member {
+    int64 id = 1;
+    int64 account_id = 2;
+    string fullname = 3;
+    string avatar = 4;
+    string password = 5;
+    int32 created = 6;
+    int32 status = 7;
+    int32 role_id = 8;
+  }
+  
+  message Members {
+    repeated Member members = 1;
+    int64 total = 2;
   }
