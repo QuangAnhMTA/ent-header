@@ -9,7 +9,7 @@ service AccountService {
 
    rpc CheckRegisterAccount(CheckRegisterAccountRequest) returns (CheckRegisterAccountResponse);
    rpc VerifyOtpRegister(VerifyOtpRegisterRequest) returns (VerifyOtpRegisterResponse);
-   rpc RegisterAccount(RegisterAccountRequest) returns (RegisterAccountResponse);
+   rpc RegisterAccount(RegisterAccountRequest) returns (Account);
    rpc Login(LoginAccountRequest) returns (LoginAccountResponse);
 
     // -----------------account------------------------

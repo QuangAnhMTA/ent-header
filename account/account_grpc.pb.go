@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type AccountServiceClient interface {
 	CheckRegisterAccount(ctx context.Context, in *CheckRegisterAccountRequest, opts ...grpc.CallOption) (*CheckRegisterAccountResponse, error)
 	VerifyOtpRegister(ctx context.Context, in *VerifyOtpRegisterRequest, opts ...grpc.CallOption) (*VerifyOtpRegisterResponse, error)
-	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error)
+	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*Account, error)
 	Login(ctx context.Context, in *LoginAccountRequest, opts ...grpc.CallOption) (*LoginAccountResponse, error)
 	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
 	// -----------------member------------------------
@@ -57,8 +57,8 @@ func (c *accountServiceClient) VerifyOtpRegister(ctx context.Context, in *Verify
 	return out, nil
 }
 
-func (c *accountServiceClient) RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error) {
-	out := new(RegisterAccountResponse)
+func (c *accountServiceClient) RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*Account, error) {
+	out := new(Account)
 	err := c.cc.Invoke(ctx, "/account.AccountService/RegisterAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (c *accountServiceClient) ListMembers(ctx context.Context, in *MemberReques
 type AccountServiceServer interface {
 	CheckRegisterAccount(context.Context, *CheckRegisterAccountRequest) (*CheckRegisterAccountResponse, error)
 	VerifyOtpRegister(context.Context, *VerifyOtpRegisterRequest) (*VerifyOtpRegisterResponse, error)
-	RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error)
+	RegisterAccount(context.Context, *RegisterAccountRequest) (*Account, error)
 	Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error)
 	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
 	// -----------------member------------------------
@@ -116,7 +116,7 @@ func (UnimplementedAccountServiceServer) CheckRegisterAccount(context.Context, *
 func (UnimplementedAccountServiceServer) VerifyOtpRegister(context.Context, *VerifyOtpRegisterRequest) (*VerifyOtpRegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyOtpRegister not implemented")
 }
-func (UnimplementedAccountServiceServer) RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error) {
+func (UnimplementedAccountServiceServer) RegisterAccount(context.Context, *RegisterAccountRequest) (*Account, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterAccount not implemented")
 }
 func (UnimplementedAccountServiceServer) Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error) {
