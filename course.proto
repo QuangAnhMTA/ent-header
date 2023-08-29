@@ -1,0 +1,241 @@
+syntax = "proto3";
+
+package course;
+option go_package = "github.com/QuangAnhMTA/ent-header/course";
+
+
+
+service CourseService {
+	// ---------------- Course -----------------
+  rpc ListCourses(CourseRequest) returns (Course);
+}
+
+
+message CourseRequest {
+  int64 id = 1;
+  int64 account_id = 2;
+  string title = 3;
+  string image = 4;
+  int32 type = 5;
+  int32 subject = 6;
+  int32 status = 7;
+  repeated int64 course_ids = 9;
+  repeated string preload = 10;
+  int32 limit =11;
+  int32 offset = 12;
+  repeated string cols = 13;
+}
+
+message Course {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 account_id = 2;
+  string title = 3;
+  string image = 4;
+  int32 type = 5;
+  int32 subject = 6;
+  Status status = 7;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+  // `gorm:"-"`
+  repeated Document documents = 8;
+}
+
+message Courses {
+  repeated Course courses = 1;
+  int64 total = 2;
+}
+
+
+message DocumentRequest {
+  int64 id = 1;
+  int64 course_id = 2;
+  string title = 3;
+  string image = 4;
+  string content = 5;
+  int32 status = 6;
+  repeated string preload = 7;
+  int32 limit =9;
+  int32 offset = 10;
+  repeated string cols = 11;
+}
+
+message Document {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 course_id = 2;
+  string title = 3;
+  string image = 4;
+  string content = 5;
+  Status status = 6;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+  // `gorm:"-"`
+  repeated Paragraph paragraphs = 8;
+
+}
+
+message Documents {
+  repeated Document documents = 1 ;
+  int64 total = 2;
+}
+
+message ParagraphRequest {
+  int64 id = 1;
+  int64 document_id = 2;
+  int32 type = 3;
+  int32 position = 4;
+  int32 status = 5;
+  int32 limit =9;
+  int32 offset = 10;
+  repeated string cols = 11;
+}
+
+message Paragraph {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 document_id = 2;
+  int32 type = 3;
+  int32 position = 4;
+  Status status = 5;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+  string title = 6;
+  string image = 7;
+  // `gorm:"-"`
+  repeated Sentence sentences = 8;
+ 
+}
+
+message Paragraphs {
+  repeated Paragraph paragraphs = 1;
+  int64 total = 2;
+}
+
+message SentenceRequest {
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 document_id = 3;
+  int64 paragraph_id = 4;
+  int64 character_id = 5;
+  int64 voice_id = 6;
+  string content = 7;
+  string translate_google = 8;
+  string translate_editor = 9;
+  string keywords = 10;
+  string words = 11;
+  int32 process_voice = 12;
+  int32 status = 13;
+  int32 limit =14;
+  int32 offset = 15;
+  repeated string cols = 16;
+}
+
+message Sentence {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 document_id = 3;
+  int64 paragraph_id = 4;
+  int64 character_id = 5;
+  int64 voice_id = 6;
+  string content = 7;
+  string translate_google = 8;
+  string translate_editor = 9;
+  string keywords = 10;
+  string words = 11;
+  int32 process_voice = 12;
+  Status status = 13;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message Sentences {
+  repeated Sentence sentences = 1;
+  int64 total = 2;
+}
+
+message AudioRequest {
+  int64 id = 1;
+  int64 sentence_id = 2;
+  int64 voice_id = 3;
+  string transcription_id = 4;
+  int64 accent_id = 5;
+  string title = 6;
+  string language = 7;
+  int32 gender = 8;
+  float duration = 9;
+  string url = 10;
+  int64 length = 11;
+  int64 count = 12;
+  int32 process = 13;
+  int64 created = 14;
+  int32 status = 15;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+}
+
+message Audio {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 sentence_id = 2;
+  int64 voice_id = 3;
+  string transcription_id = 4;
+  int64 accent_id = 5;
+  string title = 6;
+  string language = 7;
+  int32 gender = 8;
+  float duration = 9;
+  string url = 10;
+  int64 length = 11;
+  int64 count = 12;
+  int32 process = 13;
+  int64 created = 14;
+  Status status = 15;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message Audios {
+  repeated Audio audios = 1;
+  int64 total = 2;
+}
+
+
+
+
+message CourseTagRequest {
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 tag_id = 3;
+  int32 status = 4;
+}
+
+message CourseTag {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 tag_id = 3;
+  int32 status = 4;
+}
+
+message CourseTags {
+  repeated CourseTag courseTags = 1;
+  int64 total = 2;
+}

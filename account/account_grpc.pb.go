@@ -29,6 +29,8 @@ type AccountServiceClient interface {
 	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
 	// -----------------member------------------------
 	ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error)
+	// ------------------category----------------------
+	ListCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*Categories, error)
 }
 
 type accountServiceClient struct {
@@ -93,6 +95,15 @@ func (c *accountServiceClient) ListMembers(ctx context.Context, in *MemberReques
 	return out, nil
 }
 
+func (c *accountServiceClient) ListCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*Categories, error) {
+	out := new(Categories)
+	err := c.cc.Invoke(ctx, "/account.AccountService/ListCategories", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations should embed UnimplementedAccountServiceServer
 // for forward compatibility
@@ -104,6 +115,8 @@ type AccountServiceServer interface {
 	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
 	// -----------------member------------------------
 	ListMembers(context.Context, *MemberRequest) (*Members, error)
+	// ------------------category----------------------
+	ListCategories(context.Context, *CategoryRequest) (*Categories, error)
 }
 
 // UnimplementedAccountServiceServer should be embedded to have forward compatible implementations.
@@ -127,6 +140,9 @@ func (UnimplementedAccountServiceServer) ListAccounts(context.Context, *AccountR
 }
 func (UnimplementedAccountServiceServer) ListMembers(context.Context, *MemberRequest) (*Members, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMembers not implemented")
+}
+func (UnimplementedAccountServiceServer) ListCategories(context.Context, *CategoryRequest) (*Categories, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
 }
 
 // UnsafeAccountServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -248,6 +264,24 @@ func _AccountService_ListMembers_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_ListCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).ListCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.AccountService/ListCategories",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).ListCategories(ctx, req.(*CategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +312,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMembers",
 			Handler:    _AccountService_ListMembers_Handler,
+		},
+		{
+			MethodName: "ListCategories",
+			Handler:    _AccountService_ListCategories_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

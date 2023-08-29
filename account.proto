@@ -18,7 +18,8 @@ service AccountService {
 
      // -----------------member------------------------
    rpc ListMembers(MemberRequest) returns (Members);
-
+    // ------------------category----------------------
+   rpc ListCategories(CategoryRequest) returns (Categories);
 }
 
 message Claims {
@@ -134,13 +135,51 @@ message RegisterAccountResponse {
     string data =9;
     Status status = 10;  
     enum Status {
-		default_state = 0;
-		deactive = 1;
-		active = 2;
-	}
+		    default_state = 0;
+		    deactive = 1;
+		    active = 2;
+	  }
 }
   
   message Members {
     repeated Member members = 1;
     int64 total = 2;
+  }
+
+
+  message Category {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    int64 parent_id = 2;
+    string title = 3;
+    string keyx = 4;
+    int64 valuex = 5;
+    int64 position = 6;
+    // `gorm:"text"`
+    string description = 7;
+    Status status = 8;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	}
+  }
+
+  message CategoryRequest {
+    int64 id = 1;
+    int64 parent_id = 2;
+    string title = 3;
+    string keyx = 4;
+    int64 valuex = 5;
+    int64 position = 6;
+    string description = 7;
+    int32 status = 8;
+    int32 limit =9;
+    int32 offset = 10;
+    repeated string cols = 11;
+  }
+
+  message Categories {
+    int32 total = 1;
+    repeated Category categories = 2;
   }
