@@ -2150,7 +2150,8 @@ type SearchEngine struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id       int64               `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	Id       int64               `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" gorm:"primaryKey;not null;autoIncrement"`
 	Item     string              `protobuf:"bytes,2,opt,name=item,proto3" json:"item,omitempty"`
 	ObjectId int64               `protobuf:"varint,3,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
 	Title    string              `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`

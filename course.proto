@@ -250,6 +250,7 @@ message CourseTags {
 
 
 message SearchEngine {
+  // `gorm:"primaryKey;not null;autoIncrement"`
   int64 id = 1;
   string item = 2;
   int64 object_id = 3;
