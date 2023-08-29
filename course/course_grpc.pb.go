@@ -24,6 +24,9 @@ const _ = grpc.SupportPackageIsVersion7
 type CourseServiceClient interface {
 	// ---------------- Course -----------------
 	ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Course, error)
+	ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error)
+	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
+	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
 }
 
 type courseServiceClient struct {
@@ -43,12 +46,42 @@ func (c *courseServiceClient) ListCourses(ctx context.Context, in *CourseRequest
 	return out, nil
 }
 
+func (c *courseServiceClient) ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error) {
+	out := new(Documents)
+	err := c.cc.Invoke(ctx, "/course.CourseService/ListDocument", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courseServiceClient) ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error) {
+	out := new(Paragraphs)
+	err := c.cc.Invoke(ctx, "/course.CourseService/ListParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courseServiceClient) GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error) {
+	out := new(SearchEngines)
+	err := c.cc.Invoke(ctx, "/course.CourseService/GetDataSearchEngine", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourseServiceServer is the server API for CourseService service.
 // All implementations should embed UnimplementedCourseServiceServer
 // for forward compatibility
 type CourseServiceServer interface {
 	// ---------------- Course -----------------
 	ListCourses(context.Context, *CourseRequest) (*Course, error)
+	ListDocument(context.Context, *DocumentRequest) (*Documents, error)
+	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
+	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
 }
 
 // UnimplementedCourseServiceServer should be embedded to have forward compatible implementations.
@@ -57,6 +90,15 @@ type UnimplementedCourseServiceServer struct {
 
 func (UnimplementedCourseServiceServer) ListCourses(context.Context, *CourseRequest) (*Course, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCourses not implemented")
+}
+func (UnimplementedCourseServiceServer) ListDocument(context.Context, *DocumentRequest) (*Documents, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDocument not implemented")
+}
+func (UnimplementedCourseServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListParagraph not implemented")
+}
+func (UnimplementedCourseServiceServer) GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDataSearchEngine not implemented")
 }
 
 // UnsafeCourseServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -88,6 +130,60 @@ func _CourseService_ListCourses_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourseService_ListDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DocumentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseServiceServer).ListDocument(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/course.CourseService/ListDocument",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseServiceServer).ListDocument(ctx, req.(*DocumentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourseService_ListParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ParagraphRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseServiceServer).ListParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/course.CourseService/ListParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseServiceServer).ListParagraph(ctx, req.(*ParagraphRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourseService_GetDataSearchEngine_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchEngineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseServiceServer).GetDataSearchEngine(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/course.CourseService/GetDataSearchEngine",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseServiceServer).GetDataSearchEngine(ctx, req.(*SearchEngineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CourseService_ServiceDesc is the grpc.ServiceDesc for CourseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +194,18 @@ var CourseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListCourses",
 			Handler:    _CourseService_ListCourses_Handler,
+		},
+		{
+			MethodName: "ListDocument",
+			Handler:    _CourseService_ListDocument_Handler,
+		},
+		{
+			MethodName: "ListParagraph",
+			Handler:    _CourseService_ListParagraph_Handler,
+		},
+		{
+			MethodName: "GetDataSearchEngine",
+			Handler:    _CourseService_GetDataSearchEngine_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
