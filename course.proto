@@ -62,6 +62,7 @@ message DocumentRequest {
   string content = 5;
   int32 status = 6;
   repeated string preload = 7;
+  repeated int64 course_ids = 8;
   int32 limit =9;
   int32 offset = 10;
   repeated string cols = 11;
@@ -119,6 +120,7 @@ message Paragraph {
   string image = 7;
   // `gorm:"-"`
   repeated Sentence sentences = 8;
+  repeated int64 document_ids = 9;
  
 }
 
