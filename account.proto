@@ -177,6 +177,7 @@ message RegisterAccountResponse {
     int32 limit =9;
     int32 offset = 10;
     repeated string cols = 11;
+    repeated string includes =12;
   }
 
   message Categories {

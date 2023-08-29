@@ -24,6 +24,7 @@ message CourseRequest {
   int32 limit =11;
   int32 offset = 12;
   repeated string cols = 13;
+  repeated string includes =14;
 }
 
 message Course {
@@ -61,6 +62,7 @@ message DocumentRequest {
   int32 limit =9;
   int32 offset = 10;
   repeated string cols = 11;
+  repeated string includes =12;
 }
 
 message Document {
@@ -95,6 +97,7 @@ message ParagraphRequest {
   int32 limit =9;
   int32 offset = 10;
   repeated string cols = 11;
+  repeated string includes =12;
 }
 
 message Paragraph {
@@ -138,6 +141,7 @@ message SentenceRequest {
   int32 limit =14;
   int32 offset = 15;
   repeated string cols = 16;
+  repeated string includes =17;
 }
 
 message Sentence {
@@ -186,6 +190,7 @@ message AudioRequest {
   int32 limit =17;
   int32 offset = 18;
   repeated string cols = 16;
+  repeated string includes =19;
 }
 
 message Audio {
