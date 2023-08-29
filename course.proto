@@ -102,6 +102,8 @@ message ParagraphRequest {
   int32 offset = 10;
   repeated string cols = 11;
   repeated string includes =12;
+  repeated int64 document_ids = 13;
+
 }
 
 message Paragraph {
@@ -119,9 +121,7 @@ message Paragraph {
   string title = 6;
   string image = 7;
   // `gorm:"-"`
-  repeated Sentence sentences = 8;
-  repeated int64 document_ids = 9;
- 
+  repeated Sentence sentences = 8; 
 }
 
 message Paragraphs {
