@@ -7,7 +7,7 @@ option go_package = "github.com/QuangAnhMTA/ent-header/course";
 
 service CourseService {
 	// ---------------- Course -----------------
-  rpc ListCourses(CourseRequest) returns (Course);
+  rpc ListCourses(CourseRequest) returns (Courses);
   rpc ListDocument(DocumentRequest) returns (Documents);
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);

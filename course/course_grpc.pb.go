@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CourseServiceClient interface {
 	// ---------------- Course -----------------
-	ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Course, error)
+	ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Courses, error)
 	ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
@@ -37,8 +37,8 @@ func NewCourseServiceClient(cc grpc.ClientConnInterface) CourseServiceClient {
 	return &courseServiceClient{cc}
 }
 
-func (c *courseServiceClient) ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Course, error) {
-	out := new(Course)
+func (c *courseServiceClient) ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Courses, error) {
+	out := new(Courses)
 	err := c.cc.Invoke(ctx, "/course.CourseService/ListCourses", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -78,7 +78,7 @@ func (c *courseServiceClient) GetDataSearchEngine(ctx context.Context, in *Searc
 // for forward compatibility
 type CourseServiceServer interface {
 	// ---------------- Course -----------------
-	ListCourses(context.Context, *CourseRequest) (*Course, error)
+	ListCourses(context.Context, *CourseRequest) (*Courses, error)
 	ListDocument(context.Context, *DocumentRequest) (*Documents, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
@@ -88,7 +88,7 @@ type CourseServiceServer interface {
 type UnimplementedCourseServiceServer struct {
 }
 
-func (UnimplementedCourseServiceServer) ListCourses(context.Context, *CourseRequest) (*Course, error) {
+func (UnimplementedCourseServiceServer) ListCourses(context.Context, *CourseRequest) (*Courses, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCourses not implemented")
 }
 func (UnimplementedCourseServiceServer) ListDocument(context.Context, *DocumentRequest) (*Documents, error) {
