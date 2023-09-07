@@ -11,6 +11,7 @@ service CourseService {
   rpc ListDocument(DocumentRequest) returns (Documents);
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);
+  rpc ListSentence(SentenceRequest) returns (Sentences);
 }
 
 

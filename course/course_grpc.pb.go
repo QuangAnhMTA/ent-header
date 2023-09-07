@@ -27,6 +27,7 @@ type CourseServiceClient interface {
 	ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
+	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 }
 
 type courseServiceClient struct {
@@ -73,6 +74,15 @@ func (c *courseServiceClient) GetDataSearchEngine(ctx context.Context, in *Searc
 	return out, nil
 }
 
+func (c *courseServiceClient) ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error) {
+	out := new(Sentences)
+	err := c.cc.Invoke(ctx, "/course.CourseService/ListSentence", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourseServiceServer is the server API for CourseService service.
 // All implementations should embed UnimplementedCourseServiceServer
 // for forward compatibility
@@ -82,6 +92,7 @@ type CourseServiceServer interface {
 	ListDocument(context.Context, *DocumentRequest) (*Documents, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
+	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 }
 
 // UnimplementedCourseServiceServer should be embedded to have forward compatible implementations.
@@ -99,6 +110,9 @@ func (UnimplementedCourseServiceServer) ListParagraph(context.Context, *Paragrap
 }
 func (UnimplementedCourseServiceServer) GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataSearchEngine not implemented")
+}
+func (UnimplementedCourseServiceServer) ListSentence(context.Context, *SentenceRequest) (*Sentences, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSentence not implemented")
 }
 
 // UnsafeCourseServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -184,6 +198,24 @@ func _CourseService_GetDataSearchEngine_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourseService_ListSentence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseServiceServer).ListSentence(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/course.CourseService/ListSentence",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseServiceServer).ListSentence(ctx, req.(*SentenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CourseService_ServiceDesc is the grpc.ServiceDesc for CourseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +238,10 @@ var CourseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDataSearchEngine",
 			Handler:    _CourseService_GetDataSearchEngine_Handler,
+		},
+		{
+			MethodName: "ListSentence",
+			Handler:    _CourseService_ListSentence_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
