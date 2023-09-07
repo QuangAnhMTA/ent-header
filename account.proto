@@ -170,7 +170,7 @@ message RegisterAccountResponse {
     int64 parent_id = 2;
     string title = 3;
     string keyx = 4;
-    int64 valuex = 5;
+    string valuex = 5;
     int64 position = 6;
     string description = 7;
     int32 status = 8;
@@ -178,6 +178,7 @@ message RegisterAccountResponse {
     int32 offset = 10;
     repeated string cols = 11;
     repeated string includes =12;
+    repeated int64 parent_ids  = 14;
   }
 
   message Categories {
