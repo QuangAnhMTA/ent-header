@@ -170,6 +170,8 @@ message Sentence {
       deactive = 1;
       active = 2;
   }
+  // `gorm:"-"`
+  repeated Audio audios = 15;
 }
 
 message Sentences {
