@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package course;
-option go_package = "github.com/QuangAnhMTA/ent-header/course";
+package library;
+option go_package = "github.com/QuangAnhMTA/ent-header/library";
 
 
 
-service CourseService {
+service LibraryService {
 	// ---------------- Course -----------------
   rpc ListCourses(CourseRequest) returns (Courses);
   rpc ListDocument(DocumentRequest) returns (Documents);
