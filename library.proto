@@ -199,6 +199,8 @@ message AudioRequest {
   int32 offset = 18;
   repeated string cols = 16;
   repeated string includes =19;
+  repeated int64 sentence_ids = 20;
+
 }
 
 message Audio {
@@ -294,3 +296,13 @@ message SearchEngines{
   int32 total = 1;
   repeated SearchEngine search_engines = 2;
 }
+
+
+
+
+
+
+
+
+
+
