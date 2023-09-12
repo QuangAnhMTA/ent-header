@@ -28,6 +28,8 @@ type LibraryServiceClient interface {
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
+	StartLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
+	EndLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 }
 
 type libraryServiceClient struct {
@@ -83,6 +85,24 @@ func (c *libraryServiceClient) ListSentence(ctx context.Context, in *SentenceReq
 	return out, nil
 }
 
+func (c *libraryServiceClient) StartLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error) {
+	out := new(Sentences)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/StartLearnListen", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) EndLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error) {
+	out := new(Sentences)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/EndLearnListen", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -93,6 +113,8 @@ type LibraryServiceServer interface {
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
+	StartLearnListen(context.Context, *SentenceRequest) (*Sentences, error)
+	EndLearnListen(context.Context, *SentenceRequest) (*Sentences, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -113,6 +135,12 @@ func (UnimplementedLibraryServiceServer) GetDataSearchEngine(context.Context, *S
 }
 func (UnimplementedLibraryServiceServer) ListSentence(context.Context, *SentenceRequest) (*Sentences, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSentence not implemented")
+}
+func (UnimplementedLibraryServiceServer) StartLearnListen(context.Context, *SentenceRequest) (*Sentences, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StartLearnListen not implemented")
+}
+func (UnimplementedLibraryServiceServer) EndLearnListen(context.Context, *SentenceRequest) (*Sentences, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EndLearnListen not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -216,6 +244,42 @@ func _LibraryService_ListSentence_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_StartLearnListen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).StartLearnListen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/StartLearnListen",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).StartLearnListen(ctx, req.(*SentenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_EndLearnListen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).EndLearnListen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/EndLearnListen",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).EndLearnListen(ctx, req.(*SentenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +306,14 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListSentence",
 			Handler:    _LibraryService_ListSentence_Handler,
+		},
+		{
+			MethodName: "StartLearnListen",
+			Handler:    _LibraryService_StartLearnListen_Handler,
+		},
+		{
+			MethodName: "EndLearnListen",
+			Handler:    _LibraryService_EndLearnListen_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

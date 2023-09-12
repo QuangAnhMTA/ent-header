@@ -12,6 +12,8 @@ service LibraryService {
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);
   rpc ListSentence(SentenceRequest) returns (Sentences);
+  rpc StartLearnListen(SentenceRequest) returns (Sentences);
+  rpc EndLearnListen(SentenceRequest) returns (Sentences);
 }
 
 
@@ -148,6 +150,7 @@ message SentenceRequest {
   int32 offset = 15;
   repeated string cols = 16;
   repeated string includes =17;
+  repeated int64 ids = 18;
 }
 
 message Sentence {

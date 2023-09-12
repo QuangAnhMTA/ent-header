@@ -101,8 +101,12 @@ message RegisterAccountResponse {
   
   
   message LoginAccountResponse {
-   string token = 1;
-   Claims claim = 2;
+   string account_token = 1;
+   string member_token = 2;
+   Claims claim = 3;
+   Account account = 4;
+   Member member = 5;
+   string device_id = 6;
   }
   
   message AccessToken {
