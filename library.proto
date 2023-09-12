@@ -13,7 +13,18 @@ service LibraryService {
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc StartLearnListen(SentenceRequest) returns (Sentences);
-  rpc EndLearnListen(SentenceRequest) returns (Sentences);
+  rpc EndLearnListen(Listen) returns (Listen);
+}
+
+
+message Listen {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 member_id = 2;
+  int64 sentence_id =3;
+  int64 paragraph_id = 4;
+  int64 document_id = 5;
+  int64 created_time = 6;
 }
 
 
@@ -70,6 +81,8 @@ message DocumentRequest {
   int32 offset = 10;
   repeated string cols = 11;
   repeated string includes =12;
+  int64 current_id = 14;
+
 }
 
 message Document {
@@ -106,6 +119,7 @@ message ParagraphRequest {
   repeated string cols = 11;
   repeated string includes =12;
   repeated int64 document_ids = 13;
+  int64 current_id = 14;
 
 }
 
@@ -151,6 +165,8 @@ message SentenceRequest {
   repeated string cols = 16;
   repeated string includes =17;
   repeated int64 ids = 18;
+  int64 current_id = 19;
+
 }
 
 message Sentence {

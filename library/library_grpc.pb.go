@@ -29,7 +29,7 @@ type LibraryServiceClient interface {
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 	StartLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
-	EndLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
+	EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error)
 }
 
 type libraryServiceClient struct {
@@ -94,8 +94,8 @@ func (c *libraryServiceClient) StartLearnListen(ctx context.Context, in *Sentenc
 	return out, nil
 }
 
-func (c *libraryServiceClient) EndLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error) {
-	out := new(Sentences)
+func (c *libraryServiceClient) EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error) {
+	out := new(Listen)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/EndLearnListen", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -114,7 +114,7 @@ type LibraryServiceServer interface {
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 	StartLearnListen(context.Context, *SentenceRequest) (*Sentences, error)
-	EndLearnListen(context.Context, *SentenceRequest) (*Sentences, error)
+	EndLearnListen(context.Context, *Listen) (*Listen, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -139,7 +139,7 @@ func (UnimplementedLibraryServiceServer) ListSentence(context.Context, *Sentence
 func (UnimplementedLibraryServiceServer) StartLearnListen(context.Context, *SentenceRequest) (*Sentences, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartLearnListen not implemented")
 }
-func (UnimplementedLibraryServiceServer) EndLearnListen(context.Context, *SentenceRequest) (*Sentences, error) {
+func (UnimplementedLibraryServiceServer) EndLearnListen(context.Context, *Listen) (*Listen, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearnListen not implemented")
 }
 
@@ -263,7 +263,7 @@ func _LibraryService_StartLearnListen_Handler(srv interface{}, ctx context.Conte
 }
 
 func _LibraryService_EndLearnListen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SentenceRequest)
+	in := new(Listen)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -275,7 +275,7 @@ func _LibraryService_EndLearnListen_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/library.LibraryService/EndLearnListen",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibraryServiceServer).EndLearnListen(ctx, req.(*SentenceRequest))
+		return srv.(LibraryServiceServer).EndLearnListen(ctx, req.(*Listen))
 	}
 	return interceptor(ctx, in, info, handler)
 }
