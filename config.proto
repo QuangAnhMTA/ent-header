@@ -25,6 +25,7 @@ service ConfigService {
 message Claims {
 	int64 acount_id = 1;
 	string device_id = 2;
+  int64 member_id = 3;
 }
 
 message AccountRequest {
