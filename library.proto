@@ -100,12 +100,13 @@ message Document {
   }
   // `gorm:"-"`
   repeated Paragraph paragraphs = 8;
-
+  
 }
 
 message Documents {
   repeated Document documents = 1 ;
   int64 total = 2;
+  int64 current_id = 3;
 }
 
 message ParagraphRequest {
@@ -143,6 +144,7 @@ message Paragraph {
 
 message Paragraphs {
   repeated Paragraph paragraphs = 1;
+  int64 current_id = 3;
   int64 total = 2;
 }
 
@@ -196,6 +198,8 @@ message Sentence {
 message Sentences {
   repeated Sentence sentences = 1;
   int64 total = 2;
+  int64 current_id = 3;
+
 }
 
 message AudioRequest {
