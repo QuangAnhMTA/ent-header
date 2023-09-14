@@ -37,7 +37,7 @@ func NewTransactionServiceClient(cc grpc.ClientConnInterface) TransactionService
 
 func (c *transactionServiceClient) StartLearnListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error) {
 	out := new(Listen)
-	err := c.cc.Invoke(ctx, "/library.TransactionService/StartLearnListen", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/StartLearnListen", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *transactionServiceClient) StartLearnListen(ctx context.Context, in *Lis
 
 func (c *transactionServiceClient) EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error) {
 	out := new(Listen)
-	err := c.cc.Invoke(ctx, "/library.TransactionService/EndLearnListen", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/EndLearnListen", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func _TransactionService_StartLearnListen_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/library.TransactionService/StartLearnListen",
+		FullMethod: "/transaction.TransactionService/StartLearnListen",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionServiceServer).StartLearnListen(ctx, req.(*ListenRequest))
@@ -112,7 +112,7 @@ func _TransactionService_EndLearnListen_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/library.TransactionService/EndLearnListen",
+		FullMethod: "/transaction.TransactionService/EndLearnListen",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionServiceServer).EndLearnListen(ctx, req.(*Listen))
@@ -124,7 +124,7 @@ func _TransactionService_EndLearnListen_Handler(srv interface{}, ctx context.Con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TransactionService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "library.TransactionService",
+	ServiceName: "transaction.TransactionService",
 	HandlerType: (*TransactionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
