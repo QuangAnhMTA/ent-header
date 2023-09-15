@@ -14,6 +14,7 @@ service LibraryService {
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc StartLearnListen(SentenceRequest) returns (Sentences);
   rpc EndLearnListen(Listen) returns (Listen);
+  rpc GetPos(PosRequest) returns (Pos);
 }
 
 
@@ -326,9 +327,139 @@ message SearchEngines{
 
 
 
+message S1Pos {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 sentence_id = 2;
+  string word = 3;
+  string lemma = 4;
+  string pos = 5;
+  string pos_group =6;
+  string position =7;
+  Status status = 8;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message S1PosRequest {
+  int64 id = 1;
+  int64 sentence_id = 2;
+  string word = 3;
+  string lemma = 4;
+  string pos = 5;
+  string pos_group =6;
+  string position =7;
+  int32 status = 8;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+}
+
+message S1Poses {
+  int32 total = 1;
+  repeated S1Pos s1poses = 2;
+}
+
+message Mean {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id =1 ;
+  int64 word_id = 2;
+  string pos = 3;
+  string pos_group = 4;
+  string pos_manual =5;
+  string pos_ti = 6;
+  string pos_full =7;
+  string lemma = 8;
+  string word = 9;
+  string level = 10;
+  string gram = 11;
+  string usage = 12;
+  string guideword = 13;
+  string phonetic = 14;
+  string translate = 15;
+  string definition = 16;
+  string definition_vi = 17;
+  int32 review = 18;
+  int32 process_translat = 19;
+  int32 process_pos = 20;
+  Status status = 21;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message MeanRequest {
+  int64 id =1 ;
+  int64 word_id = 2;
+  string pos = 3;
+  string pos_group = 4;
+  string pos_manual =5;
+  string pos_ti = 6;
+  string pos_full =7;
+  string lemma = 8;
+  string word = 9;
+  string level = 10;
+  string gram = 11;
+  string usage = 12;
+  string guideword = 13;
+  string phonetic = 14;
+  string translate = 15;
+  string definition = 16;
+  string definition_vi = 17;
+  int32 review = 18;
+  int32 process_translat = 19;
+  int32 process_pos = 20;
+  int32 status = 21; 
+  int32 limit =22;
+  int32 offset = 23;
+  repeated string cols = 24;
+  repeated string includes =25;
+}
+
+message Means {
+  int32 total = 1;
+  repeated Mean means = 2;
+}
 
 
 
+message Pos {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  string tag_bc = 2;
+  string tag_un = 3;
+  string tag_ti = 4;
+  string title_en = 5;
+  string title = 6;
+  int64 process = 7;
+  // `gorm:"-"`
+  repeated Mean means = 8;
+}
 
+message PosRequest {
+  int64 id = 1;
+  string tag_bc = 2;
+  string tag_un = 3;
+  string tag_ti = 4;
+  string title_en = 5;
+  string title = 6;
+  int64 process = 7;
+  int32 status = 8;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+  int64 sentence_id = 20;
+  string word = 21;
+}
 
-
+message Poses {
+  int32 total = 1;
+  repeated Pos poses = 2;
+}
