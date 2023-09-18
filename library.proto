@@ -334,7 +334,7 @@ message SentencePos {
   string lemma = 4;
   string pos = 5;
   string pos_group =6;
-  string position =7;
+  int32 position =7;
   Status status = 8;  
   enum Status {
       default_state = 0;
@@ -350,7 +350,7 @@ message SentencePosRequest {
   string lemma = 4;
   string pos = 5;
   string pos_group =6;
-  string position =7;
+  int32 position =7;
   int32 status = 8;
   int32 limit =17;
   int32 offset = 18;
