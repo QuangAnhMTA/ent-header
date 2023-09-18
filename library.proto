@@ -250,7 +250,7 @@ message Audio {
       active = 2;
   }
   string keyx = 16;
-  string fomat = 17;
+  string format = 17;
 
 }
 
