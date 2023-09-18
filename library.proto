@@ -237,22 +237,21 @@ message Audio {
   int64 sentence_id = 2;
   int64 voice_id = 3;
   string transcription_id = 4;
-  int64 accent_id = 5;
-  string title = 6;
-  string language = 7;
-  int32 gender = 8;
+  int32 speed = 5;
   float duration = 9;
   string url = 10;
-  int64 length = 11;
-  int64 count = 12;
+  int64 size = 11;
   int32 process = 13;
-  int64 created = 14;
+  int64 created_at = 14;
   Status status = 15;  
   enum Status {
       default_state = 0;
       deactive = 1;
       active = 2;
   }
+  string keyx = 16;
+  string fomat = 17;
+
 }
 
 message Audios {
