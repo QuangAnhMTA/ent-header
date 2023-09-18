@@ -326,8 +326,6 @@ message SearchEngines{
 }
 
 
-
-
 message SentencePos {
   // `gorm:"primaryKey;not null;autoIncrement"`
   int64 id = 1;
@@ -499,9 +497,12 @@ message TranslationRequest {
   string lang_from = 7;
   string lang_to = 8;
   int32 process = 9;
-  int32 status = 10;  
+  int32 status = 10; 
+  repeated int64 ids = 11; 
+  repeated int64 object_ids = 12;
   int32 limit =17;
   int32 offset = 18;
   repeated string cols = 16;
   repeated string includes =19;
+
 }
