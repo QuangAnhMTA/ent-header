@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package library;
 option go_package = "github.com/QuangAnhMTA/ent-header/library";
-
+import "transaction.proto";
 
 
 service LibraryService {
@@ -196,12 +196,15 @@ message Sentence {
   repeated Audio audios = 15;
   // `gorm:"-"`
   Translation translation = 16;
+  // `gorm:"-"`
+  transaction.Speak speak = 17;
 
 }
 
 message Sentences {
   repeated Sentence sentences = 1;
   int64 total = 2;
+  repeated Character characters = 6;
   int64 docment_current_id = 3;
   int64 paragraph_current_id = 4;
   int64 sentence_current_id = 5;
@@ -504,4 +507,54 @@ message TranslationRequest {
   repeated string cols = 16;
   repeated string includes =19;
 
+}
+
+message Character {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 create_id = 2;
+  int64 course_id = 3;
+  int64 document_id = 4;
+  int64 paragraph_id = 5;
+  int64 voice_id = 6;
+  string fullname = 7;
+  string gender =8;
+  int32 age = 9;
+  int32 accent = 10;
+  string avatar = 11;
+  string description = 12;
+  int64 created_at = 13;
+  Status status = 14;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message CharacterRequest {
+  int64 id = 1;
+  int64 create_id = 2;
+  int64 course_id = 3;
+  int64 document_id = 4;
+  int64 paragraph_id = 5;
+  int64 voice_id = 6;
+  string fullname = 7;
+  string gender =8;
+  int32 age = 9;
+  int32 accent = 10;
+  string avatar = 11;
+  string description = 12;
+  int64 created_at = 13;
+  int32 status = 14;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;  
+  repeated int64 ids = 20; 
+}
+
+message Characters {
+  int32 total = 1;
+  repeated Character characters =2;
 }
