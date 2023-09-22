@@ -23,10 +23,10 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionServiceClient interface {
 	// ---------------- Course -----------------
-	CreatedListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error)
+	ListListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error)
 	EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error)
-	CreateSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error)
-	EndLearnSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speak, error)
+	ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speak, error)
+	EndLearnSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error)
 }
 
 type transactionServiceClient struct {
@@ -37,9 +37,9 @@ func NewTransactionServiceClient(cc grpc.ClientConnInterface) TransactionService
 	return &transactionServiceClient{cc}
 }
 
-func (c *transactionServiceClient) CreatedListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error) {
+func (c *transactionServiceClient) ListListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error) {
 	out := new(Listen)
-	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreatedListen", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListListen", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -55,16 +55,16 @@ func (c *transactionServiceClient) EndLearnListen(ctx context.Context, in *Liste
 	return out, nil
 }
 
-func (c *transactionServiceClient) CreateSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error) {
+func (c *transactionServiceClient) ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speak, error) {
 	out := new(Speak)
-	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateSpeak", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListSpeak", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *transactionServiceClient) EndLearnSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speak, error) {
+func (c *transactionServiceClient) EndLearnSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error) {
 	out := new(Speak)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/EndLearnSpeak", in, out, opts...)
 	if err != nil {
@@ -78,26 +78,26 @@ func (c *transactionServiceClient) EndLearnSpeak(ctx context.Context, in *SpeakR
 // for forward compatibility
 type TransactionServiceServer interface {
 	// ---------------- Course -----------------
-	CreatedListen(context.Context, *ListenRequest) (*Listen, error)
+	ListListen(context.Context, *ListenRequest) (*Listen, error)
 	EndLearnListen(context.Context, *Listen) (*Listen, error)
-	CreateSpeak(context.Context, *Speak) (*Speak, error)
-	EndLearnSpeak(context.Context, *SpeakRequest) (*Speak, error)
+	ListSpeak(context.Context, *SpeakRequest) (*Speak, error)
+	EndLearnSpeak(context.Context, *Speak) (*Speak, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedTransactionServiceServer struct {
 }
 
-func (UnimplementedTransactionServiceServer) CreatedListen(context.Context, *ListenRequest) (*Listen, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreatedListen not implemented")
+func (UnimplementedTransactionServiceServer) ListListen(context.Context, *ListenRequest) (*Listen, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListListen not implemented")
 }
 func (UnimplementedTransactionServiceServer) EndLearnListen(context.Context, *Listen) (*Listen, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearnListen not implemented")
 }
-func (UnimplementedTransactionServiceServer) CreateSpeak(context.Context, *Speak) (*Speak, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSpeak not implemented")
+func (UnimplementedTransactionServiceServer) ListSpeak(context.Context, *SpeakRequest) (*Speak, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSpeak not implemented")
 }
-func (UnimplementedTransactionServiceServer) EndLearnSpeak(context.Context, *SpeakRequest) (*Speak, error) {
+func (UnimplementedTransactionServiceServer) EndLearnSpeak(context.Context, *Speak) (*Speak, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearnSpeak not implemented")
 }
 
@@ -112,20 +112,20 @@ func RegisterTransactionServiceServer(s grpc.ServiceRegistrar, srv TransactionSe
 	s.RegisterService(&TransactionService_ServiceDesc, srv)
 }
 
-func _TransactionService_CreatedListen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TransactionService_ListListen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TransactionServiceServer).CreatedListen(ctx, in)
+		return srv.(TransactionServiceServer).ListListen(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/transaction.TransactionService/CreatedListen",
+		FullMethod: "/transaction.TransactionService/ListListen",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).CreatedListen(ctx, req.(*ListenRequest))
+		return srv.(TransactionServiceServer).ListListen(ctx, req.(*ListenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -148,26 +148,26 @@ func _TransactionService_EndLearnListen_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TransactionService_CreateSpeak_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Speak)
+func _TransactionService_ListSpeak_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SpeakRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TransactionServiceServer).CreateSpeak(ctx, in)
+		return srv.(TransactionServiceServer).ListSpeak(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/transaction.TransactionService/CreateSpeak",
+		FullMethod: "/transaction.TransactionService/ListSpeak",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).CreateSpeak(ctx, req.(*Speak))
+		return srv.(TransactionServiceServer).ListSpeak(ctx, req.(*SpeakRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TransactionService_EndLearnSpeak_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SpeakRequest)
+	in := new(Speak)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -179,7 +179,7 @@ func _TransactionService_EndLearnSpeak_Handler(srv interface{}, ctx context.Cont
 		FullMethod: "/transaction.TransactionService/EndLearnSpeak",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).EndLearnSpeak(ctx, req.(*SpeakRequest))
+		return srv.(TransactionServiceServer).EndLearnSpeak(ctx, req.(*Speak))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -192,16 +192,16 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TransactionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreatedListen",
-			Handler:    _TransactionService_CreatedListen_Handler,
+			MethodName: "ListListen",
+			Handler:    _TransactionService_ListListen_Handler,
 		},
 		{
 			MethodName: "EndLearnListen",
 			Handler:    _TransactionService_EndLearnListen_Handler,
 		},
 		{
-			MethodName: "CreateSpeak",
-			Handler:    _TransactionService_CreateSpeak_Handler,
+			MethodName: "ListSpeak",
+			Handler:    _TransactionService_ListSpeak_Handler,
 		},
 		{
 			MethodName: "EndLearnSpeak",
