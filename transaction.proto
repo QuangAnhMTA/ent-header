@@ -49,6 +49,8 @@ message Speak {
 	string hash = 8;
 	string keyx = 9;
 	string format = 10;
+	// `gorm:"-"`
+	string color = 11;
 }
 
 message SpeakRequest {

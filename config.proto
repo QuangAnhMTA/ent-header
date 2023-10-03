@@ -53,6 +53,9 @@ message Account {
       deactive = 1;
       active = 2;
   }
+  int64 role_id = 9;
+  // `gorm:"-"`
+  Role role = 10;
 }
 
 message Accounts {
@@ -190,3 +193,66 @@ message RegisterAccountResponse {
     int32 total = 1;
     repeated Category categories = 2;
   }
+
+
+message Role {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    // `gorm:"text"`
+    string title = 2;
+    int64 position = 3;
+    // `gorm:"-"`
+    Accesses accesses =4;
+    // `gorm:"-"`
+    map<string, string>  list_access =5; 
+}
+
+message Roles {
+  int32 total = 1;
+  repeated Role roles = 2;
+}
+message RoleRequest {
+  int64 id = 1;
+  string title = 2;
+  int64 position = 3;
+  int32 limit =9;
+  int32 offset = 10;
+  repeated string cols = 11;
+  repeated string includes =12;
+  repeated int64 parent_ids  = 14;
+}
+message Access {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 role_id = 2;
+    string domain = 3;
+    string page =4;
+    string action =5;
+    string description = 7;
+    Status status = 8;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	}
+}
+
+message AccessRequest {
+  int64 id = 1; 
+  int64 role_id = 2;
+  string domain = 3;
+  string page =4;
+  string action =5;
+  string description = 7;
+  int32 status = 8; 
+  int32 limit =9;
+  int32 offset = 10;
+  repeated string cols = 11;
+  repeated string includes =12;
+  repeated int64 parent_ids  = 14;
+}
+
+message Accesses {
+  int32 total = 1;
+  repeated Access accesses = 2;
+}
