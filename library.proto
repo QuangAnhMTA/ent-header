@@ -15,6 +15,7 @@ service LibraryService {
   rpc StartLearnListen(SentenceRequest) returns (Sentences);
   rpc EndLearnListen(Listen) returns (Listen);
   rpc GetPos(PosRequest) returns (Pos);
+  rpc ApproveParagraph(Paragraph) returns (Paragraph);
 }
 
 
@@ -130,19 +131,52 @@ message ParagraphRequest {
 message Paragraph {
   // `gorm:"primaryKey;not null;autoIncrement"`
   int64 id = 1;
-  int64 document_id = 2;
-  int32 type = 3;
-  int32 position = 4;
-  Status status = 5;  
+  int64 approve_id = 2;
+  int64 account_id = 3;
+  int64 generation_id = 4;
+  int64 member_id = 5;
+  int64 course_id = 6;
+  int64 document_id = 7;
+  string title = 8;
+  string image = 9;
+  Type type = 10; //1. Đoạn văn thường, 2. Hội thoại, 3. Quiz, 4. Ảnh
+  enum Type {
+    default_type = 0;
+    normal_paragraph = 1;
+    conversation = 2;
+    quiz = 3;
+    image_paragraph = 4;
+  }
+  int32 position = 11;
+  // `gorm:"text"`
+  string keywords = 12;
+  int32 indexed = 13;
+  Approved approved= 14; // Duyệt nội dung / 1: Chưa, 2: Đã duyệt
+  enum Approved {
+    default_approved = 0;
+    not_approved = 1 ;
+    yes_approved = 2;
+    again_approved= 3;
+  }
+  Status status = 15;  
   enum Status {
       default_state = 0;
       deactive = 1;
       active = 2;
   }
-  string title = 6;
-  string image = 7;
+  ProcessAudio process_audio = 16; // Process audio / 1: Chưa xử lý, 2: Đã gửi job tạo audio, 3: Đã tạo xong audio
+  enum ProcessAudio {
+    default_process_audio = 0;
+    no_process = 1;
+    processing = 2;
+    done =3;
+  }
+  int32 process_translat = 17;
+  int64 created_at = 18;
+  // int64 updated_at = 19;
   // `gorm:"-"`
-  repeated Sentence sentences = 8; 
+  repeated Sentence sentences = 21; 
+  
 }
 
 message Paragraphs {
@@ -171,7 +205,6 @@ message SentenceRequest {
   repeated string includes =17;
   repeated int64 ids = 18;
   int64 current_id = 19;
-
 }
 
 message Sentence {
