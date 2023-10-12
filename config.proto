@@ -170,7 +170,8 @@ message RegisterAccountResponse {
 		default_state = 0;
 		deactive = 1;
 		active = 2;
-	}
+	  }
+    string icon = 9;
   }
 
   message CategoryRequest {
