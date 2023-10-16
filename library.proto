@@ -232,7 +232,7 @@ message Sentence {
   Translation translation = 16;
   // `gorm:"-"`
   transaction.Speak speak = 17;
-  float point = 18;
+  float score = 18;
   string color = 19;
 }
 
