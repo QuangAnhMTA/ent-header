@@ -204,7 +204,8 @@ message SentenceRequest {
   repeated string cols = 16;
   repeated string includes =17;
   repeated int64 ids = 18;
-  int64 current_id = 19;
+  repeated int64 character_ids = 19;
+  int64 current_id = 20;
 }
 
 message Sentence {
@@ -231,7 +232,8 @@ message Sentence {
   Translation translation = 16;
   // `gorm:"-"`
   transaction.Speak speak = 17;
-
+  float point = 18;
+  string color = 19;
 }
 
 message Sentences {
@@ -563,6 +565,7 @@ message Character {
       deactive = 1;
       active = 2;
   }
+  int64 sentence_current_id = 15;
 }
 
 message CharacterRequest {

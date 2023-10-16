@@ -68,4 +68,8 @@ message SpeakRequest {
 	int32 offset = 18;
 	repeated string cols = 16;
 	repeated string includes =19;
+	repeated int64 sentence_ids = 20;
+	repeated int64 character_ids = 21;
+	int64 current_id = 22;
+
 }
