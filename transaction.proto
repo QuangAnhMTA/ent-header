@@ -10,7 +10,7 @@ service TransactionService {
 	// ---------------- Course -----------------
   rpc ListListen(ListenRequest) returns (Listen);
   rpc EndLearnListen(Listen) returns (Listen);
-  rpc ListSpeak(SpeakRequest) returns (Speak);
+  rpc ListSpeak(SpeakRequest) returns (Speaks);
   rpc EndLearnSpeak(Speak) returns (Speak);
 }
 
@@ -52,6 +52,12 @@ message Speak {
 	// `gorm:"-"`
 	string color = 11;
 }
+
+message Speaks {
+	repeated Speak speak = 1;
+	int64 total = 2;
+}
+
 
 message SpeakRequest {
 	int64 id = 1;

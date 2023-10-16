@@ -25,7 +25,7 @@ type TransactionServiceClient interface {
 	// ---------------- Course -----------------
 	ListListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error)
 	EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error)
-	ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speak, error)
+	ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speaks, error)
 	EndLearnSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error)
 }
 
@@ -55,8 +55,8 @@ func (c *transactionServiceClient) EndLearnListen(ctx context.Context, in *Liste
 	return out, nil
 }
 
-func (c *transactionServiceClient) ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speak, error) {
-	out := new(Speak)
+func (c *transactionServiceClient) ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speaks, error) {
+	out := new(Speaks)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListSpeak", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -80,7 +80,7 @@ type TransactionServiceServer interface {
 	// ---------------- Course -----------------
 	ListListen(context.Context, *ListenRequest) (*Listen, error)
 	EndLearnListen(context.Context, *Listen) (*Listen, error)
-	ListSpeak(context.Context, *SpeakRequest) (*Speak, error)
+	ListSpeak(context.Context, *SpeakRequest) (*Speaks, error)
 	EndLearnSpeak(context.Context, *Speak) (*Speak, error)
 }
 
@@ -94,7 +94,7 @@ func (UnimplementedTransactionServiceServer) ListListen(context.Context, *Listen
 func (UnimplementedTransactionServiceServer) EndLearnListen(context.Context, *Listen) (*Listen, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearnListen not implemented")
 }
-func (UnimplementedTransactionServiceServer) ListSpeak(context.Context, *SpeakRequest) (*Speak, error) {
+func (UnimplementedTransactionServiceServer) ListSpeak(context.Context, *SpeakRequest) (*Speaks, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSpeak not implemented")
 }
 func (UnimplementedTransactionServiceServer) EndLearnSpeak(context.Context, *Speak) (*Speak, error) {
