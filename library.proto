@@ -44,6 +44,7 @@ message CourseRequest {
   int32 offset = 12;
   repeated string cols = 13;
   repeated string includes =14;
+  repeated int64 ids = 15;
 }
 
 message Course {
@@ -84,6 +85,7 @@ message DocumentRequest {
   repeated string cols = 11;
   repeated string includes =12;
   int64 current_id = 14;
+  repeated int64 ids = 15;
 
 }
 
@@ -102,15 +104,17 @@ message Document {
   }
   // `gorm:"-"`
   repeated Paragraph paragraphs = 8;
-  
+  // `gorm:"-"`
+  Course course = 9;
 }
 
 message Documents {
   repeated Document documents = 1 ;
   int64 total = 2;
-  int64 docment_current_id = 3;
+  int64 document_current_id = 3;
   int64 paragraph_current_id = 4;
   int64 sentence_current_id = 5;
+  Course course = 6;
 }
 
 message ParagraphRequest {
@@ -125,6 +129,7 @@ message ParagraphRequest {
   repeated string includes =12;
   repeated int64 document_ids = 13;
   int64 current_id = 14;
+  repeated int64 ids = 15;
 
 }
 
@@ -176,6 +181,8 @@ message Paragraph {
   // int64 updated_at = 19;
   // `gorm:"-"`
   repeated Sentence sentences = 21; 
+  // `gorm:"-"`
+  Document document =22;
   
 }
 
@@ -183,6 +190,7 @@ message Paragraphs {
   repeated Paragraph paragraphs = 1;
   int64 current_id = 3;
   int64 total = 2;
+  Document document =4;
 }
 
 message SentenceRequest {
@@ -232,17 +240,22 @@ message Sentence {
   Translation translation = 16;
   // `gorm:"-"`
   transaction.Speak speak = 17;
+  // `gorm:"-"`
   float score = 18;
+  // `gorm:"-"`
   string color = 19;
+  // `gorm:"-"`
+  Paragraph paragraph = 21;
 }
 
 message Sentences {
   repeated Sentence sentences = 1;
   int64 total = 2;
   repeated Character characters = 6;
-  int64 docment_current_id = 3;
+  int64 document_current_id = 3;
   int64 paragraph_current_id = 4;
   int64 sentence_current_id = 5;
+  Paragraph pragraph = 7;
 }
 
 message AudioRequest {

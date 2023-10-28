@@ -51,6 +51,7 @@ message Speak {
 	string format = 10;
 	// `gorm:"-"`
 	string color = 11;
+	string content = 12;
 }
 
 message Speaks {
