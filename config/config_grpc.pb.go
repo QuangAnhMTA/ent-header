@@ -29,6 +29,9 @@ type ConfigServiceClient interface {
 	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
 	// -----------------member------------------------
 	ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error)
+	//
+	CreateMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*Member, error)
+	GetMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*Member, error)
 	// ------------------category----------------------
 	ListCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*Categories, error)
 }
@@ -95,6 +98,24 @@ func (c *configServiceClient) ListMembers(ctx context.Context, in *MemberRequest
 	return out, nil
 }
 
+func (c *configServiceClient) CreateMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*Member, error) {
+	out := new(Member)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) GetMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*Member, error) {
+	out := new(Member)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/GetMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *configServiceClient) ListCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*Categories, error) {
 	out := new(Categories)
 	err := c.cc.Invoke(ctx, "/config.ConfigService/ListCategories", in, out, opts...)
@@ -115,6 +136,9 @@ type ConfigServiceServer interface {
 	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
 	// -----------------member------------------------
 	ListMembers(context.Context, *MemberRequest) (*Members, error)
+	//
+	CreateMember(context.Context, *Member) (*Member, error)
+	GetMember(context.Context, *Member) (*Member, error)
 	// ------------------category----------------------
 	ListCategories(context.Context, *CategoryRequest) (*Categories, error)
 }
@@ -140,6 +164,12 @@ func (UnimplementedConfigServiceServer) ListAccounts(context.Context, *AccountRe
 }
 func (UnimplementedConfigServiceServer) ListMembers(context.Context, *MemberRequest) (*Members, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMembers not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateMember(context.Context, *Member) (*Member, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMember not implemented")
+}
+func (UnimplementedConfigServiceServer) GetMember(context.Context, *Member) (*Member, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMember not implemented")
 }
 func (UnimplementedConfigServiceServer) ListCategories(context.Context, *CategoryRequest) (*Categories, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
@@ -264,6 +294,42 @@ func _ConfigService_ListMembers_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_CreateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Member)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateMember(ctx, req.(*Member))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_GetMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Member)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).GetMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/GetMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).GetMember(ctx, req.(*Member))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ConfigService_ListCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CategoryRequest)
 	if err := dec(in); err != nil {
@@ -312,6 +378,14 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMembers",
 			Handler:    _ConfigService_ListMembers_Handler,
+		},
+		{
+			MethodName: "CreateMember",
+			Handler:    _ConfigService_CreateMember_Handler,
+		},
+		{
+			MethodName: "GetMember",
+			Handler:    _ConfigService_GetMember_Handler,
 		},
 		{
 			MethodName: "ListCategories",

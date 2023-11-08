@@ -18,6 +18,9 @@ service ConfigService {
 
      // -----------------member------------------------
    rpc ListMembers(MemberRequest) returns (Members);
+    //
+   rpc CreateMember(Member) returns (Member);
+   rpc GetMember(Member) returns(Member);
     // ------------------category----------------------
    rpc ListCategories(CategoryRequest) returns (Categories);
 }
@@ -109,7 +112,7 @@ message RegisterAccountResponse {
    string member_token = 2;
    Claims claim = 3;
    Account account = 4;
-   Member member = 5;
+   repeated Member members = 5;
    string device_id = 6;
   }
   
@@ -147,6 +150,7 @@ message RegisterAccountResponse {
 		    deactive = 1;
 		    active = 2;
 	  }
+    string token = 11;
 }
   
   message Members {
