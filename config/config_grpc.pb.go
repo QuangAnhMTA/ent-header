@@ -26,6 +26,7 @@ type ConfigServiceClient interface {
 	VerifyOtpRegister(ctx context.Context, in *VerifyOtpRegisterRequest, opts ...grpc.CallOption) (*VerifyOtpRegisterResponse, error)
 	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*Account, error)
 	Login(ctx context.Context, in *LoginAccountRequest, opts ...grpc.CallOption) (*LoginAccountResponse, error)
+	MemberLogin(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*LoginMemberResponse, error)
 	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
 	// -----------------member------------------------
 	ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error)
@@ -74,6 +75,15 @@ func (c *configServiceClient) RegisterAccount(ctx context.Context, in *RegisterA
 func (c *configServiceClient) Login(ctx context.Context, in *LoginAccountRequest, opts ...grpc.CallOption) (*LoginAccountResponse, error) {
 	out := new(LoginAccountResponse)
 	err := c.cc.Invoke(ctx, "/config.ConfigService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) MemberLogin(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*LoginMemberResponse, error) {
+	out := new(LoginMemberResponse)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/MemberLogin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -133,6 +143,7 @@ type ConfigServiceServer interface {
 	VerifyOtpRegister(context.Context, *VerifyOtpRegisterRequest) (*VerifyOtpRegisterResponse, error)
 	RegisterAccount(context.Context, *RegisterAccountRequest) (*Account, error)
 	Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error)
+	MemberLogin(context.Context, *MemberRequest) (*LoginMemberResponse, error)
 	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
 	// -----------------member------------------------
 	ListMembers(context.Context, *MemberRequest) (*Members, error)
@@ -158,6 +169,9 @@ func (UnimplementedConfigServiceServer) RegisterAccount(context.Context, *Regist
 }
 func (UnimplementedConfigServiceServer) Login(context.Context, *LoginAccountRequest) (*LoginAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedConfigServiceServer) MemberLogin(context.Context, *MemberRequest) (*LoginMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MemberLogin not implemented")
 }
 func (UnimplementedConfigServiceServer) ListAccounts(context.Context, *AccountRequest) (*Accounts, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
@@ -254,6 +268,24 @@ func _ConfigService_Login_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConfigServiceServer).Login(ctx, req.(*LoginAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_MemberLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).MemberLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/MemberLogin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).MemberLogin(ctx, req.(*MemberRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -370,6 +402,10 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _ConfigService_Login_Handler,
+		},
+		{
+			MethodName: "MemberLogin",
+			Handler:    _ConfigService_MemberLogin_Handler,
 		},
 		{
 			MethodName: "ListAccounts",
