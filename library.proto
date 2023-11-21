@@ -246,6 +246,10 @@ message Sentence {
   string color = 19;
   // `gorm:"-"`
   Paragraph paragraph = 21;
+  string emotion = 22;
+  string emoji = 23;
+  // `gorm:"-"`
+  repeated string words_arr = 24;
 }
 
 message Sentences {
