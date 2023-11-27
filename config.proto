@@ -121,7 +121,7 @@ message RegisterAccountResponse {
     string member_token = 2;
     Claims claim = 3;
     Account account = 4;
-    repeated Member members = 5;
+    Member member = 5;
     string device_id = 6;
    }
    
