@@ -183,6 +183,8 @@ message Paragraph {
   repeated Sentence sentences = 21; 
   // `gorm:"-"`
   Document document =22;
+  // `gorm:"text"`
+  string description = 23;
   
 }
 
