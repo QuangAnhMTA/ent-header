@@ -315,7 +315,7 @@ message Audio {
   }
   string keyx = 16;
   string format = 17;
-
+  string version = 18;
 }
 
 message Audios {
