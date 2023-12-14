@@ -138,13 +138,19 @@ message Paragraph {
   int64 id = 1;
   int64 approve_id = 2;
   int64 account_id = 3;
-  int64 generation_id = 4;
+  int64 conversation_id = 4;
   int64 member_id = 5;
   int64 course_id = 6;
   int64 document_id = 7;
   string title = 8;
   string image = 9;
-  Type type = 10; //1. Đoạn văn thường, 2. Hội thoại, 3. Quiz, 4. Ảnh
+  // `gorm:"text"`
+  string description = 10;
+  string location = 11;
+  // `gorm:"text"`
+  string location_description = 12;
+  string level = 13;
+  Type type = 14; //1. Đoạn văn thường, 2. Hội thoại, 3. Quiz, 4. Ảnh
   enum Type {
     default_type = 0;
     normal_paragraph = 1;
@@ -152,39 +158,40 @@ message Paragraph {
     quiz = 3;
     image_paragraph = 4;
   }
-  int32 position = 11;
+  int32 position = 15;
   // `gorm:"text"`
-  string keywords = 12;
-  int32 indexed = 13;
-  Approved approved= 14; // Duyệt nội dung / 1: Chưa, 2: Đã duyệt
-  enum Approved {
+  string keywords = 16;
+  string model = 17;
+  int32 process_indexed = 18;
+  int32 process_translate = 19;
+  int32 process_sentence = 20;
+  ProcessApprove process_approve= 21; // Duyệt nội dung / 1: Chưa, 2: Đã duyệt
+  enum ProcessApprove {
     default_approved = 0;
     not_approved = 1 ;
     yes_approved = 2;
     again_approved= 3;
   }
-  Status status = 15;  
+  Status status = 22;  
   enum Status {
       default_state = 0;
       deactive = 1;
       active = 2;
   }
-  ProcessAudio process_audio = 16; // Process audio / 1: Chưa xử lý, 2: Đã gửi job tạo audio, 3: Đã tạo xong audio
-  enum ProcessAudio {
-    default_process_audio = 0;
-    no_process = 1;
-    processing = 2;
-    done =3;
-  }
-  int32 process_translat = 17;
-  int64 created_at = 18;
+  // ProcessAudio process_audio = 16; // Process audio / 1: Chưa xử lý, 2: Đã gửi job tạo audio, 3: Đã tạo xong audio
+  // enum ProcessAudio {
+  //   default_process_audio = 0;
+  //   no_process = 1;
+  //   processing = 2;
+  //   done =3;
+  // }
+  int64 created_at = 23;
   // int64 updated_at = 19;
   // `gorm:"-"`
-  repeated Sentence sentences = 21; 
+  repeated Sentence sentences = 24; 
   // `gorm:"-"`
-  Document document =22;
-  // `gorm:"text"`
-  string description = 23;
+  Document document =25;
+
   
 }
 
