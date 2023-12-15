@@ -630,3 +630,29 @@ message VoiceUsing {
     int64 character_id = 3;
     int64 voice_id = 4;
 }
+
+
+message Voice {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    string supplier_voice_id = 2;
+    string name = 3;
+    string language = 4;
+    string language_code = 5;
+    string accent = 6;
+    string age = 7;
+    string loudness = 8;
+    string gender = 9;
+    string style = 10;
+    string tempo = 11;
+    string texture = 12;
+    IsCloned is_cloned = 13;
+    enum IsCloned {
+      default_is_cloned = 0;
+      no = 1;
+      yes = 2;
+    }
+    string sample = 14;
+    string voice_engine = 15;
+    string version = 16;
+}
