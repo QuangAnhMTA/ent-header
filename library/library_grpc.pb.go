@@ -32,6 +32,7 @@ type LibraryServiceClient interface {
 	EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error)
 	GetPos(ctx context.Context, in *PosRequest, opts ...grpc.CallOption) (*Pos, error)
 	ApproveParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
+	ListSentencePos(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error)
 }
 
 type libraryServiceClient struct {
@@ -123,6 +124,15 @@ func (c *libraryServiceClient) ApproveParagraph(ctx context.Context, in *Paragra
 	return out, nil
 }
 
+func (c *libraryServiceClient) ListSentencePos(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error) {
+	out := new(SentencePoses)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListSentencePos", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -137,6 +147,7 @@ type LibraryServiceServer interface {
 	EndLearnListen(context.Context, *Listen) (*Listen, error)
 	GetPos(context.Context, *PosRequest) (*Pos, error)
 	ApproveParagraph(context.Context, *Paragraph) (*Paragraph, error)
+	ListSentencePos(context.Context, *SentencePosRequest) (*SentencePoses, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -169,6 +180,9 @@ func (UnimplementedLibraryServiceServer) GetPos(context.Context, *PosRequest) (*
 }
 func (UnimplementedLibraryServiceServer) ApproveParagraph(context.Context, *Paragraph) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApproveParagraph not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListSentencePos(context.Context, *SentencePosRequest) (*SentencePoses, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSentencePos not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -344,6 +358,24 @@ func _LibraryService_ApproveParagraph_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_ListSentencePos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentencePosRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListSentencePos(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListSentencePos",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListSentencePos(ctx, req.(*SentencePosRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -386,6 +418,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ApproveParagraph",
 			Handler:    _LibraryService_ApproveParagraph_Handler,
+		},
+		{
+			MethodName: "ListSentencePos",
+			Handler:    _LibraryService_ListSentencePos_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

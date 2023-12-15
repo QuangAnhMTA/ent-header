@@ -16,7 +16,8 @@ service LibraryService {
   rpc EndLearnListen(Listen) returns (Listen);
   rpc GetPos(PosRequest) returns (Pos);
   rpc ApproveParagraph(Paragraph) returns (Paragraph);
-}
+  rpc ListSentencePos(SentencePosRequest) returns (SentencePoses);
+ }
 
 
 message Listen {
@@ -619,4 +620,13 @@ message CharacterRequest {
 message Characters {
   int32 total = 1;
   repeated Character characters =2;
+}
+
+
+message VoiceUsing {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    int64 paragraph_id = 2;
+    int64 character_id = 3;
+    int64 voice_id = 4;
 }
