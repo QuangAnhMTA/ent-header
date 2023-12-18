@@ -101,5 +101,5 @@ message Sentence {
 	int64 id = 1;
 	int64 member_id = 2;
 	int64 sentence_id = 3;
-	int64 created_id = 4;
+	int64 created_at = 4;
 }
