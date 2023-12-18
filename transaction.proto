@@ -12,6 +12,8 @@ service TransactionService {
   rpc EndLearnListen(Listen) returns (Listen);
   rpc ListSpeak(SpeakRequest) returns (Speaks);
   rpc EndLearnSpeak(Speak) returns (Speak);
+  rpc CreateSentence(Sentence) returns (Sentence);
+  rpc CreateLookup(Lookup) returns (Lookup);
 }
 
 
@@ -91,4 +93,13 @@ message Lookup {
 	int64 pos_id = 4;
 	int64 word_id = 5;
 	int64 created_at = 6;
+}
+
+
+message Sentence {
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id = 3;
+	int64 created_id = 4;
 }

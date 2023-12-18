@@ -27,6 +27,8 @@ type TransactionServiceClient interface {
 	EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error)
 	ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speaks, error)
 	EndLearnSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error)
+	CreateSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
+	CreateLookup(ctx context.Context, in *Lookup, opts ...grpc.CallOption) (*Lookup, error)
 }
 
 type transactionServiceClient struct {
@@ -73,6 +75,24 @@ func (c *transactionServiceClient) EndLearnSpeak(ctx context.Context, in *Speak,
 	return out, nil
 }
 
+func (c *transactionServiceClient) CreateSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error) {
+	out := new(Sentence)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateSentence", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) CreateLookup(ctx context.Context, in *Lookup, opts ...grpc.CallOption) (*Lookup, error) {
+	out := new(Lookup)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateLookup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -82,6 +102,8 @@ type TransactionServiceServer interface {
 	EndLearnListen(context.Context, *Listen) (*Listen, error)
 	ListSpeak(context.Context, *SpeakRequest) (*Speaks, error)
 	EndLearnSpeak(context.Context, *Speak) (*Speak, error)
+	CreateSentence(context.Context, *Sentence) (*Sentence, error)
+	CreateLookup(context.Context, *Lookup) (*Lookup, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -99,6 +121,12 @@ func (UnimplementedTransactionServiceServer) ListSpeak(context.Context, *SpeakRe
 }
 func (UnimplementedTransactionServiceServer) EndLearnSpeak(context.Context, *Speak) (*Speak, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearnSpeak not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateSentence(context.Context, *Sentence) (*Sentence, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSentence not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateLookup(context.Context, *Lookup) (*Lookup, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLookup not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -184,6 +212,42 @@ func _TransactionService_EndLearnSpeak_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_CreateSentence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Sentence)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateSentence(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateSentence",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateSentence(ctx, req.(*Sentence))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_CreateLookup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Lookup)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateLookup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateLookup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateLookup(ctx, req.(*Lookup))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +270,14 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EndLearnSpeak",
 			Handler:    _TransactionService_EndLearnSpeak_Handler,
+		},
+		{
+			MethodName: "CreateSentence",
+			Handler:    _TransactionService_CreateSentence_Handler,
+		},
+		{
+			MethodName: "CreateLookup",
+			Handler:    _TransactionService_CreateLookup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

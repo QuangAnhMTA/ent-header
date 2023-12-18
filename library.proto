@@ -653,12 +653,14 @@ message Phrase {
     int64 sentence_id = 2;
     string content = 3;
     string component = 4;
-    Status status = 5;  
+    string translation = 5;
+    Status status = 6;  
     enum Status {
         default_state = 0;
         deactive = 1;
         active = 2;
     }
+    int64 position = 7;
 }
 message PhraseRequest {
   int64 id = 1;
@@ -710,3 +712,6 @@ message Examples {
   int32 total = 1;
   repeated Example examples =2;
 }
+
+
+
