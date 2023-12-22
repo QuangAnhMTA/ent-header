@@ -493,6 +493,8 @@ message Pos {
   int64 process = 7;
   // `gorm:"-"`
   repeated Mean means = 8;
+  // `gorm:"-"`
+  Word word = 9;
 }
 
 message PosRequest {
@@ -528,13 +530,15 @@ message Translation {
   string translate_google = 6;
   string lang_from = 7;
   string lang_to = 8;
-  int32 process = 9;
+  string field = 9;
   Status status = 10;  
   enum Status {
       default_state = 0;
       deactive = 1;
       active = 2;
   }
+  int64 created_at = 11;
+
 }
 message Translations {
   int32 total = 1;
@@ -713,5 +717,55 @@ message Examples {
   repeated Example examples =2;
 }
 
+message Word {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    string name = 2;
+    string phonetic = 3;
+    string phonetic_uk = 4;
+    string phonetic_us = 5;
+    int32 audio_download = 6;
+    string audio_uk = 7;
+    string audio_us = 8;
+    // `gorm:"text"`
+    string origin = 9;
+    string see = 10;
+    string suggests = 11;
+    // `gorm:"text"`
+    string info = 12;
+    int32 processEnVi = 13;
+    int32 processEnEn = 14;
+    Status status = 15;  
+    enum Status {
+        default_state = 0;
+        deactive = 1;
+        active = 2;
+    }
+}
+message WordRequest {
+    int64 id = 1;
+    string name = 2;
+    string phonetic = 3;
+    string phonetic_uk = 4;
+    string phonetic_us = 5;
+    int32 audio_download = 6;
+    string audio_uk = 7;
+    string audio_us = 8;
+    string origin = 9;
+    string see = 10;
+    string suggests = 11;
+    string info = 12;
+    int32 processEnVi = 13;
+    int32 processEnEn = 14;
+    int32 status = 15; 
+    int32 limit =17;
+    int32 offset = 18;
+    repeated string cols = 16;
+    repeated string includes =19;
+}
 
 
+message Words {
+  int32 total = 1;
+  repeated Word words =2;
+}
