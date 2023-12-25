@@ -792,11 +792,11 @@ message SentenceJob {
     get_audio = 1;
     get_pos = 2;
     get_phrase = 3;
-    // get_traslation = 4;
+    get_traslation = 4;
 }
   int64 updated_at = 5;
   int64 created_at =6;
-  int32 position =7;
+  int64 paragraph_id = 7;
   Status status = 8;  
   enum Status {
       default_state = 0;
