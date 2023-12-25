@@ -769,3 +769,38 @@ message Words {
   int32 total = 1;
   repeated Word words =2;
 }
+
+
+
+
+
+
+message SentenceJob {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 sentence_id = 2;
+  Process process = 3;
+  enum Process {
+    default_process = 0;
+    processing = 1;
+    success = 2;
+    fail =3 ;
+}
+  Action action = 4;
+  enum Action {
+    default_action = 0;
+    get_audio = 1;
+    get_pos = 2;
+    get_phrase = 3;
+    // get_traslation = 4;
+}
+  int64 updated_at = 5;
+  int64 created_at =6;
+  int32 position =7;
+  Status status = 8;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
