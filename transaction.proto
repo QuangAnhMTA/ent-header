@@ -15,6 +15,9 @@ service TransactionService {
   rpc CreateSentence(Sentence) returns (Sentence);
   rpc CreateLookup(Lookup) returns (Lookup);
   rpc CreateParagraph(Paragraph) returns (Paragraph);
+  rpc ListLookup(LookupRequest) returns (Lookups);
+  rpc ListSentence(SentenceRequest) returns (Setences);
+  rpc GetParagraph(Paragraph) returns (Paragraph);
 }
 
 
@@ -93,6 +96,21 @@ message Lookup {
 	int64 sentence_id =3;
 	int64 position = 4;
 	int64 created_at = 6;
+	
+}
+message LookupRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id =3;
+	int64 position = 4;
+	int64 created_at = 6;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated int64 ids = 23;
+}
+message Lookups {
+	repeated Lookup lookups = 1;
+	int64 total = 2;
 }
 
 
@@ -103,7 +121,19 @@ message Sentence {
 	int64 sentence_id = 3;
 	int64 created_at = 4;
 }
-
+message SentenceRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id = 3;
+	int64 created_at = 4;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated int64 ids = 23;
+}
+message Setences {
+	repeated Sentence sentences = 1;
+	int64 total = 2;
+}
 
 
 message Paragraph {

@@ -18,7 +18,6 @@ service LibraryService {
   rpc ApproveParagraph(Paragraph) returns (Paragraph);
   rpc ListSentencePos(SentencePosRequest) returns (SentencePoses);
   rpc GetSentenceDetail (SentenceRequest) returns (Sentence);
-
  }
 
 

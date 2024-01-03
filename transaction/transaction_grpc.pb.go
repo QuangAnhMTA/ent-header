@@ -30,6 +30,9 @@ type TransactionServiceClient interface {
 	CreateSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
 	CreateLookup(ctx context.Context, in *Lookup, opts ...grpc.CallOption) (*Lookup, error)
 	CreateParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
+	ListLookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*Lookups, error)
+	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Setences, error)
+	GetParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
 }
 
 type transactionServiceClient struct {
@@ -103,6 +106,33 @@ func (c *transactionServiceClient) CreateParagraph(ctx context.Context, in *Para
 	return out, nil
 }
 
+func (c *transactionServiceClient) ListLookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*Lookups, error) {
+	out := new(Lookups)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListLookup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Setences, error) {
+	out := new(Setences)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListSentence", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error) {
+	out := new(Paragraph)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -115,6 +145,9 @@ type TransactionServiceServer interface {
 	CreateSentence(context.Context, *Sentence) (*Sentence, error)
 	CreateLookup(context.Context, *Lookup) (*Lookup, error)
 	CreateParagraph(context.Context, *Paragraph) (*Paragraph, error)
+	ListLookup(context.Context, *LookupRequest) (*Lookups, error)
+	ListSentence(context.Context, *SentenceRequest) (*Setences, error)
+	GetParagraph(context.Context, *Paragraph) (*Paragraph, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -141,6 +174,15 @@ func (UnimplementedTransactionServiceServer) CreateLookup(context.Context, *Look
 }
 func (UnimplementedTransactionServiceServer) CreateParagraph(context.Context, *Paragraph) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateParagraph not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListLookup(context.Context, *LookupRequest) (*Lookups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLookup not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListSentence(context.Context, *SentenceRequest) (*Setences, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSentence not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetParagraph(context.Context, *Paragraph) (*Paragraph, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetParagraph not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -280,6 +322,60 @@ func _TransactionService_CreateParagraph_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_ListLookup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListLookup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListLookup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListLookup(ctx, req.(*LookupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ListSentence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListSentence(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListSentence",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListSentence(ctx, req.(*SentenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Paragraph)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/GetParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetParagraph(ctx, req.(*Paragraph))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -314,6 +410,18 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateParagraph",
 			Handler:    _TransactionService_CreateParagraph_Handler,
+		},
+		{
+			MethodName: "ListLookup",
+			Handler:    _TransactionService_ListLookup_Handler,
+		},
+		{
+			MethodName: "ListSentence",
+			Handler:    _TransactionService_ListSentence_Handler,
+		},
+		{
+			MethodName: "GetParagraph",
+			Handler:    _TransactionService_GetParagraph_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
