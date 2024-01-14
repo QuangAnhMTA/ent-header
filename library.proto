@@ -113,9 +113,6 @@ message Document {
 message Documents {
   repeated Document documents = 1 ;
   int64 total = 2;
-  int64 document_current_id = 3;
-  int64 paragraph_current_id = 4;
-  int64 sentence_current_id = 5;
   Course course = 6;
 }
 
@@ -201,7 +198,9 @@ message Paragraphs {
   repeated Paragraph paragraphs = 1;
   int64 current_id = 3;
   int64 total = 2;
-  Document document =4;
+  int64 document_current_id = 4;
+  int64 paragraph_current_id = 5;
+  Document document =7;
 }
 
 message SentenceRequest {
@@ -273,7 +272,8 @@ message Sentences {
   repeated Character characters = 6;
   int64 document_current_id = 3;
   int64 paragraph_current_id = 4;
-  int64 sentence_current_id = 5;
+  int64 speak_sentence_current_id = 5;
+  int64 listen_sentence_current_id = 8;
   Paragraph pragraph = 7;
 }
 

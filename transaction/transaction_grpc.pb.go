@@ -33,6 +33,8 @@ type TransactionServiceClient interface {
 	ListLookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*Lookups, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
+	GetListenDisplay(ctx context.Context, in *ListenDisplay, opts ...grpc.CallOption) (*ListenDisplay, error)
+	GetSpeakDisplay(ctx context.Context, in *SpeakDisplay, opts ...grpc.CallOption) (*SpeakDisplay, error)
 }
 
 type transactionServiceClient struct {
@@ -133,6 +135,24 @@ func (c *transactionServiceClient) ListParagraph(ctx context.Context, in *Paragr
 	return out, nil
 }
 
+func (c *transactionServiceClient) GetListenDisplay(ctx context.Context, in *ListenDisplay, opts ...grpc.CallOption) (*ListenDisplay, error) {
+	out := new(ListenDisplay)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetListenDisplay", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetSpeakDisplay(ctx context.Context, in *SpeakDisplay, opts ...grpc.CallOption) (*SpeakDisplay, error) {
+	out := new(SpeakDisplay)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetSpeakDisplay", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -148,6 +168,8 @@ type TransactionServiceServer interface {
 	ListLookup(context.Context, *LookupRequest) (*Lookups, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraph, error)
+	GetListenDisplay(context.Context, *ListenDisplay) (*ListenDisplay, error)
+	GetSpeakDisplay(context.Context, *SpeakDisplay) (*SpeakDisplay, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -183,6 +205,12 @@ func (UnimplementedTransactionServiceServer) ListSentence(context.Context, *Sent
 }
 func (UnimplementedTransactionServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListParagraph not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetListenDisplay(context.Context, *ListenDisplay) (*ListenDisplay, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetListenDisplay not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetSpeakDisplay(context.Context, *SpeakDisplay) (*SpeakDisplay, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSpeakDisplay not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -376,6 +404,42 @@ func _TransactionService_ListParagraph_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_GetListenDisplay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListenDisplay)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetListenDisplay(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/GetListenDisplay",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetListenDisplay(ctx, req.(*ListenDisplay))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetSpeakDisplay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SpeakDisplay)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetSpeakDisplay(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/GetSpeakDisplay",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetSpeakDisplay(ctx, req.(*SpeakDisplay))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -422,6 +486,14 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListParagraph",
 			Handler:    _TransactionService_ListParagraph_Handler,
+		},
+		{
+			MethodName: "GetListenDisplay",
+			Handler:    _TransactionService_GetListenDisplay_Handler,
+		},
+		{
+			MethodName: "GetSpeakDisplay",
+			Handler:    _TransactionService_GetSpeakDisplay_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
