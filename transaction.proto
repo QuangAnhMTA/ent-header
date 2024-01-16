@@ -18,8 +18,8 @@ service TransactionService {
   rpc ListLookup(LookupRequest) returns (Lookups);
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc ListParagraph(ParagraphRequest) returns (Paragraph);
-  rpc ListListenDisplay(ListenDisplay) returns (ListenDisplays);
-  rpc ListSpeakDisplay(SpeakDisplay) returns (SpeakDisplays);
+  rpc ListListenDisplay(ListenDisplayRequest) returns (ListenDisplays);
+  rpc ListSpeakDisplay(SpeakDisplayRequest) returns (SpeakDisplays);
 }
 
 
@@ -179,7 +179,22 @@ message ListenDisplay {
 	int64 paragraph_id = 4;
 	int64 document_id = 5;
 	int64 created_at = 6;
-  }
+}
+message ListenDisplayRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id =3;
+	int64 paragraph_id = 4;
+	int64 document_id = 5;
+	int64 created_at = 6;
+	repeated int64 character_ids = 7;
+	repeated int64 ids = 8;
+	repeated int64 sentence_ids = 9;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated string cols = 16;
+	repeated string includes =19;
+}
 message ListenDisplays {
 	repeated ListenDisplay listen_displays = 1;
 	int64 total = 2;
@@ -192,6 +207,21 @@ message SpeakDisplay {
 	int64 paragraph_id = 4;
 	int64 character_id = 5;
 	int64 created_at = 6;
+}
+message SpeakDisplayRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id =3;
+	int64 paragraph_id = 4;
+	int64 character_id = 5;
+	int64 created_at = 6;
+	repeated int64 paragraph_ids = 7;
+	repeated int64 ids = 8;
+	repeated int64 sentence_ids = 9;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated string cols = 16;
+	repeated string includes =19;
 }
 message SpeakDisplays {
 	repeated SpeakDisplay speak_displays = 1;

@@ -33,8 +33,8 @@ type TransactionServiceClient interface {
 	ListLookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*Lookups, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
-	ListListenDisplay(ctx context.Context, in *ListenDisplay, opts ...grpc.CallOption) (*ListenDisplays, error)
-	ListSpeakDisplay(ctx context.Context, in *SpeakDisplay, opts ...grpc.CallOption) (*SpeakDisplays, error)
+	ListListenDisplay(ctx context.Context, in *ListenDisplayRequest, opts ...grpc.CallOption) (*ListenDisplays, error)
+	ListSpeakDisplay(ctx context.Context, in *SpeakDisplayRequest, opts ...grpc.CallOption) (*SpeakDisplays, error)
 }
 
 type transactionServiceClient struct {
@@ -135,7 +135,7 @@ func (c *transactionServiceClient) ListParagraph(ctx context.Context, in *Paragr
 	return out, nil
 }
 
-func (c *transactionServiceClient) ListListenDisplay(ctx context.Context, in *ListenDisplay, opts ...grpc.CallOption) (*ListenDisplays, error) {
+func (c *transactionServiceClient) ListListenDisplay(ctx context.Context, in *ListenDisplayRequest, opts ...grpc.CallOption) (*ListenDisplays, error) {
 	out := new(ListenDisplays)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListListenDisplay", in, out, opts...)
 	if err != nil {
@@ -144,7 +144,7 @@ func (c *transactionServiceClient) ListListenDisplay(ctx context.Context, in *Li
 	return out, nil
 }
 
-func (c *transactionServiceClient) ListSpeakDisplay(ctx context.Context, in *SpeakDisplay, opts ...grpc.CallOption) (*SpeakDisplays, error) {
+func (c *transactionServiceClient) ListSpeakDisplay(ctx context.Context, in *SpeakDisplayRequest, opts ...grpc.CallOption) (*SpeakDisplays, error) {
 	out := new(SpeakDisplays)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListSpeakDisplay", in, out, opts...)
 	if err != nil {
@@ -168,8 +168,8 @@ type TransactionServiceServer interface {
 	ListLookup(context.Context, *LookupRequest) (*Lookups, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraph, error)
-	ListListenDisplay(context.Context, *ListenDisplay) (*ListenDisplays, error)
-	ListSpeakDisplay(context.Context, *SpeakDisplay) (*SpeakDisplays, error)
+	ListListenDisplay(context.Context, *ListenDisplayRequest) (*ListenDisplays, error)
+	ListSpeakDisplay(context.Context, *SpeakDisplayRequest) (*SpeakDisplays, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -206,10 +206,10 @@ func (UnimplementedTransactionServiceServer) ListSentence(context.Context, *Sent
 func (UnimplementedTransactionServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListParagraph not implemented")
 }
-func (UnimplementedTransactionServiceServer) ListListenDisplay(context.Context, *ListenDisplay) (*ListenDisplays, error) {
+func (UnimplementedTransactionServiceServer) ListListenDisplay(context.Context, *ListenDisplayRequest) (*ListenDisplays, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListListenDisplay not implemented")
 }
-func (UnimplementedTransactionServiceServer) ListSpeakDisplay(context.Context, *SpeakDisplay) (*SpeakDisplays, error) {
+func (UnimplementedTransactionServiceServer) ListSpeakDisplay(context.Context, *SpeakDisplayRequest) (*SpeakDisplays, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSpeakDisplay not implemented")
 }
 
@@ -405,7 +405,7 @@ func _TransactionService_ListParagraph_Handler(srv interface{}, ctx context.Cont
 }
 
 func _TransactionService_ListListenDisplay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListenDisplay)
+	in := new(ListenDisplayRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -417,13 +417,13 @@ func _TransactionService_ListListenDisplay_Handler(srv interface{}, ctx context.
 		FullMethod: "/transaction.TransactionService/ListListenDisplay",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).ListListenDisplay(ctx, req.(*ListenDisplay))
+		return srv.(TransactionServiceServer).ListListenDisplay(ctx, req.(*ListenDisplayRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TransactionService_ListSpeakDisplay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SpeakDisplay)
+	in := new(SpeakDisplayRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -435,7 +435,7 @@ func _TransactionService_ListSpeakDisplay_Handler(srv interface{}, ctx context.C
 		FullMethod: "/transaction.TransactionService/ListSpeakDisplay",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).ListSpeakDisplay(ctx, req.(*SpeakDisplay))
+		return srv.(TransactionServiceServer).ListSpeakDisplay(ctx, req.(*SpeakDisplayRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
