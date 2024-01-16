@@ -187,7 +187,7 @@ message ListenDisplayRequest {
 	int64 paragraph_id = 4;
 	int64 document_id = 5;
 	int64 created_at = 6;
-	repeated int64 character_ids = 7;
+	repeated int64 paragraph_ids = 7;
 	repeated int64 ids = 8;
 	repeated int64 sentence_ids = 9;
 	int32 limit =17;
@@ -215,13 +215,14 @@ message SpeakDisplayRequest {
 	int64 paragraph_id = 4;
 	int64 character_id = 5;
 	int64 created_at = 6;
-	repeated int64 paragraph_ids = 7;
+	repeated int64 character_ids = 7;
 	repeated int64 ids = 8;
 	repeated int64 sentence_ids = 9;
 	int32 limit =17;
 	int32 offset = 18;
 	repeated string cols = 16;
 	repeated string includes =19;
+
 }
 message SpeakDisplays {
 	repeated SpeakDisplay speak_displays = 1;
