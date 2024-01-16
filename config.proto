@@ -171,7 +171,7 @@ message RegisterAccountResponse {
     int64 total = 2;
   }
 
-
+  
   message Category {
     // `gorm:"primaryKey;not null;autoIncrement"`
     int64 id = 1;

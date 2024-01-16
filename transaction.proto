@@ -18,8 +18,8 @@ service TransactionService {
   rpc ListLookup(LookupRequest) returns (Lookups);
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc ListParagraph(ParagraphRequest) returns (Paragraph);
-  rpc GetListenDisplay(ListenDisplay) returns (ListenDisplay);
-  rpc GetSpeakDisplay(SpeakDisplay) returns (SpeakDisplay);
+  rpc ListListenDisplay(ListenDisplay) returns (ListenDisplays);
+  rpc ListSpeakDisplay(SpeakDisplay) returns (SpeakDisplays);
 }
 
 
@@ -180,8 +180,11 @@ message ListenDisplay {
 	int64 document_id = 5;
 	int64 created_at = 6;
   }
-
-  message SpeakDisplay {
+message ListenDisplays {
+	repeated ListenDisplay listen_displays = 1;
+	int64 total = 2;
+ }
+message SpeakDisplay {
 	// `gorm:"primaryKey;not null;autoIncrement"`
 	int64 id = 1;
 	int64 member_id = 2;
@@ -189,4 +192,8 @@ message ListenDisplay {
 	int64 paragraph_id = 4;
 	int64 character_id = 5;
 	int64 created_at = 6;
+}
+message SpeakDisplays {
+	repeated SpeakDisplay speak_displays = 1;
+	int64 total = 2;
 }

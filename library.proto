@@ -272,7 +272,6 @@ message Sentences {
   repeated Character characters = 6;
   int64 document_current_id = 3;
   int64 paragraph_current_id = 4;
-  int64 speak_sentence_current_id = 5;
   int64 listen_sentence_current_id = 8;
   Paragraph pragraph = 7;
 }
