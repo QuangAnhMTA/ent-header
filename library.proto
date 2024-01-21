@@ -18,6 +18,8 @@ service LibraryService {
   rpc ApproveParagraph(Paragraph) returns (Paragraph);
   rpc ListSentencePos(SentencePosRequest) returns (SentencePoses);
   rpc GetSentenceDetail (SentenceRequest) returns (Sentence);
+  rpc ListPronounce (PronounceRequest) returns (Pronounces);
+  rpc GetPronounce (PronounceRequest) returns (Pronounce);
  }
 
 
@@ -769,6 +771,28 @@ message Words {
 }
 
 
+message Phonetic {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    int64 word_id = 2;
+    string word = 3;
+    string text = 4;
+    string audio = 5;
+}
+message PhoneticRequest {
+  int64 id = 1;
+  int64 word_id = 2;
+  string word = 3;
+  string text = 4;
+  string audio = 5;
+  repeated int64 ids = 14;
+  repeated int64 word_ids = 15;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+}
+
 
 
 
@@ -801,4 +825,44 @@ message SentenceJob {
       deactive = 1;
       active = 2;
   }
+}
+
+message Pronounce {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    string word = 2;
+    Type type = 3;
+    enum Type  {
+      default_type = 0;
+      vowel = 1;
+      consonant = 2;
+    }
+    // `gorm:"text"`
+    string guide = 4;
+    string examples = 5;
+    string keyx = 6;
+    string url = 7;
+    // `gorm:"-"`
+    repeated Phonetic phonetics = 8;
+} 
+
+
+message PronounceRequest {
+  int64 id = 1;
+  string word = 2;
+  int32 type = 3;
+  string guide = 4;
+  string examples = 5;
+  string keyx = 6;
+  string url = 7;
+  repeated int64 ids = 14;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+} 
+
+message Pronounces {
+  int32 total = 1;
+  repeated Pronounce pronounces = 2;
 }

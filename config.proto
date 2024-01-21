@@ -164,6 +164,7 @@ message RegisterAccountResponse {
 		    active = 2;
 	  }
     string token = 11;
+    string nick_name = 12;
 }
   
   message Members {
@@ -171,7 +172,7 @@ message RegisterAccountResponse {
     int64 total = 2;
   }
 
-  
+
   message Category {
     // `gorm:"primaryKey;not null;autoIncrement"`
     int64 id = 1;

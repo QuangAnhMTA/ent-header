@@ -139,7 +139,6 @@ message Sentences {
 	int64 total = 2;
 }
 
-
 message Paragraph {
 	// `gorm:"primaryKey;not null;autoIncrement"`
 	int64 id = 1;

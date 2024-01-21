@@ -34,6 +34,8 @@ type LibraryServiceClient interface {
 	ApproveParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
 	ListSentencePos(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error)
 	GetSentenceDetail(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentence, error)
+	ListPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounces, error)
+	GetPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounce, error)
 }
 
 type libraryServiceClient struct {
@@ -143,6 +145,24 @@ func (c *libraryServiceClient) GetSentenceDetail(ctx context.Context, in *Senten
 	return out, nil
 }
 
+func (c *libraryServiceClient) ListPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounces, error) {
+	out := new(Pronounces)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListPronounce", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) GetPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounce, error) {
+	out := new(Pronounce)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/GetPronounce", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -159,6 +179,8 @@ type LibraryServiceServer interface {
 	ApproveParagraph(context.Context, *Paragraph) (*Paragraph, error)
 	ListSentencePos(context.Context, *SentencePosRequest) (*SentencePoses, error)
 	GetSentenceDetail(context.Context, *SentenceRequest) (*Sentence, error)
+	ListPronounce(context.Context, *PronounceRequest) (*Pronounces, error)
+	GetPronounce(context.Context, *PronounceRequest) (*Pronounce, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -197,6 +219,12 @@ func (UnimplementedLibraryServiceServer) ListSentencePos(context.Context, *Sente
 }
 func (UnimplementedLibraryServiceServer) GetSentenceDetail(context.Context, *SentenceRequest) (*Sentence, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSentenceDetail not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListPronounce(context.Context, *PronounceRequest) (*Pronounces, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPronounce not implemented")
+}
+func (UnimplementedLibraryServiceServer) GetPronounce(context.Context, *PronounceRequest) (*Pronounce, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPronounce not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -408,6 +436,42 @@ func _LibraryService_GetSentenceDetail_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_ListPronounce_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PronounceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListPronounce(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListPronounce",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListPronounce(ctx, req.(*PronounceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_GetPronounce_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PronounceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).GetPronounce(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/GetPronounce",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).GetPronounce(ctx, req.(*PronounceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -458,6 +522,14 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSentenceDetail",
 			Handler:    _LibraryService_GetSentenceDetail_Handler,
+		},
+		{
+			MethodName: "ListPronounce",
+			Handler:    _LibraryService_ListPronounce_Handler,
+		},
+		{
+			MethodName: "GetPronounce",
+			Handler:    _LibraryService_GetPronounce_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
