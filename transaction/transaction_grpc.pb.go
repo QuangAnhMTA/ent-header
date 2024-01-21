@@ -32,7 +32,8 @@ type TransactionServiceClient interface {
 	CreateParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
 	ListLookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*Lookups, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
-	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
+	GetParagraphMax(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
+	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	ListListenDisplay(ctx context.Context, in *ListenDisplayRequest, opts ...grpc.CallOption) (*ListenDisplays, error)
 	ListSpeakDisplay(ctx context.Context, in *SpeakDisplayRequest, opts ...grpc.CallOption) (*SpeakDisplays, error)
 }
@@ -126,8 +127,17 @@ func (c *transactionServiceClient) ListSentence(ctx context.Context, in *Sentenc
 	return out, nil
 }
 
-func (c *transactionServiceClient) ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error) {
+func (c *transactionServiceClient) GetParagraphMax(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error) {
 	out := new(Paragraph)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetParagraphMax", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error) {
+	out := new(Paragraphs)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListParagraph", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -167,7 +177,8 @@ type TransactionServiceServer interface {
 	CreateParagraph(context.Context, *Paragraph) (*Paragraph, error)
 	ListLookup(context.Context, *LookupRequest) (*Lookups, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
-	ListParagraph(context.Context, *ParagraphRequest) (*Paragraph, error)
+	GetParagraphMax(context.Context, *ParagraphRequest) (*Paragraph, error)
+	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	ListListenDisplay(context.Context, *ListenDisplayRequest) (*ListenDisplays, error)
 	ListSpeakDisplay(context.Context, *SpeakDisplayRequest) (*SpeakDisplays, error)
 }
@@ -203,7 +214,10 @@ func (UnimplementedTransactionServiceServer) ListLookup(context.Context, *Lookup
 func (UnimplementedTransactionServiceServer) ListSentence(context.Context, *SentenceRequest) (*Sentences, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSentence not implemented")
 }
-func (UnimplementedTransactionServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraph, error) {
+func (UnimplementedTransactionServiceServer) GetParagraphMax(context.Context, *ParagraphRequest) (*Paragraph, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetParagraphMax not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListParagraph not implemented")
 }
 func (UnimplementedTransactionServiceServer) ListListenDisplay(context.Context, *ListenDisplayRequest) (*ListenDisplays, error) {
@@ -386,6 +400,24 @@ func _TransactionService_ListSentence_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_GetParagraphMax_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ParagraphRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetParagraphMax(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/GetParagraphMax",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetParagraphMax(ctx, req.(*ParagraphRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TransactionService_ListParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ParagraphRequest)
 	if err := dec(in); err != nil {
@@ -482,6 +514,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListSentence",
 			Handler:    _TransactionService_ListSentence_Handler,
+		},
+		{
+			MethodName: "GetParagraphMax",
+			Handler:    _TransactionService_GetParagraphMax_Handler,
 		},
 		{
 			MethodName: "ListParagraph",

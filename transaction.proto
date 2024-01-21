@@ -18,7 +18,8 @@ service TransactionService {
   rpc CreateParagraph(Paragraph) returns (Paragraph);
   rpc ListLookup(LookupRequest) returns (Lookups);
   rpc ListSentence(SentenceRequest) returns (Sentences);
-  rpc ListParagraph(ParagraphRequest) returns (Paragraph);
+  rpc GetParagraphMax(ParagraphRequest) returns (Paragraph);
+  rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc ListListenDisplay(ListenDisplayRequest) returns (ListenDisplays);
   rpc ListSpeakDisplay(SpeakDisplayRequest) returns (SpeakDisplays);
 }
