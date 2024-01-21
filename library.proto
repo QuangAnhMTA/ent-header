@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package library;
 option go_package = "github.com/QuangAnhMTA/ent-header/library";
-import "transaction.proto";
 
 
 service LibraryService {
@@ -250,8 +249,6 @@ message Sentence {
   repeated Audio audios = 15;
   // `gorm:"-"`
   Translation translation = 16;
-  // `gorm:"-"`
-  transaction.Speak speak = 17;
   // `gorm:"-"`
   float score = 18;
   // `gorm:"-"`
