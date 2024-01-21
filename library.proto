@@ -782,6 +782,7 @@ message PhoneticRequest {
   string word = 3;
   string text = 4;
   string audio = 5;
+  repeated string words = 12;
   repeated int64 ids = 14;
   repeated int64 word_ids = 15;
   int32 limit =17;
