@@ -852,6 +852,7 @@ message PronounceRequest {
   string examples = 5;
   string keyx = 6;
   string url = 7;
+  repeated string words = 12;
   repeated int64 ids = 14;
   int32 limit =17;
   int32 offset = 18;
