@@ -126,6 +126,8 @@ message Sentence {
 	int64 member_id = 2;
 	int64 sentence_id = 3;
 	int64 created_at = 4;
+	// `gorm:"-"`
+	library.Sentence sentence = 7;
 }
 message SentenceRequest {
 	int64 id = 1;
