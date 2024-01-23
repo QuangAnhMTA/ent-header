@@ -164,7 +164,7 @@ message RegisterAccountResponse {
 		    active = 2;
 	  }
     string token = 11;
-    string nick_name = 12;
+    string nickname = 12;
 }
   
   message Members {
