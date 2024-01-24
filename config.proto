@@ -12,7 +12,7 @@ service ConfigService {
    rpc RegisterAccount(RegisterAccountRequest) returns (Account);
    rpc Login(LoginAccountRequest) returns (LoginAccountResponse);
    rpc MemberLogin(MemberRequest) returns (LoginMemberResponse);
-   rpc ChangeMemberPassword(MemberRequest) returns (Member);
+   rpc ChangeMemberPassword(Member) returns (Member);
 
     // -----------------account------------------------
 
