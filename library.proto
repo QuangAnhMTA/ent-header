@@ -424,7 +424,7 @@ message SentencePosRequest {
   string pos_group =6;
   int32 position =7;
   int32 status = 8;
-  int64 ids= 9;
+  repeated int64 ids= 9;
   int32 limit =17;
   int32 offset = 18;
   repeated string cols = 16;
