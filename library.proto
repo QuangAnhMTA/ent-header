@@ -19,7 +19,7 @@ service LibraryService {
   rpc GetSentenceDetail (SentenceRequest) returns (Sentence);
   rpc ListPronounce (PronounceRequest) returns (Pronounces);
   rpc GetPronounce (PronounceRequest) returns (Pronounce);
-  rpc ListPos(PosRequest) returns (Poses);
+  rpc ListSentencePoses(SentencePosRequest) returns (SentencePoses);
  }
 
 
@@ -409,6 +409,10 @@ message SentencePos {
       deactive = 1;
       active = 2;
   }
+  // `gorm:"-"`
+  string word_type = 11;
+  // `gorm:"-"`
+  string phonetic = 12; 
 }
 
 message SentencePosRequest {
@@ -515,6 +519,7 @@ message PosRequest {
   string word = 21;
   int32 position =22;
   int64 sentence_pos_ids = 23;
+  repeated string tag_bcs = 24;
 
 }
 

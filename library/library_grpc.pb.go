@@ -36,7 +36,7 @@ type LibraryServiceClient interface {
 	GetSentenceDetail(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentence, error)
 	ListPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounces, error)
 	GetPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounce, error)
-	ListPos(ctx context.Context, in *PosRequest, opts ...grpc.CallOption) (*Poses, error)
+	ListSentencePoses(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error)
 }
 
 type libraryServiceClient struct {
@@ -164,9 +164,9 @@ func (c *libraryServiceClient) GetPronounce(ctx context.Context, in *PronounceRe
 	return out, nil
 }
 
-func (c *libraryServiceClient) ListPos(ctx context.Context, in *PosRequest, opts ...grpc.CallOption) (*Poses, error) {
-	out := new(Poses)
-	err := c.cc.Invoke(ctx, "/library.LibraryService/ListPos", in, out, opts...)
+func (c *libraryServiceClient) ListSentencePoses(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error) {
+	out := new(SentencePoses)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListSentencePoses", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +191,7 @@ type LibraryServiceServer interface {
 	GetSentenceDetail(context.Context, *SentenceRequest) (*Sentence, error)
 	ListPronounce(context.Context, *PronounceRequest) (*Pronounces, error)
 	GetPronounce(context.Context, *PronounceRequest) (*Pronounce, error)
-	ListPos(context.Context, *PosRequest) (*Poses, error)
+	ListSentencePoses(context.Context, *SentencePosRequest) (*SentencePoses, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -237,8 +237,8 @@ func (UnimplementedLibraryServiceServer) ListPronounce(context.Context, *Pronoun
 func (UnimplementedLibraryServiceServer) GetPronounce(context.Context, *PronounceRequest) (*Pronounce, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPronounce not implemented")
 }
-func (UnimplementedLibraryServiceServer) ListPos(context.Context, *PosRequest) (*Poses, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListPos not implemented")
+func (UnimplementedLibraryServiceServer) ListSentencePoses(context.Context, *SentencePosRequest) (*SentencePoses, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSentencePoses not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -486,20 +486,20 @@ func _LibraryService_GetPronounce_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LibraryService_ListPos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PosRequest)
+func _LibraryService_ListSentencePoses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentencePosRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibraryServiceServer).ListPos(ctx, in)
+		return srv.(LibraryServiceServer).ListSentencePoses(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/library.LibraryService/ListPos",
+		FullMethod: "/library.LibraryService/ListSentencePoses",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibraryServiceServer).ListPos(ctx, req.(*PosRequest))
+		return srv.(LibraryServiceServer).ListSentencePoses(ctx, req.(*SentencePosRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -564,8 +564,8 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LibraryService_GetPronounce_Handler,
 		},
 		{
-			MethodName: "ListPos",
-			Handler:    _LibraryService_ListPos_Handler,
+			MethodName: "ListSentencePoses",
+			Handler:    _LibraryService_ListSentencePoses_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

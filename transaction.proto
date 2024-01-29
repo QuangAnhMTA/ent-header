@@ -104,7 +104,7 @@ message Lookup {
 	library.Sentence sentence = 7;
 	int64 sentence_pos_id = 8;
     // `gorm:"-"`
-	library.Pos pos = 9;
+	library.SentencePos sentence_pos = 9;
 }
 message LookupRequest {
 	int64 id = 1;
