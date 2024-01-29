@@ -615,7 +615,10 @@ type Lookup struct {
 	Position   int64 `protobuf:"varint,4,opt,name=position,proto3" json:"position,omitempty"`
 	CreatedAt  int64 `protobuf:"varint,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// `gorm:"-"`
-	Sentence *library.Sentence `protobuf:"bytes,7,opt,name=sentence,proto3" json:"sentence,omitempty" gorm:"-"`
+	Sentence      *library.Sentence `protobuf:"bytes,7,opt,name=sentence,proto3" json:"sentence,omitempty" gorm:"-"`
+	SentencePosId int64             `protobuf:"varint,8,opt,name=sentence_pos_id,json=sentencePosId,proto3" json:"sentence_pos_id,omitempty"`
+	// `gorm:"-"`
+	Pos *library.Pos `protobuf:"bytes,9,opt,name=pos,proto3" json:"pos,omitempty" gorm:"-"`
 }
 
 func (x *Lookup) Reset() {
@@ -692,20 +695,35 @@ func (x *Lookup) GetSentence() *library.Sentence {
 	return nil
 }
 
+func (x *Lookup) GetSentencePosId() int64 {
+	if x != nil {
+		return x.SentencePosId
+	}
+	return 0
+}
+
+func (x *Lookup) GetPos() *library.Pos {
+	if x != nil {
+		return x.Pos
+	}
+	return nil
+}
+
 type LookupRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	MemberId   int64    `protobuf:"varint,2,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	SentenceId int64    `protobuf:"varint,3,opt,name=sentence_id,json=sentenceId,proto3" json:"sentence_id,omitempty"`
-	Position   int64    `protobuf:"varint,4,opt,name=position,proto3" json:"position,omitempty"`
-	CreatedAt  int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	Limit      int32    `protobuf:"varint,17,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset     int32    `protobuf:"varint,18,opt,name=offset,proto3" json:"offset,omitempty"`
-	Includes   []string `protobuf:"bytes,19,rep,name=includes,proto3" json:"includes,omitempty"`
-	Ids        []int64  `protobuf:"varint,23,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	Id            int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	MemberId      int64    `protobuf:"varint,2,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+	SentenceId    int64    `protobuf:"varint,3,opt,name=sentence_id,json=sentenceId,proto3" json:"sentence_id,omitempty"`
+	Position      int64    `protobuf:"varint,4,opt,name=position,proto3" json:"position,omitempty"`
+	CreatedAt     int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	SentencePosId int64    `protobuf:"varint,8,opt,name=sentence_pos_id,json=sentencePosId,proto3" json:"sentence_pos_id,omitempty"`
+	Limit         int32    `protobuf:"varint,17,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32    `protobuf:"varint,18,opt,name=offset,proto3" json:"offset,omitempty"`
+	Includes      []string `protobuf:"bytes,19,rep,name=includes,proto3" json:"includes,omitempty"`
+	Ids           []int64  `protobuf:"varint,23,rep,packed,name=ids,proto3" json:"ids,omitempty"`
 }
 
 func (x *LookupRequest) Reset() {
@@ -771,6 +789,13 @@ func (x *LookupRequest) GetPosition() int64 {
 func (x *LookupRequest) GetCreatedAt() int64 {
 	if x != nil {
 		return x.CreatedAt
+	}
+	return 0
+}
+
+func (x *LookupRequest) GetSentencePosId() int64 {
+	if x != nil {
+		return x.SentencePosId
 	}
 	return 0
 }
@@ -2049,7 +2074,7 @@ var file_transaction_proto_rawDesc = []byte{
 	0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x49, 0x64, 0x73, 0x12, 0x1d, 0x0a, 0x0a, 0x63,
 	0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x16, 0x20, 0x01, 0x28, 0x03, 0x52,
 	0x09, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64,
-	0x73, 0x18, 0x17, 0x20, 0x03, 0x28, 0x03, 0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0xc0, 0x01, 0x0a,
+	0x73, 0x18, 0x17, 0x20, 0x03, 0x28, 0x03, 0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0x88, 0x02, 0x0a,
 	0x06, 0x4c, 0x6f, 0x6f, 0x6b, 0x75, 0x70, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d, 0x62, 0x65,
 	0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65, 0x6d, 0x62,
@@ -2061,17 +2086,24 @@ var file_transaction_proto_rawDesc = []byte{
 	0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
 	0x12, 0x2d, 0x0a, 0x08, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x18, 0x07, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x11, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x53, 0x65, 0x6e,
-	0x74, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x08, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x22,
-	0xf4, 0x01, 0x0a, 0x0d, 0x4c, 0x6f, 0x6f, 0x6b, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69,
-	0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1f,
-	0x0a, 0x0b, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x0a, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x49, 0x64, 0x12,
-	0x1a, 0x0a, 0x08, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x08, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x63,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52,
-	0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69,
+	0x74, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x08, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x12,
+	0x26, 0x0a, 0x0f, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x5f, 0x70, 0x6f, 0x73, 0x5f,
+	0x69, 0x64, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0d, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e,
+	0x63, 0x65, 0x50, 0x6f, 0x73, 0x49, 0x64, 0x12, 0x1e, 0x0a, 0x03, 0x70, 0x6f, 0x73, 0x18, 0x09,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x50,
+	0x6f, 0x73, 0x52, 0x03, 0x70, 0x6f, 0x73, 0x22, 0x9c, 0x02, 0x0a, 0x0d, 0x4c, 0x6f, 0x6f, 0x6b,
+	0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d,
+	0x62, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65,
+	0x6d, 0x62, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e,
+	0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x73, 0x65, 0x6e,
+	0x74, 0x65, 0x6e, 0x63, 0x65, 0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x6f, 0x73, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x6f, 0x73, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61,
+	0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64,
+	0x41, 0x74, 0x12, 0x26, 0x0a, 0x0f, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x5f, 0x70,
+	0x6f, 0x73, 0x5f, 0x69, 0x64, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0d, 0x73, 0x65, 0x6e,
+	0x74, 0x65, 0x6e, 0x63, 0x65, 0x50, 0x6f, 0x73, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69,
 	0x6d, 0x69, 0x74, 0x18, 0x11, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74,
 	0x12, 0x16, 0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x12, 0x20, 0x01, 0x28, 0x05,
 	0x52, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e, 0x63, 0x6c,
@@ -2340,53 +2372,55 @@ var file_transaction_proto_goTypes = []interface{}{
 	(*SpeakDisplayRequest)(nil),  // 18: transaction.SpeakDisplayRequest
 	(*SpeakDisplays)(nil),        // 19: transaction.SpeakDisplays
 	(*library.Sentence)(nil),     // 20: library.Sentence
-	(*library.Paragraph)(nil),    // 21: library.Paragraph
-	(*library.Document)(nil),     // 22: library.Document
-	(*library.Course)(nil),       // 23: library.Course
+	(*library.Pos)(nil),          // 21: library.Pos
+	(*library.Paragraph)(nil),    // 22: library.Paragraph
+	(*library.Document)(nil),     // 23: library.Document
+	(*library.Course)(nil),       // 24: library.Course
 }
 var file_transaction_proto_depIdxs = []int32{
 	2,  // 0: transaction.Speaks.speaks:type_name -> transaction.Speak
 	20, // 1: transaction.Lookup.sentence:type_name -> library.Sentence
-	5,  // 2: transaction.Lookups.lookups:type_name -> transaction.Lookup
-	20, // 3: transaction.Sentence.sentence:type_name -> library.Sentence
-	8,  // 4: transaction.Sentences.sentences:type_name -> transaction.Sentence
-	21, // 5: transaction.Paragraph.paragraph:type_name -> library.Paragraph
-	22, // 6: transaction.Paragraph.document:type_name -> library.Document
-	23, // 7: transaction.Paragraph.course:type_name -> library.Course
-	11, // 8: transaction.Paragraphs.paragraphs:type_name -> transaction.Paragraph
-	14, // 9: transaction.ListenDisplays.listen_displays:type_name -> transaction.ListenDisplay
-	17, // 10: transaction.SpeakDisplays.speak_displays:type_name -> transaction.SpeakDisplay
-	1,  // 11: transaction.TransactionService.ListListen:input_type -> transaction.ListenRequest
-	0,  // 12: transaction.TransactionService.EndLearnListen:input_type -> transaction.Listen
-	4,  // 13: transaction.TransactionService.ListSpeak:input_type -> transaction.SpeakRequest
-	2,  // 14: transaction.TransactionService.EndLearnSpeak:input_type -> transaction.Speak
-	8,  // 15: transaction.TransactionService.CreateSentence:input_type -> transaction.Sentence
-	5,  // 16: transaction.TransactionService.CreateLookup:input_type -> transaction.Lookup
-	11, // 17: transaction.TransactionService.CreateParagraph:input_type -> transaction.Paragraph
-	6,  // 18: transaction.TransactionService.ListLookup:input_type -> transaction.LookupRequest
-	9,  // 19: transaction.TransactionService.ListSentence:input_type -> transaction.SentenceRequest
-	12, // 20: transaction.TransactionService.GetParagraphMax:input_type -> transaction.ParagraphRequest
-	12, // 21: transaction.TransactionService.ListParagraph:input_type -> transaction.ParagraphRequest
-	15, // 22: transaction.TransactionService.ListListenDisplay:input_type -> transaction.ListenDisplayRequest
-	18, // 23: transaction.TransactionService.ListSpeakDisplay:input_type -> transaction.SpeakDisplayRequest
-	0,  // 24: transaction.TransactionService.ListListen:output_type -> transaction.Listen
-	0,  // 25: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
-	3,  // 26: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
-	2,  // 27: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
-	8,  // 28: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
-	5,  // 29: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
-	11, // 30: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
-	7,  // 31: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
-	10, // 32: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
-	11, // 33: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
-	13, // 34: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
-	16, // 35: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
-	19, // 36: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
-	24, // [24:37] is the sub-list for method output_type
-	11, // [11:24] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	21, // 2: transaction.Lookup.pos:type_name -> library.Pos
+	5,  // 3: transaction.Lookups.lookups:type_name -> transaction.Lookup
+	20, // 4: transaction.Sentence.sentence:type_name -> library.Sentence
+	8,  // 5: transaction.Sentences.sentences:type_name -> transaction.Sentence
+	22, // 6: transaction.Paragraph.paragraph:type_name -> library.Paragraph
+	23, // 7: transaction.Paragraph.document:type_name -> library.Document
+	24, // 8: transaction.Paragraph.course:type_name -> library.Course
+	11, // 9: transaction.Paragraphs.paragraphs:type_name -> transaction.Paragraph
+	14, // 10: transaction.ListenDisplays.listen_displays:type_name -> transaction.ListenDisplay
+	17, // 11: transaction.SpeakDisplays.speak_displays:type_name -> transaction.SpeakDisplay
+	1,  // 12: transaction.TransactionService.ListListen:input_type -> transaction.ListenRequest
+	0,  // 13: transaction.TransactionService.EndLearnListen:input_type -> transaction.Listen
+	4,  // 14: transaction.TransactionService.ListSpeak:input_type -> transaction.SpeakRequest
+	2,  // 15: transaction.TransactionService.EndLearnSpeak:input_type -> transaction.Speak
+	8,  // 16: transaction.TransactionService.CreateSentence:input_type -> transaction.Sentence
+	5,  // 17: transaction.TransactionService.CreateLookup:input_type -> transaction.Lookup
+	11, // 18: transaction.TransactionService.CreateParagraph:input_type -> transaction.Paragraph
+	6,  // 19: transaction.TransactionService.ListLookup:input_type -> transaction.LookupRequest
+	9,  // 20: transaction.TransactionService.ListSentence:input_type -> transaction.SentenceRequest
+	12, // 21: transaction.TransactionService.GetParagraphMax:input_type -> transaction.ParagraphRequest
+	12, // 22: transaction.TransactionService.ListParagraph:input_type -> transaction.ParagraphRequest
+	15, // 23: transaction.TransactionService.ListListenDisplay:input_type -> transaction.ListenDisplayRequest
+	18, // 24: transaction.TransactionService.ListSpeakDisplay:input_type -> transaction.SpeakDisplayRequest
+	0,  // 25: transaction.TransactionService.ListListen:output_type -> transaction.Listen
+	0,  // 26: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
+	3,  // 27: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
+	2,  // 28: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
+	8,  // 29: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
+	5,  // 30: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
+	11, // 31: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
+	7,  // 32: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
+	10, // 33: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
+	11, // 34: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
+	13, // 35: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
+	16, // 36: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
+	19, // 37: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
+	25, // [25:38] is the sub-list for method output_type
+	12, // [12:25] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_transaction_proto_init() }

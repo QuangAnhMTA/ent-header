@@ -102,7 +102,9 @@ message Lookup {
 	int64 created_at = 6;
     // `gorm:"-"`
 	library.Sentence sentence = 7;
-	
+	int64 sentence_pos_id = 8;
+    // `gorm:"-"`
+	library.Pos pos = 9;
 }
 message LookupRequest {
 	int64 id = 1;
@@ -110,6 +112,7 @@ message LookupRequest {
 	int64 sentence_id =3;
 	int64 position = 4;
 	int64 created_at = 6;
+	int64 sentence_pos_id = 8;
 	int32 limit =17;
 	int32 offset = 18;
 	repeated string includes =19;
