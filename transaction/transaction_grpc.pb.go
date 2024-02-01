@@ -36,6 +36,9 @@ type TransactionServiceClient interface {
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	ListListenDisplay(ctx context.Context, in *ListenDisplayRequest, opts ...grpc.CallOption) (*ListenDisplays, error)
 	ListSpeakDisplay(ctx context.Context, in *SpeakDisplayRequest, opts ...grpc.CallOption) (*SpeakDisplays, error)
+	ListFavourite(ctx context.Context, in *FavouriteRequest, opts ...grpc.CallOption) (*Favourites, error)
+	CreateFavourite(ctx context.Context, in *Favourite, opts ...grpc.CallOption) (*Favourite, error)
+	DeleteFavourite(ctx context.Context, in *Favourite, opts ...grpc.CallOption) (*Favourite, error)
 }
 
 type transactionServiceClient struct {
@@ -163,6 +166,33 @@ func (c *transactionServiceClient) ListSpeakDisplay(ctx context.Context, in *Spe
 	return out, nil
 }
 
+func (c *transactionServiceClient) ListFavourite(ctx context.Context, in *FavouriteRequest, opts ...grpc.CallOption) (*Favourites, error) {
+	out := new(Favourites)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListFavourite", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) CreateFavourite(ctx context.Context, in *Favourite, opts ...grpc.CallOption) (*Favourite, error) {
+	out := new(Favourite)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateFavourite", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) DeleteFavourite(ctx context.Context, in *Favourite, opts ...grpc.CallOption) (*Favourite, error) {
+	out := new(Favourite)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/DeleteFavourite", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -181,6 +211,9 @@ type TransactionServiceServer interface {
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	ListListenDisplay(context.Context, *ListenDisplayRequest) (*ListenDisplays, error)
 	ListSpeakDisplay(context.Context, *SpeakDisplayRequest) (*SpeakDisplays, error)
+	ListFavourite(context.Context, *FavouriteRequest) (*Favourites, error)
+	CreateFavourite(context.Context, *Favourite) (*Favourite, error)
+	DeleteFavourite(context.Context, *Favourite) (*Favourite, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -225,6 +258,15 @@ func (UnimplementedTransactionServiceServer) ListListenDisplay(context.Context, 
 }
 func (UnimplementedTransactionServiceServer) ListSpeakDisplay(context.Context, *SpeakDisplayRequest) (*SpeakDisplays, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSpeakDisplay not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListFavourite(context.Context, *FavouriteRequest) (*Favourites, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListFavourite not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateFavourite(context.Context, *Favourite) (*Favourite, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFavourite not implemented")
+}
+func (UnimplementedTransactionServiceServer) DeleteFavourite(context.Context, *Favourite) (*Favourite, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteFavourite not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -472,6 +514,60 @@ func _TransactionService_ListSpeakDisplay_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_ListFavourite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FavouriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListFavourite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListFavourite",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListFavourite(ctx, req.(*FavouriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_CreateFavourite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Favourite)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateFavourite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateFavourite",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateFavourite(ctx, req.(*Favourite))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_DeleteFavourite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Favourite)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).DeleteFavourite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/DeleteFavourite",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).DeleteFavourite(ctx, req.(*Favourite))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -530,6 +626,18 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListSpeakDisplay",
 			Handler:    _TransactionService_ListSpeakDisplay_Handler,
+		},
+		{
+			MethodName: "ListFavourite",
+			Handler:    _TransactionService_ListFavourite_Handler,
+		},
+		{
+			MethodName: "CreateFavourite",
+			Handler:    _TransactionService_CreateFavourite_Handler,
+		},
+		{
+			MethodName: "DeleteFavourite",
+			Handler:    _TransactionService_DeleteFavourite_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

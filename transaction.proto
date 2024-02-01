@@ -22,6 +22,9 @@ service TransactionService {
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc ListListenDisplay(ListenDisplayRequest) returns (ListenDisplays);
   rpc ListSpeakDisplay(SpeakDisplayRequest) returns (SpeakDisplays);
+  rpc ListFavourite(FavouriteRequest) returns (Favourites);
+  rpc CreateFavourite(Favourite) returns (Favourite);
+  rpc DeleteFavourite(Favourite) returns (Favourite);
 }
 
 
@@ -240,5 +243,36 @@ message SpeakDisplayRequest {
 }
 message SpeakDisplays {
 	repeated SpeakDisplay speak_displays = 1;
+	int64 total = 2;
+}
+
+
+
+
+message Favourite {
+  	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 member_id = 2;
+	string item = 3;
+	int64 object_id = 4;
+}
+
+
+message FavouriteRequest {
+  int64 id = 1;
+  int64 member_id = 2;
+  string item = 3;
+  int64 object_id = 4;
+  repeated int64 ids = 5;
+  repeated int64 object_ids = 6;
+  int32 limit =17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+}
+
+
+message Favourites {
+	repeated Favourite favourites = 1;
 	int64 total = 2;
 }
