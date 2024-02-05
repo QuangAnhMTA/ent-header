@@ -36,6 +36,9 @@ type ConfigServiceClient interface {
 	GetMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*Member, error)
 	// ------------------category----------------------
 	ListCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*Categories, error)
+	CreateMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error)
+	GetMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error)
+	ListMemberCategories(ctx context.Context, in *MemberCategoryRequest, opts ...grpc.CallOption) (*MemberCategories, error)
 }
 
 type configServiceClient struct {
@@ -145,6 +148,33 @@ func (c *configServiceClient) ListCategories(ctx context.Context, in *CategoryRe
 	return out, nil
 }
 
+func (c *configServiceClient) CreateMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error) {
+	out := new(MemberCategory)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateMemberCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) GetMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error) {
+	out := new(MemberCategory)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/GetMemberCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) ListMemberCategories(ctx context.Context, in *MemberCategoryRequest, opts ...grpc.CallOption) (*MemberCategories, error) {
+	out := new(MemberCategories)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberCategories", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -163,6 +193,9 @@ type ConfigServiceServer interface {
 	GetMember(context.Context, *Member) (*Member, error)
 	// ------------------category----------------------
 	ListCategories(context.Context, *CategoryRequest) (*Categories, error)
+	CreateMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error)
+	GetMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error)
+	ListMemberCategories(context.Context, *MemberCategoryRequest) (*MemberCategories, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -201,6 +234,15 @@ func (UnimplementedConfigServiceServer) GetMember(context.Context, *Member) (*Me
 }
 func (UnimplementedConfigServiceServer) ListCategories(context.Context, *CategoryRequest) (*Categories, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberCategory not implemented")
+}
+func (UnimplementedConfigServiceServer) GetMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberCategory not implemented")
+}
+func (UnimplementedConfigServiceServer) ListMemberCategories(context.Context, *MemberCategoryRequest) (*MemberCategories, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberCategories not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -412,6 +454,60 @@ func _ConfigService_ListCategories_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_CreateMemberCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberCategory)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateMemberCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateMemberCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateMemberCategory(ctx, req.(*MemberCategory))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_GetMemberCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberCategory)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).GetMemberCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/GetMemberCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).GetMemberCategory(ctx, req.(*MemberCategory))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_ListMemberCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListMemberCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListMemberCategories",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListMemberCategories(ctx, req.(*MemberCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -462,6 +558,18 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListCategories",
 			Handler:    _ConfigService_ListCategories_Handler,
+		},
+		{
+			MethodName: "CreateMemberCategory",
+			Handler:    _ConfigService_CreateMemberCategory_Handler,
+		},
+		{
+			MethodName: "GetMemberCategory",
+			Handler:    _ConfigService_GetMemberCategory_Handler,
+		},
+		{
+			MethodName: "ListMemberCategories",
+			Handler:    _ConfigService_ListMemberCategories_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
