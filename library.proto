@@ -20,6 +20,8 @@ service LibraryService {
   rpc ListPronounce (PronounceRequest) returns (Pronounces);
   rpc GetPronounce (PronounceRequest) returns (Pronounce);
   rpc ListSentencePoses(SentencePosRequest) returns (SentencePoses);
+  rpc ListKnowledge (KnowledgeRequest) returns (Knowledges);
+  rpc GetKnowledge (Knowledge) returns (Knowledge);
  }
 
 
@@ -877,3 +879,95 @@ message Pronounces {
   repeated Pronounce pronounces = 2;
 }
 
+
+
+
+
+
+message Knowledge {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 parent_id = 2;
+  string title = 3;
+  // `gorm:"text"`
+  string definition = 4;
+  // `gorm:"text"`
+  string definition_vi = 5;
+  // `gorm:"text"`
+  string keywords =6;
+  int32 limit = 7;
+  int32 type = 8;
+  int32 position = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+  Status status = 12;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message KnowledgeRequest {
+  int64 id = 1;
+  int64 parent_id = 2;
+  string title = 3;
+  string definition = 4;
+  string definition_vi = 5;
+  string keywords =6;
+  int32 limit = 7;
+  int32 type = 8;
+  int32 position = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+  int32 status = 12;  
+  repeated int64 ids = 14;
+  repeated int64 parent_ids = 15;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+}
+
+message Knowledges {
+  repeated Knowledge knowledges = 1;
+  int32 total = 2;
+}
+
+
+
+message KnowledgeExample {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    int64 knowledge_id = 2;
+    // `gorm:"text"`
+    string content = 3;
+    // `gorm:"text"`
+    string content_vi = 4;
+    string keywords = 5;
+    Status status = 6;  
+    enum Status {
+        default_state = 0;
+        deactive = 1;
+        active = 2;
+    }
+}
+
+message KnowledgeExampleRequest {
+  int64 id = 1;
+  int64 knowledge_id = 2;
+  string content = 3;
+  string content_vi = 4;
+  string keywords = 5;
+  int32 status = 6; 
+  repeated int64 ids = 14;
+  repeated int64 knowledge_ids = 15;
+  int32 limit = 17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19; 
+}
+
+message KnowledgeExamples {
+  repeated KnowledgeExample knowledge_examples =1;
+  int32 total = 2;
+}

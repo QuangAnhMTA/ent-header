@@ -37,6 +37,8 @@ type LibraryServiceClient interface {
 	ListPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounces, error)
 	GetPronounce(ctx context.Context, in *PronounceRequest, opts ...grpc.CallOption) (*Pronounce, error)
 	ListSentencePoses(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error)
+	ListKnowledge(ctx context.Context, in *KnowledgeRequest, opts ...grpc.CallOption) (*Knowledges, error)
+	GetKnowledge(ctx context.Context, in *Knowledge, opts ...grpc.CallOption) (*Knowledge, error)
 }
 
 type libraryServiceClient struct {
@@ -173,6 +175,24 @@ func (c *libraryServiceClient) ListSentencePoses(ctx context.Context, in *Senten
 	return out, nil
 }
 
+func (c *libraryServiceClient) ListKnowledge(ctx context.Context, in *KnowledgeRequest, opts ...grpc.CallOption) (*Knowledges, error) {
+	out := new(Knowledges)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListKnowledge", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) GetKnowledge(ctx context.Context, in *Knowledge, opts ...grpc.CallOption) (*Knowledge, error) {
+	out := new(Knowledge)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/GetKnowledge", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -192,6 +212,8 @@ type LibraryServiceServer interface {
 	ListPronounce(context.Context, *PronounceRequest) (*Pronounces, error)
 	GetPronounce(context.Context, *PronounceRequest) (*Pronounce, error)
 	ListSentencePoses(context.Context, *SentencePosRequest) (*SentencePoses, error)
+	ListKnowledge(context.Context, *KnowledgeRequest) (*Knowledges, error)
+	GetKnowledge(context.Context, *Knowledge) (*Knowledge, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -239,6 +261,12 @@ func (UnimplementedLibraryServiceServer) GetPronounce(context.Context, *Pronounc
 }
 func (UnimplementedLibraryServiceServer) ListSentencePoses(context.Context, *SentencePosRequest) (*SentencePoses, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSentencePoses not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListKnowledge(context.Context, *KnowledgeRequest) (*Knowledges, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListKnowledge not implemented")
+}
+func (UnimplementedLibraryServiceServer) GetKnowledge(context.Context, *Knowledge) (*Knowledge, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetKnowledge not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -504,6 +532,42 @@ func _LibraryService_ListSentencePoses_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_ListKnowledge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(KnowledgeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListKnowledge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListKnowledge",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListKnowledge(ctx, req.(*KnowledgeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_GetKnowledge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Knowledge)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).GetKnowledge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/GetKnowledge",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).GetKnowledge(ctx, req.(*Knowledge))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -566,6 +630,14 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListSentencePoses",
 			Handler:    _LibraryService_ListSentencePoses_Handler,
+		},
+		{
+			MethodName: "ListKnowledge",
+			Handler:    _LibraryService_ListKnowledge_Handler,
+		},
+		{
+			MethodName: "GetKnowledge",
+			Handler:    _LibraryService_GetKnowledge_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
