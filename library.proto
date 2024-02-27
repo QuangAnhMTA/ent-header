@@ -906,6 +906,8 @@ message Knowledge {
       deactive = 1;
       active = 2;
   }
+  // `gorm:"-"`
+  repeated KnowledgeExample knowledge_examples = 13;
 }
 
 message KnowledgeRequest {
