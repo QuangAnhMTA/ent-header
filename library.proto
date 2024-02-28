@@ -665,16 +665,16 @@ message Phrase {
     // `gorm:"primaryKey;not null;autoIncrement"`
     int64 id = 1;
     int64 sentence_id = 2;
-    string content = 3;
-    string component = 4;
-    string translation = 5;
-    Status status = 6;  
+    string words = 3;
+    string label = 4;
+    string head = 5;
+    string translation =6;
+    Status status = 7;  
     enum Status {
         default_state = 0;
         deactive = 1;
         active = 2;
     }
-    int64 position = 7;
 }
 message PhraseRequest {
   int64 id = 1;
@@ -879,11 +879,6 @@ message Pronounces {
   repeated Pronounce pronounces = 2;
 }
 
-
-
-
-
-
 message Knowledge {
   // `gorm:"primaryKey;not null;autoIncrement"`
   int64 id = 1;
@@ -972,4 +967,66 @@ message KnowledgeExampleRequest {
 message KnowledgeExamples {
   repeated KnowledgeExample knowledge_examples =1;
   int32 total = 2;
+}
+
+
+message Tag {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    string title = 2;
+    Status status = 3;  
+    enum Status {
+        default_state = 0;
+        deactive = 1;
+        active = 2;
+    }
+}
+
+message TagRequest {
+    int64 id = 1;
+    string title = 2;
+    int32 status = 3;  
+    int32 limit = 17;
+    int32 offset = 18;
+    repeated int64 ids = 14;
+    repeated string cols = 16;
+    repeated string includes =19; 
+}  
+
+message Tags {
+  int32 total = 1;
+  repeated Tag tags = 2;
+}
+
+message TagDetail {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 tag_id = 2;
+  string item = 3;
+  int64 object_id = 4;
+  Status status = 5;  
+  enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
+}
+
+message TagDetailRequest {
+  int64 id = 1;
+  int64 tag_id = 2;
+  string item = 3;
+  int64 object_id = 4;
+  int32 status = 5; 
+  repeated int64 ids = 6;
+  repeated int64 object_ids = 7; 
+  int32 limit = 17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19; 
+}
+
+message TagDetails {
+  int32 total = 1;
+  repeated Tag tag_details = 2;
 }
