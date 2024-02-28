@@ -679,9 +679,11 @@ message Phrase {
 message PhraseRequest {
   int64 id = 1;
   int64 sentence_id = 2;
-  string content = 3;
-  string component = 4;
-  int32 status = 5;  
+  string words = 3;
+  string label = 4;
+  string head = 5;
+  string translation =6;
+  int32 status = 7;  
   repeated int64 ids = 11; 
   int32 limit =17;
   int32 offset = 18;
