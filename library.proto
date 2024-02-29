@@ -1063,6 +1063,12 @@ message LabelRequest {
     string example = 7;
     string explain_en = 8;
     string explain_vi = 9;
+    int32 limit = 17;
+    int32 offset = 18;
+    repeated string cols = 16;
+    repeated string includes =19; 
+    repeated string keyxs = 20;
+    repeated int64 ids = 21;
 }
 
 message Labels {
