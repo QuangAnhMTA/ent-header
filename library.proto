@@ -502,6 +502,8 @@ message Pos {
   Word word = 9;
   // `gorm:"-"`
   int64 sentence_pos_id = 10;
+  // `gorm:"-"`
+  string audio = 11;
 }
 
 message PosRequest {
@@ -675,6 +677,8 @@ message Phrase {
         deactive = 1;
         active = 2;
     }
+    // `gorm:"-"`
+    Label label_detail  = 8;
 }
 message PhraseRequest {
   int64 id = 1;
@@ -1031,4 +1035,37 @@ message TagDetailRequest {
 message TagDetails {
   int32 total = 1;
   repeated Tag tag_details = 2;
+}
+
+
+message Label {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    string keyx = 2;
+    string title_en = 3;
+    string title_vi = 4;
+    string description_en = 5;
+    string description_vi = 6;
+    string example = 7;
+    string explain_en = 8;
+    string explain_vi = 9;
+}
+
+
+
+message LabelRequest {
+    int64 id = 1;
+    string keyx = 2;
+    string title_en = 3;
+    string title_vi = 4;
+    string description_en = 5;
+    string description_vi = 6;
+    string example = 7;
+    string explain_en = 8;
+    string explain_vi = 9;
+}
+
+message Labels {
+  int32 total = 1;
+  repeated Label labels = 2;
 }
