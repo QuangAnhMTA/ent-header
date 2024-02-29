@@ -173,6 +173,12 @@ message Paragraph {
 	library.Document document = 8;
 	// `gorm:"-"`
 	library.Course course = 9;
+	Process process = 10;
+	enum Process {
+		default_process = 0;
+		processing = 1;
+		finish = 2;
+	}
 }
 
 
@@ -183,6 +189,7 @@ message ParagraphRequest {
 	int64 paragraph_id = 4;
 	int64 document_id = 5;
 	int64 created_at = 6;
+	int32 process = 7;
 	int32 limit =17;
 	int32 offset = 18;
 	repeated string cols = 16;

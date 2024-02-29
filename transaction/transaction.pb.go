@@ -21,6 +21,55 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Paragraph_Process int32
+
+const (
+	Paragraph_default_process Paragraph_Process = 0
+	Paragraph_processing      Paragraph_Process = 1
+	Paragraph_finish          Paragraph_Process = 2
+)
+
+// Enum value maps for Paragraph_Process.
+var (
+	Paragraph_Process_name = map[int32]string{
+		0: "default_process",
+		1: "processing",
+		2: "finish",
+	}
+	Paragraph_Process_value = map[string]int32{
+		"default_process": 0,
+		"processing":      1,
+		"finish":          2,
+	}
+)
+
+func (x Paragraph_Process) Enum() *Paragraph_Process {
+	p := new(Paragraph_Process)
+	*p = x
+	return p
+}
+
+func (x Paragraph_Process) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Paragraph_Process) Descriptor() protoreflect.EnumDescriptor {
+	return file_transaction_proto_enumTypes[0].Descriptor()
+}
+
+func (Paragraph_Process) Type() protoreflect.EnumType {
+	return &file_transaction_proto_enumTypes[0]
+}
+
+func (x Paragraph_Process) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Paragraph_Process.Descriptor instead.
+func (Paragraph_Process) EnumDescriptor() ([]byte, []int) {
+	return file_transaction_proto_rawDescGZIP(), []int{11, 0}
+}
+
 type Favourite_Status int32
 
 const (
@@ -54,11 +103,11 @@ func (x Favourite_Status) String() string {
 }
 
 func (Favourite_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_transaction_proto_enumTypes[0].Descriptor()
+	return file_transaction_proto_enumTypes[1].Descriptor()
 }
 
 func (Favourite_Status) Type() protoreflect.EnumType {
-	return &file_transaction_proto_enumTypes[0]
+	return &file_transaction_proto_enumTypes[1]
 }
 
 func (x Favourite_Status) Number() protoreflect.EnumNumber {
@@ -1252,7 +1301,8 @@ type Paragraph struct {
 	// `gorm:"-"`
 	Document *library.Document `protobuf:"bytes,8,opt,name=document,proto3" json:"document,omitempty" gorm:"-"`
 	// `gorm:"-"`
-	Course *library.Course `protobuf:"bytes,9,opt,name=course,proto3" json:"course,omitempty" gorm:"-"`
+	Course  *library.Course   `protobuf:"bytes,9,opt,name=course,proto3" json:"course,omitempty" gorm:"-"`
+	Process Paragraph_Process `protobuf:"varint,10,opt,name=process,proto3,enum=transaction.Paragraph_Process" json:"process,omitempty"`
 }
 
 func (x *Paragraph) Reset() {
@@ -1350,6 +1400,13 @@ func (x *Paragraph) GetCourse() *library.Course {
 	return nil
 }
 
+func (x *Paragraph) GetProcess() Paragraph_Process {
+	if x != nil {
+		return x.Process
+	}
+	return Paragraph_default_process
+}
+
 type ParagraphRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1361,6 +1418,7 @@ type ParagraphRequest struct {
 	ParagraphId int64    `protobuf:"varint,4,opt,name=paragraph_id,json=paragraphId,proto3" json:"paragraph_id,omitempty"`
 	DocumentId  int64    `protobuf:"varint,5,opt,name=document_id,json=documentId,proto3" json:"document_id,omitempty"`
 	CreatedAt   int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Process     int32    `protobuf:"varint,7,opt,name=process,proto3" json:"process,omitempty"`
 	Limit       int32    `protobuf:"varint,17,opt,name=limit,proto3" json:"limit,omitempty"`
 	Offset      int32    `protobuf:"varint,18,opt,name=offset,proto3" json:"offset,omitempty"`
 	Cols        []string `protobuf:"bytes,16,rep,name=cols,proto3" json:"cols,omitempty"`
@@ -1437,6 +1495,13 @@ func (x *ParagraphRequest) GetDocumentId() int64 {
 func (x *ParagraphRequest) GetCreatedAt() int64 {
 	if x != nil {
 		return x.CreatedAt
+	}
+	return 0
+}
+
+func (x *ParagraphRequest) GetProcess() int32 {
+	if x != nil {
+		return x.Process
 	}
 	return 0
 }
@@ -2594,7 +2659,7 @@ var file_transaction_proto_rawDesc = []byte{
 	0x0b, 0x32, 0x15, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
 	0x53, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x09, 0x73, 0x65, 0x6e, 0x74, 0x65, 0x6e,
 	0x63, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x22, 0xc2, 0x02, 0x0a, 0x09, 0x50, 0x61,
+	0x28, 0x03, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x22, 0xb8, 0x03, 0x0a, 0x09, 0x50, 0x61,
 	0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d, 0x62, 0x65,
 	0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65, 0x6d, 0x62,
@@ -2614,19 +2679,28 @@ var file_transaction_proto_rawDesc = []byte{
 	0x72, 0x79, 0x2e, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x08, 0x64, 0x6f, 0x63,
 	0x75, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x27, 0x0a, 0x06, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x18,
 	0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e,
-	0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x52, 0x06, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x22, 0x9d,
-	0x02, 0x0a, 0x10, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
-	0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x69, 0x64,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x49, 0x64,
-	0x12, 0x1b, 0x0a, 0x09, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x08, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x49, 0x64, 0x12, 0x21, 0x0a,
-	0x0c, 0x70, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x0b, 0x70, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x49, 0x64,
-	0x12, 0x1f, 0x0a, 0x0b, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49,
-	0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18,
-	0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
+	0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x52, 0x06, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x12, 0x38,
+	0x0a, 0x07, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x0e, 0x32,
+	0x1e, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x61,
+	0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x2e, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x52,
+	0x07, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x22, 0x3a, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x63,
+	0x65, 0x73, 0x73, 0x12, 0x13, 0x0a, 0x0f, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f, 0x70,
+	0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x63,
+	0x65, 0x73, 0x73, 0x69, 0x6e, 0x67, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x66, 0x69, 0x6e, 0x69,
+	0x73, 0x68, 0x10, 0x02, 0x22, 0xb7, 0x02, 0x0a, 0x10, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61,
+	0x70, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d,
+	0x62, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65,
+	0x6d, 0x62, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65,
+	0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x63, 0x6f, 0x75, 0x72, 0x73,
+	0x65, 0x49, 0x64, 0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68,
+	0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x70, 0x61, 0x72, 0x61, 0x67,
+	0x72, 0x61, 0x70, 0x68, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65,
+	0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x64, 0x6f, 0x63,
+	0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x73,
+	0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73,
 	0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x11, 0x20, 0x01, 0x28, 0x05, 0x52,
 	0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74,
 	0x18, 0x12, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x12,
@@ -2865,94 +2939,96 @@ func file_transaction_proto_rawDescGZIP() []byte {
 	return file_transaction_proto_rawDescData
 }
 
-var file_transaction_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_transaction_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_transaction_proto_goTypes = []interface{}{
-	(Favourite_Status)(0),        // 0: transaction.Favourite.Status
-	(*Listen)(nil),               // 1: transaction.Listen
-	(*ListenRequest)(nil),        // 2: transaction.ListenRequest
-	(*Speak)(nil),                // 3: transaction.Speak
-	(*Speaks)(nil),               // 4: transaction.Speaks
-	(*SpeakRequest)(nil),         // 5: transaction.SpeakRequest
-	(*Lookup)(nil),               // 6: transaction.Lookup
-	(*LookupRequest)(nil),        // 7: transaction.LookupRequest
-	(*Lookups)(nil),              // 8: transaction.Lookups
-	(*Sentence)(nil),             // 9: transaction.Sentence
-	(*SentenceRequest)(nil),      // 10: transaction.SentenceRequest
-	(*Sentences)(nil),            // 11: transaction.Sentences
-	(*Paragraph)(nil),            // 12: transaction.Paragraph
-	(*ParagraphRequest)(nil),     // 13: transaction.ParagraphRequest
-	(*Paragraphs)(nil),           // 14: transaction.Paragraphs
-	(*ListenDisplay)(nil),        // 15: transaction.ListenDisplay
-	(*ListenDisplayRequest)(nil), // 16: transaction.ListenDisplayRequest
-	(*ListenDisplays)(nil),       // 17: transaction.ListenDisplays
-	(*SpeakDisplay)(nil),         // 18: transaction.SpeakDisplay
-	(*SpeakDisplayRequest)(nil),  // 19: transaction.SpeakDisplayRequest
-	(*SpeakDisplays)(nil),        // 20: transaction.SpeakDisplays
-	(*Favourite)(nil),            // 21: transaction.Favourite
-	(*FavouriteRequest)(nil),     // 22: transaction.FavouriteRequest
-	(*Favourites)(nil),           // 23: transaction.Favourites
-	(*library.Sentence)(nil),     // 24: library.Sentence
-	(*library.SentencePos)(nil),  // 25: library.SentencePos
-	(*library.Paragraph)(nil),    // 26: library.Paragraph
-	(*library.Document)(nil),     // 27: library.Document
-	(*library.Course)(nil),       // 28: library.Course
+	(Paragraph_Process)(0),       // 0: transaction.Paragraph.Process
+	(Favourite_Status)(0),        // 1: transaction.Favourite.Status
+	(*Listen)(nil),               // 2: transaction.Listen
+	(*ListenRequest)(nil),        // 3: transaction.ListenRequest
+	(*Speak)(nil),                // 4: transaction.Speak
+	(*Speaks)(nil),               // 5: transaction.Speaks
+	(*SpeakRequest)(nil),         // 6: transaction.SpeakRequest
+	(*Lookup)(nil),               // 7: transaction.Lookup
+	(*LookupRequest)(nil),        // 8: transaction.LookupRequest
+	(*Lookups)(nil),              // 9: transaction.Lookups
+	(*Sentence)(nil),             // 10: transaction.Sentence
+	(*SentenceRequest)(nil),      // 11: transaction.SentenceRequest
+	(*Sentences)(nil),            // 12: transaction.Sentences
+	(*Paragraph)(nil),            // 13: transaction.Paragraph
+	(*ParagraphRequest)(nil),     // 14: transaction.ParagraphRequest
+	(*Paragraphs)(nil),           // 15: transaction.Paragraphs
+	(*ListenDisplay)(nil),        // 16: transaction.ListenDisplay
+	(*ListenDisplayRequest)(nil), // 17: transaction.ListenDisplayRequest
+	(*ListenDisplays)(nil),       // 18: transaction.ListenDisplays
+	(*SpeakDisplay)(nil),         // 19: transaction.SpeakDisplay
+	(*SpeakDisplayRequest)(nil),  // 20: transaction.SpeakDisplayRequest
+	(*SpeakDisplays)(nil),        // 21: transaction.SpeakDisplays
+	(*Favourite)(nil),            // 22: transaction.Favourite
+	(*FavouriteRequest)(nil),     // 23: transaction.FavouriteRequest
+	(*Favourites)(nil),           // 24: transaction.Favourites
+	(*library.Sentence)(nil),     // 25: library.Sentence
+	(*library.SentencePos)(nil),  // 26: library.SentencePos
+	(*library.Paragraph)(nil),    // 27: library.Paragraph
+	(*library.Document)(nil),     // 28: library.Document
+	(*library.Course)(nil),       // 29: library.Course
 }
 var file_transaction_proto_depIdxs = []int32{
-	3,  // 0: transaction.Speaks.speaks:type_name -> transaction.Speak
-	24, // 1: transaction.Lookup.sentence:type_name -> library.Sentence
-	25, // 2: transaction.Lookup.sentence_pos:type_name -> library.SentencePos
-	6,  // 3: transaction.Lookups.lookups:type_name -> transaction.Lookup
-	24, // 4: transaction.Sentence.sentence:type_name -> library.Sentence
-	9,  // 5: transaction.Sentences.sentences:type_name -> transaction.Sentence
-	26, // 6: transaction.Paragraph.paragraph:type_name -> library.Paragraph
-	27, // 7: transaction.Paragraph.document:type_name -> library.Document
-	28, // 8: transaction.Paragraph.course:type_name -> library.Course
-	12, // 9: transaction.Paragraphs.paragraphs:type_name -> transaction.Paragraph
-	15, // 10: transaction.ListenDisplays.listen_displays:type_name -> transaction.ListenDisplay
-	18, // 11: transaction.SpeakDisplays.speak_displays:type_name -> transaction.SpeakDisplay
-	26, // 12: transaction.Favourite.paragraph:type_name -> library.Paragraph
-	27, // 13: transaction.Favourite.document:type_name -> library.Document
-	28, // 14: transaction.Favourite.course:type_name -> library.Course
-	0,  // 15: transaction.Favourite.status:type_name -> transaction.Favourite.Status
-	21, // 16: transaction.Favourites.favourites:type_name -> transaction.Favourite
-	2,  // 17: transaction.TransactionService.ListListen:input_type -> transaction.ListenRequest
-	1,  // 18: transaction.TransactionService.EndLearnListen:input_type -> transaction.Listen
-	5,  // 19: transaction.TransactionService.ListSpeak:input_type -> transaction.SpeakRequest
-	3,  // 20: transaction.TransactionService.EndLearnSpeak:input_type -> transaction.Speak
-	9,  // 21: transaction.TransactionService.CreateSentence:input_type -> transaction.Sentence
-	6,  // 22: transaction.TransactionService.CreateLookup:input_type -> transaction.Lookup
-	12, // 23: transaction.TransactionService.CreateParagraph:input_type -> transaction.Paragraph
-	7,  // 24: transaction.TransactionService.ListLookup:input_type -> transaction.LookupRequest
-	10, // 25: transaction.TransactionService.ListSentence:input_type -> transaction.SentenceRequest
-	13, // 26: transaction.TransactionService.GetParagraphMax:input_type -> transaction.ParagraphRequest
-	13, // 27: transaction.TransactionService.ListParagraph:input_type -> transaction.ParagraphRequest
-	16, // 28: transaction.TransactionService.ListListenDisplay:input_type -> transaction.ListenDisplayRequest
-	19, // 29: transaction.TransactionService.ListSpeakDisplay:input_type -> transaction.SpeakDisplayRequest
-	22, // 30: transaction.TransactionService.ListFavourite:input_type -> transaction.FavouriteRequest
-	21, // 31: transaction.TransactionService.CreateFavourite:input_type -> transaction.Favourite
-	21, // 32: transaction.TransactionService.DeleteFavourite:input_type -> transaction.Favourite
-	1,  // 33: transaction.TransactionService.ListListen:output_type -> transaction.Listen
-	1,  // 34: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
-	4,  // 35: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
-	3,  // 36: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
-	9,  // 37: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
-	6,  // 38: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
-	12, // 39: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
-	8,  // 40: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
-	11, // 41: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
-	12, // 42: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
-	14, // 43: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
-	17, // 44: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
-	20, // 45: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
-	23, // 46: transaction.TransactionService.ListFavourite:output_type -> transaction.Favourites
-	21, // 47: transaction.TransactionService.CreateFavourite:output_type -> transaction.Favourite
-	21, // 48: transaction.TransactionService.DeleteFavourite:output_type -> transaction.Favourite
-	33, // [33:49] is the sub-list for method output_type
-	17, // [17:33] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	4,  // 0: transaction.Speaks.speaks:type_name -> transaction.Speak
+	25, // 1: transaction.Lookup.sentence:type_name -> library.Sentence
+	26, // 2: transaction.Lookup.sentence_pos:type_name -> library.SentencePos
+	7,  // 3: transaction.Lookups.lookups:type_name -> transaction.Lookup
+	25, // 4: transaction.Sentence.sentence:type_name -> library.Sentence
+	10, // 5: transaction.Sentences.sentences:type_name -> transaction.Sentence
+	27, // 6: transaction.Paragraph.paragraph:type_name -> library.Paragraph
+	28, // 7: transaction.Paragraph.document:type_name -> library.Document
+	29, // 8: transaction.Paragraph.course:type_name -> library.Course
+	0,  // 9: transaction.Paragraph.process:type_name -> transaction.Paragraph.Process
+	13, // 10: transaction.Paragraphs.paragraphs:type_name -> transaction.Paragraph
+	16, // 11: transaction.ListenDisplays.listen_displays:type_name -> transaction.ListenDisplay
+	19, // 12: transaction.SpeakDisplays.speak_displays:type_name -> transaction.SpeakDisplay
+	27, // 13: transaction.Favourite.paragraph:type_name -> library.Paragraph
+	28, // 14: transaction.Favourite.document:type_name -> library.Document
+	29, // 15: transaction.Favourite.course:type_name -> library.Course
+	1,  // 16: transaction.Favourite.status:type_name -> transaction.Favourite.Status
+	22, // 17: transaction.Favourites.favourites:type_name -> transaction.Favourite
+	3,  // 18: transaction.TransactionService.ListListen:input_type -> transaction.ListenRequest
+	2,  // 19: transaction.TransactionService.EndLearnListen:input_type -> transaction.Listen
+	6,  // 20: transaction.TransactionService.ListSpeak:input_type -> transaction.SpeakRequest
+	4,  // 21: transaction.TransactionService.EndLearnSpeak:input_type -> transaction.Speak
+	10, // 22: transaction.TransactionService.CreateSentence:input_type -> transaction.Sentence
+	7,  // 23: transaction.TransactionService.CreateLookup:input_type -> transaction.Lookup
+	13, // 24: transaction.TransactionService.CreateParagraph:input_type -> transaction.Paragraph
+	8,  // 25: transaction.TransactionService.ListLookup:input_type -> transaction.LookupRequest
+	11, // 26: transaction.TransactionService.ListSentence:input_type -> transaction.SentenceRequest
+	14, // 27: transaction.TransactionService.GetParagraphMax:input_type -> transaction.ParagraphRequest
+	14, // 28: transaction.TransactionService.ListParagraph:input_type -> transaction.ParagraphRequest
+	17, // 29: transaction.TransactionService.ListListenDisplay:input_type -> transaction.ListenDisplayRequest
+	20, // 30: transaction.TransactionService.ListSpeakDisplay:input_type -> transaction.SpeakDisplayRequest
+	23, // 31: transaction.TransactionService.ListFavourite:input_type -> transaction.FavouriteRequest
+	22, // 32: transaction.TransactionService.CreateFavourite:input_type -> transaction.Favourite
+	22, // 33: transaction.TransactionService.DeleteFavourite:input_type -> transaction.Favourite
+	2,  // 34: transaction.TransactionService.ListListen:output_type -> transaction.Listen
+	2,  // 35: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
+	5,  // 36: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
+	4,  // 37: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
+	10, // 38: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
+	7,  // 39: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
+	13, // 40: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
+	9,  // 41: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
+	12, // 42: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
+	13, // 43: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
+	15, // 44: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
+	18, // 45: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
+	21, // 46: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
+	24, // 47: transaction.TransactionService.ListFavourite:output_type -> transaction.Favourites
+	22, // 48: transaction.TransactionService.CreateFavourite:output_type -> transaction.Favourite
+	22, // 49: transaction.TransactionService.DeleteFavourite:output_type -> transaction.Favourite
+	34, // [34:50] is the sub-list for method output_type
+	18, // [18:34] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_transaction_proto_init() }
@@ -3243,7 +3319,7 @@ func file_transaction_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_transaction_proto_rawDesc,
-			NumEnums:      1,
+			NumEnums:      2,
 			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
