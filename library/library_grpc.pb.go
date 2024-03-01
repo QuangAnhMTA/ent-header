@@ -39,6 +39,7 @@ type LibraryServiceClient interface {
 	ListSentencePoses(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePoses, error)
 	ListKnowledge(ctx context.Context, in *KnowledgeRequest, opts ...grpc.CallOption) (*Knowledges, error)
 	GetKnowledge(ctx context.Context, in *Knowledge, opts ...grpc.CallOption) (*Knowledge, error)
+	ListTagDetail(ctx context.Context, in *TagDetailRequest, opts ...grpc.CallOption) (*TagDetails, error)
 }
 
 type libraryServiceClient struct {
@@ -193,6 +194,15 @@ func (c *libraryServiceClient) GetKnowledge(ctx context.Context, in *Knowledge, 
 	return out, nil
 }
 
+func (c *libraryServiceClient) ListTagDetail(ctx context.Context, in *TagDetailRequest, opts ...grpc.CallOption) (*TagDetails, error) {
+	out := new(TagDetails)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListTagDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -214,6 +224,7 @@ type LibraryServiceServer interface {
 	ListSentencePoses(context.Context, *SentencePosRequest) (*SentencePoses, error)
 	ListKnowledge(context.Context, *KnowledgeRequest) (*Knowledges, error)
 	GetKnowledge(context.Context, *Knowledge) (*Knowledge, error)
+	ListTagDetail(context.Context, *TagDetailRequest) (*TagDetails, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -267,6 +278,9 @@ func (UnimplementedLibraryServiceServer) ListKnowledge(context.Context, *Knowled
 }
 func (UnimplementedLibraryServiceServer) GetKnowledge(context.Context, *Knowledge) (*Knowledge, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKnowledge not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListTagDetail(context.Context, *TagDetailRequest) (*TagDetails, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTagDetail not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -568,6 +582,24 @@ func _LibraryService_GetKnowledge_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_ListTagDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TagDetailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListTagDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListTagDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListTagDetail(ctx, req.(*TagDetailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -638,6 +670,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetKnowledge",
 			Handler:    _LibraryService_GetKnowledge_Handler,
+		},
+		{
+			MethodName: "ListTagDetail",
+			Handler:    _LibraryService_ListTagDetail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
