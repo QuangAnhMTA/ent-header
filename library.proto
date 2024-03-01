@@ -1019,6 +1019,13 @@ message TagDetail {
   }
   // `gorm:"-"`
   Tag Tag = 6;
+  // `gorm:"-"`
+  Course course = 7;
+  // `gorm:"-"`
+  Document document = 8;
+  // `gorm:"-"`
+  Paragraph paragraph = 9;
+
 }
 
 message TagDetailRequest {
@@ -1033,11 +1040,12 @@ message TagDetailRequest {
   int32 offset = 18;
   repeated string cols = 16;
   repeated string includes =19; 
+
 }
 
 message TagDetails {
   int32 total = 1;
-  repeated Tag tag_details = 2;
+  repeated TagDetail tag_details = 2;
   Tag tag = 3;
 }
 
