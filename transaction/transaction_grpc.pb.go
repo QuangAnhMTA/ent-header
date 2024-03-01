@@ -30,6 +30,7 @@ type TransactionServiceClient interface {
 	CreateSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
 	CreateLookup(ctx context.Context, in *Lookup, opts ...grpc.CallOption) (*Lookup, error)
 	CreateParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
+	CompleteParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
 	ListLookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*Lookups, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 	GetParagraphMax(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
@@ -106,6 +107,15 @@ func (c *transactionServiceClient) CreateLookup(ctx context.Context, in *Lookup,
 func (c *transactionServiceClient) CreateParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error) {
 	out := new(Paragraph)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) CompleteParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error) {
+	out := new(Paragraph)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CompleteParagraph", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -205,6 +215,7 @@ type TransactionServiceServer interface {
 	CreateSentence(context.Context, *Sentence) (*Sentence, error)
 	CreateLookup(context.Context, *Lookup) (*Lookup, error)
 	CreateParagraph(context.Context, *Paragraph) (*Paragraph, error)
+	CompleteParagraph(context.Context, *Paragraph) (*Paragraph, error)
 	ListLookup(context.Context, *LookupRequest) (*Lookups, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 	GetParagraphMax(context.Context, *ParagraphRequest) (*Paragraph, error)
@@ -240,6 +251,9 @@ func (UnimplementedTransactionServiceServer) CreateLookup(context.Context, *Look
 }
 func (UnimplementedTransactionServiceServer) CreateParagraph(context.Context, *Paragraph) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateParagraph not implemented")
+}
+func (UnimplementedTransactionServiceServer) CompleteParagraph(context.Context, *Paragraph) (*Paragraph, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompleteParagraph not implemented")
 }
 func (UnimplementedTransactionServiceServer) ListLookup(context.Context, *LookupRequest) (*Lookups, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListLookup not implemented")
@@ -402,6 +416,24 @@ func _TransactionService_CreateParagraph_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionServiceServer).CreateParagraph(ctx, req.(*Paragraph))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_CompleteParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Paragraph)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CompleteParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CompleteParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CompleteParagraph(ctx, req.(*Paragraph))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -602,6 +634,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateParagraph",
 			Handler:    _TransactionService_CreateParagraph_Handler,
+		},
+		{
+			MethodName: "CompleteParagraph",
+			Handler:    _TransactionService_CompleteParagraph_Handler,
 		},
 		{
 			MethodName: "ListLookup",

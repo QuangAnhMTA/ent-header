@@ -16,6 +16,7 @@ service TransactionService {
   rpc CreateSentence(Sentence) returns (Sentence);
   rpc CreateLookup(Lookup) returns (Lookup);
   rpc CreateParagraph(Paragraph) returns (Paragraph);
+  rpc CompleteParagraph(Paragraph) returns (Paragraph);
   rpc ListLookup(LookupRequest) returns (Lookups);
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc GetParagraphMax(ParagraphRequest) returns (Paragraph);
