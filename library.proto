@@ -134,6 +134,9 @@ message ParagraphRequest {
   repeated int64 document_ids = 13;
   int64 current_id = 14;
   repeated int64 ids = 15;
+	int64 course_id =16;
+  string order_type = 17;
+  string order_by = 18;
 
 }
 
@@ -205,6 +208,7 @@ message Paragraphs {
   int64 total = 2;
   int64 document_current_id = 4;
   int64 paragraph_current_id = 5;
+  int64 course_current_id = 6;
   Document document =7;
 }
 
