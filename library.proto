@@ -420,6 +420,8 @@ message SentencePos {
   string word_type = 11;
   // `gorm:"-"`
   string phonetic = 12; 
+  // `gorm:"-"`
+  string audio = 13; 
 }
 
 message SentencePosRequest {
@@ -951,7 +953,8 @@ message KnowledgeExample {
     string content = 3;
     // `gorm:"text"`
     string content_vi = 4;
-    string keywords = 5;
+    string keyword = 5;
+    string keyword_vi = 7;
     Status status = 6;  
     enum Status {
         default_state = 0;
