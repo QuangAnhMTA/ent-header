@@ -100,6 +100,7 @@ message RegisterAccountRequest {
     string token = 1;
     string password = 2;
     string device_id = 3;
+    string fullname = 4;
 }
 message RegisterAccountResponse {
     string token = 1;
