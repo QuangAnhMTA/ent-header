@@ -1036,7 +1036,13 @@ message TagDetail {
   Document document = 8;
   // `gorm:"-"`
   Paragraph paragraph = 9;
-
+  // `gorm:"-"`
+  IsFavourite is_favourite = 10;
+  enum IsFavourite {
+      default_is_favourite = 0;
+      no = 1;
+      yes = 2;
+  }
 }
 
 message TagDetailRequest {
