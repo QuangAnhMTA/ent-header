@@ -27,6 +27,7 @@ service TransactionService {
   rpc CreateFavourite(Favourite) returns (Favourite);
   rpc DeleteFavourite(Favourite) returns (Favourite);
   rpc StartParagraph(Paragraph) returns (Paragraph);
+  rpc ListNewDetail(NewDetailRequest) returns(NewDetails);
 }
 
 
@@ -285,7 +286,7 @@ message Favourite {
 	int64 updated_at = 11;
 	Status status = 12;  
     enum Status {
-		default_state = 0;
+		default_status = 0;
 		deactive = 1;
 		active = 2;
 	  }
@@ -312,5 +313,97 @@ message FavouriteRequest {
 
 message Favourites {
 	repeated Favourite favourites = 1;
+	int64 total = 2;
+}
+
+
+message New {
+  	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 member_id = 2;
+	string item = 3;
+	int64 object_id = 4;
+	Type type = 5;  
+	enum Type {
+	  default_type = 0;
+	  look_up = 1;
+	}
+	int64 created_at = 6;
+	int64 updated_at = 7;
+	Status status = 8;
+	enum Status {
+		default_status = 0;
+		deactive = 1;
+		active = 2;
+	}
+	// `gorm:"-"`
+	library.Paragraph paragraph = 9;
+
+}
+
+message NewRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	string item = 3;
+	int64 object_id = 4;
+	int32 type = 5;  
+	int64 created_at = 6;
+	int64 updated_at = 7;
+	int32 status = 8;
+	repeated int64 ids = 9;
+	repeated int64 object_ids = 10;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated string cols = 16;
+	repeated string includes =19;
+}
+
+message News {
+	repeated New News = 1;
+	int64 total = 2;
+}
+
+
+message NewDetail {
+  	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 news_id = 2;
+	string object_item = 3;
+	int64 object_id = 4;
+	int64 created_at = 6;
+	int64 updated_at = 7;
+	enum Status {
+		default_status = 0;
+		deactive = 1;
+		active = 2;
+	}
+	Status status = 8;
+	// `gorm:"-"`
+	library.Sentence sentence = 9;
+	// `gorm:"-"`
+	New new = 10;
+}
+
+
+message NewDetailRequest {
+	int64 id = 1;
+	int64 news_id = 2;
+	string object_item = 3;
+	int64 object_id = 4;
+	int64 created_at = 6;
+	int64 updated_at = 7;
+	int32 status = 8;
+	repeated int64 ids = 9;
+	repeated int64 object_ids = 10;
+	repeated int64 news_ids = 11;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated string cols = 16;
+	repeated string includes =19;
+
+}
+
+message NewDetails {
+	repeated NewDetail new_details = 1;
 	int64 total = 2;
 }

@@ -41,6 +41,7 @@ type TransactionServiceClient interface {
 	CreateFavourite(ctx context.Context, in *Favourite, opts ...grpc.CallOption) (*Favourite, error)
 	DeleteFavourite(ctx context.Context, in *Favourite, opts ...grpc.CallOption) (*Favourite, error)
 	StartParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
+	ListNewDetail(ctx context.Context, in *NewDetailRequest, opts ...grpc.CallOption) (*NewDetails, error)
 }
 
 type transactionServiceClient struct {
@@ -213,6 +214,15 @@ func (c *transactionServiceClient) StartParagraph(ctx context.Context, in *Parag
 	return out, nil
 }
 
+func (c *transactionServiceClient) ListNewDetail(ctx context.Context, in *NewDetailRequest, opts ...grpc.CallOption) (*NewDetails, error) {
+	out := new(NewDetails)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListNewDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -236,6 +246,7 @@ type TransactionServiceServer interface {
 	CreateFavourite(context.Context, *Favourite) (*Favourite, error)
 	DeleteFavourite(context.Context, *Favourite) (*Favourite, error)
 	StartParagraph(context.Context, *Paragraph) (*Paragraph, error)
+	ListNewDetail(context.Context, *NewDetailRequest) (*NewDetails, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -295,6 +306,9 @@ func (UnimplementedTransactionServiceServer) DeleteFavourite(context.Context, *F
 }
 func (UnimplementedTransactionServiceServer) StartParagraph(context.Context, *Paragraph) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartParagraph not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListNewDetail(context.Context, *NewDetailRequest) (*NewDetails, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListNewDetail not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -632,6 +646,24 @@ func _TransactionService_StartParagraph_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_ListNewDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewDetailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListNewDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListNewDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListNewDetail(ctx, req.(*NewDetailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -710,6 +742,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "StartParagraph",
 			Handler:    _TransactionService_StartParagraph_Handler,
+		},
+		{
+			MethodName: "ListNewDetail",
+			Handler:    _TransactionService_ListNewDetail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
