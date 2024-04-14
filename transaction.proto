@@ -28,6 +28,8 @@ service TransactionService {
   rpc DeleteFavourite(Favourite) returns (Favourite);
   rpc StartParagraph(Paragraph) returns (Paragraph);
   rpc ListNewDetail(NewDetailRequest) returns(NewDetails);
+  rpc ListNew(NewRequest) returns(News);
+
 }
 
 
@@ -338,6 +340,8 @@ message New {
 	}
 	// `gorm:"-"`
 	library.Paragraph paragraph = 9;
+	// `gorm:"-"`
+	repeated NewDetail new_details = 10;
 
 }
 
