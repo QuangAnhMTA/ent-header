@@ -148,6 +148,7 @@ message Sentence {
 	library.Sentence sentence = 7;
 	int64 quantity = 8;
 	int64 updated_at = 5;
+	int64 paragraph_id = 9;
 }
 message SentenceRequest {
 	int64 id = 1;
