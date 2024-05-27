@@ -29,7 +29,8 @@ service TransactionService {
   rpc StartParagraph(Paragraph) returns (Paragraph);
   rpc ListNewDetail(NewDetailRequest) returns(NewDetails);
   rpc ListNew(NewRequest) returns(News);
-
+  rpc StartLearn(Learn) returns (Learn);
+  rpc EndLearn(Learn) returns(Learn);
 }
 
 
@@ -413,4 +414,49 @@ message NewDetailRequest {
 message NewDetails {
 	repeated NewDetail new_details = 1;
 	int64 total = 2;
+}
+
+message Learn {
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 member_id = 2;
+	Status status = 3;
+	enum Status {
+		default_status = 0;
+		deactive = 1;
+		active = 2;
+	}
+	Type type = 4;
+	enum Type {
+		default_type = 0;
+		speak = 1;
+		listen = 2;
+	}
+	Process process = 5;
+	enum Process {
+		default_process = 0;
+		processing = 1;
+		finish = 2;
+	}
+	int64 start_at = 6;
+	int64 end_at = 7;
+}
+
+message LearnRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int32 status = 3;
+	int32 type = 4;
+	int32 process = 5;
+	int64 start_at = 6;
+	int64 end_at = 7;
+	repeated int64 ids = 9;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated string cols = 16;
+	repeated string includes =19;
+}
+message Learns {
+	int32 total = 1;
+	repeated Learn learns = 2;
 }

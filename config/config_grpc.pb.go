@@ -29,6 +29,7 @@ type ConfigServiceClient interface {
 	MemberLogin(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*LoginMemberResponse, error)
 	ChangeMemberPassword(ctx context.Context, in *Member, opts ...grpc.CallOption) (*Member, error)
 	ListAccounts(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Accounts, error)
+	UpdateAccount(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Account, error)
 	// -----------------member------------------------
 	ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error)
 	//
@@ -112,6 +113,15 @@ func (c *configServiceClient) ListAccounts(ctx context.Context, in *AccountReque
 	return out, nil
 }
 
+func (c *configServiceClient) UpdateAccount(ctx context.Context, in *AccountRequest, opts ...grpc.CallOption) (*Account, error) {
+	out := new(Account)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/UpdateAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *configServiceClient) ListMembers(ctx context.Context, in *MemberRequest, opts ...grpc.CallOption) (*Members, error) {
 	out := new(Members)
 	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMembers", in, out, opts...)
@@ -186,6 +196,7 @@ type ConfigServiceServer interface {
 	MemberLogin(context.Context, *MemberRequest) (*LoginMemberResponse, error)
 	ChangeMemberPassword(context.Context, *Member) (*Member, error)
 	ListAccounts(context.Context, *AccountRequest) (*Accounts, error)
+	UpdateAccount(context.Context, *AccountRequest) (*Account, error)
 	// -----------------member------------------------
 	ListMembers(context.Context, *MemberRequest) (*Members, error)
 	//
@@ -222,6 +233,9 @@ func (UnimplementedConfigServiceServer) ChangeMemberPassword(context.Context, *M
 }
 func (UnimplementedConfigServiceServer) ListAccounts(context.Context, *AccountRequest) (*Accounts, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
+}
+func (UnimplementedConfigServiceServer) UpdateAccount(context.Context, *AccountRequest) (*Account, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccount not implemented")
 }
 func (UnimplementedConfigServiceServer) ListMembers(context.Context, *MemberRequest) (*Members, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMembers not implemented")
@@ -378,6 +392,24 @@ func _ConfigService_ListAccounts_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConfigServiceServer).ListAccounts(ctx, req.(*AccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_UpdateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).UpdateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/UpdateAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).UpdateAccount(ctx, req.(*AccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -542,6 +574,10 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListAccounts",
 			Handler:    _ConfigService_ListAccounts_Handler,
+		},
+		{
+			MethodName: "UpdateAccount",
+			Handler:    _ConfigService_UpdateAccount_Handler,
 		},
 		{
 			MethodName: "ListMembers",

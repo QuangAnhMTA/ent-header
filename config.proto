@@ -17,7 +17,7 @@ service ConfigService {
     // -----------------account------------------------
 
    rpc ListAccounts(AccountRequest) returns (Accounts);
-
+   rpc UpdateAccount(AccountRequest) returns (Account);
      // -----------------member------------------------
    rpc ListMembers(MemberRequest) returns (Members);
     //
