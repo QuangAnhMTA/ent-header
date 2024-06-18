@@ -26,6 +26,7 @@ type LibraryServiceClient interface {
 	ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Courses, error)
 	ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
+	FindParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 	StartLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
@@ -71,6 +72,15 @@ func (c *libraryServiceClient) ListDocument(ctx context.Context, in *DocumentReq
 func (c *libraryServiceClient) ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error) {
 	out := new(Paragraphs)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/ListParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) FindParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error) {
+	out := new(Paragraph)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/FindParagraph", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -211,6 +221,7 @@ type LibraryServiceServer interface {
 	ListCourses(context.Context, *CourseRequest) (*Courses, error)
 	ListDocument(context.Context, *DocumentRequest) (*Documents, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
+	FindParagraph(context.Context, *ParagraphRequest) (*Paragraph, error)
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 	StartLearnListen(context.Context, *SentenceRequest) (*Sentences, error)
@@ -239,6 +250,9 @@ func (UnimplementedLibraryServiceServer) ListDocument(context.Context, *Document
 }
 func (UnimplementedLibraryServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListParagraph not implemented")
+}
+func (UnimplementedLibraryServiceServer) FindParagraph(context.Context, *ParagraphRequest) (*Paragraph, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindParagraph not implemented")
 }
 func (UnimplementedLibraryServiceServer) GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataSearchEngine not implemented")
@@ -344,6 +358,24 @@ func _LibraryService_ListParagraph_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LibraryServiceServer).ListParagraph(ctx, req.(*ParagraphRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_FindParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ParagraphRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).FindParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/FindParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).FindParagraph(ctx, req.(*ParagraphRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -618,6 +650,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListParagraph",
 			Handler:    _LibraryService_ListParagraph_Handler,
+		},
+		{
+			MethodName: "FindParagraph",
+			Handler:    _LibraryService_FindParagraph_Handler,
 		},
 		{
 			MethodName: "GetDataSearchEngine",

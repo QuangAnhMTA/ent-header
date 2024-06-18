@@ -9,6 +9,7 @@ service LibraryService {
   rpc ListCourses(CourseRequest) returns (Courses);
   rpc ListDocument(DocumentRequest) returns (Documents);
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
+  rpc FindParagraph(ParagraphRequest) returns (Paragraph);
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc StartLearnListen(SentenceRequest) returns (Sentences);
@@ -210,6 +211,7 @@ message Paragraphs {
   int64 document_current_id = 4;
   int64 paragraph_current_id = 5;
   int64 course_current_id = 6;
+  string paragraph_current_title = 8;
   Document document =7;
 }
 
