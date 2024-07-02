@@ -31,6 +31,7 @@ service TransactionService {
   rpc ListNew(NewRequest) returns(News);
   rpc StartLearn(Learn) returns (Learn);
   rpc EndLearn(Learn) returns(Learn);
+  rpc CreateAnswer(Answer) returns(Answer);
 }
 
 
@@ -460,3 +461,19 @@ message Learns {
 	int32 total = 1;
 	repeated Learn learns = 2;
 }
+
+
+message Answer {
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 question_id = 2;
+	int64 member_id = 3;
+	int64 quiz_id = 4;
+	int64 answer_id = 5;
+	// `gorm:"text"`
+	string content = 6;
+	int64 duration = 7;
+	int32 int32 = 8;
+	string hash = 9;
+	int64 created_at = 10;
+  }

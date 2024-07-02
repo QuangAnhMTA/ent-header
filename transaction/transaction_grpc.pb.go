@@ -45,6 +45,7 @@ type TransactionServiceClient interface {
 	ListNew(ctx context.Context, in *NewRequest, opts ...grpc.CallOption) (*News, error)
 	StartLearn(ctx context.Context, in *Learn, opts ...grpc.CallOption) (*Learn, error)
 	EndLearn(ctx context.Context, in *Learn, opts ...grpc.CallOption) (*Learn, error)
+	CreateAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
 }
 
 type transactionServiceClient struct {
@@ -253,6 +254,15 @@ func (c *transactionServiceClient) EndLearn(ctx context.Context, in *Learn, opts
 	return out, nil
 }
 
+func (c *transactionServiceClient) CreateAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
+	out := new(Answer)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateAnswer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -280,6 +290,7 @@ type TransactionServiceServer interface {
 	ListNew(context.Context, *NewRequest) (*News, error)
 	StartLearn(context.Context, *Learn) (*Learn, error)
 	EndLearn(context.Context, *Learn) (*Learn, error)
+	CreateAnswer(context.Context, *Answer) (*Answer, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -351,6 +362,9 @@ func (UnimplementedTransactionServiceServer) StartLearn(context.Context, *Learn)
 }
 func (UnimplementedTransactionServiceServer) EndLearn(context.Context, *Learn) (*Learn, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearn not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateAnswer(context.Context, *Answer) (*Answer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnswer not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -760,6 +774,24 @@ func _TransactionService_EndLearn_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_CreateAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Answer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateAnswer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateAnswer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateAnswer(ctx, req.(*Answer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -854,6 +886,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EndLearn",
 			Handler:    _TransactionService_EndLearn_Handler,
+		},
+		{
+			MethodName: "CreateAnswer",
+			Handler:    _TransactionService_CreateAnswer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
