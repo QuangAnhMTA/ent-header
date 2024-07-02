@@ -29,8 +29,11 @@ service ConfigService {
    rpc CreateMemberCategory (MemberCategory) returns (MemberCategory);
    rpc GetMemberCategory(MemberCategory) returns(MemberCategory);
    rpc ListMemberCategories(MemberCategoryRequest) returns (MemberCategories);
-  rpc  ListMemberPractices(MemberPracticeRequest) returns (MemberPractices);
-}
+   rpc ListMemberPractice(MemberPracticeRequest) returns (MemberPractices);
+   rpc CreateMemberPractice(MemberPractice) returns (MemberPractice);
+   rpc ListGroup(GroupRequest) returns (Groups);
+   rpc ListMemberGroup(MemberGroupRequest) returns (MemberGroups);
+} 
 
 message Claims {
 	int64 acount_id = 1;
@@ -528,3 +531,7 @@ message MemberPractices {
   repeated MemberPractice member_practices = 1;
   int32 total = 2;
 }
+
+
+
+

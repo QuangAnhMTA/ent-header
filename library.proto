@@ -1144,7 +1144,7 @@ message QuestionRequest {
   string audio = 6;
   string image =7;
   int32 int32 = 8;
-  string type =9;
+  int32 type =9;
   int32 status = 10;  
   int32 limit = 17;
   int32 offset = 18;

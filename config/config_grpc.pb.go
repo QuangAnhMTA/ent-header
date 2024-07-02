@@ -40,7 +40,10 @@ type ConfigServiceClient interface {
 	CreateMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error)
 	GetMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error)
 	ListMemberCategories(ctx context.Context, in *MemberCategoryRequest, opts ...grpc.CallOption) (*MemberCategories, error)
-	ListMemberPractices(ctx context.Context, in *MemberPracticeRequest, opts ...grpc.CallOption) (*MemberPractices, error)
+	ListMemberPractice(ctx context.Context, in *MemberPracticeRequest, opts ...grpc.CallOption) (*MemberPractices, error)
+	CreateMemberPractice(ctx context.Context, in *MemberPractice, opts ...grpc.CallOption) (*MemberPractice, error)
+	ListGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error)
+	ListMemberGroup(ctx context.Context, in *MemberGroupRequest, opts ...grpc.CallOption) (*MemberGroups, error)
 }
 
 type configServiceClient struct {
@@ -186,9 +189,36 @@ func (c *configServiceClient) ListMemberCategories(ctx context.Context, in *Memb
 	return out, nil
 }
 
-func (c *configServiceClient) ListMemberPractices(ctx context.Context, in *MemberPracticeRequest, opts ...grpc.CallOption) (*MemberPractices, error) {
+func (c *configServiceClient) ListMemberPractice(ctx context.Context, in *MemberPracticeRequest, opts ...grpc.CallOption) (*MemberPractices, error) {
 	out := new(MemberPractices)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberPractices", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberPractice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) CreateMemberPractice(ctx context.Context, in *MemberPractice, opts ...grpc.CallOption) (*MemberPractice, error) {
+	out := new(MemberPractice)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateMemberPractice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) ListGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error) {
+	out := new(Groups)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) ListMemberGroup(ctx context.Context, in *MemberGroupRequest, opts ...grpc.CallOption) (*MemberGroups, error) {
+	out := new(MemberGroups)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +247,10 @@ type ConfigServiceServer interface {
 	CreateMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error)
 	GetMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error)
 	ListMemberCategories(context.Context, *MemberCategoryRequest) (*MemberCategories, error)
-	ListMemberPractices(context.Context, *MemberPracticeRequest) (*MemberPractices, error)
+	ListMemberPractice(context.Context, *MemberPracticeRequest) (*MemberPractices, error)
+	CreateMemberPractice(context.Context, *MemberPractice) (*MemberPractice, error)
+	ListGroup(context.Context, *GroupRequest) (*Groups, error)
+	ListMemberGroup(context.Context, *MemberGroupRequest) (*MemberGroups, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -269,8 +302,17 @@ func (UnimplementedConfigServiceServer) GetMemberCategory(context.Context, *Memb
 func (UnimplementedConfigServiceServer) ListMemberCategories(context.Context, *MemberCategoryRequest) (*MemberCategories, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberCategories not implemented")
 }
-func (UnimplementedConfigServiceServer) ListMemberPractices(context.Context, *MemberPracticeRequest) (*MemberPractices, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListMemberPractices not implemented")
+func (UnimplementedConfigServiceServer) ListMemberPractice(context.Context, *MemberPracticeRequest) (*MemberPractices, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberPractice not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateMemberPractice(context.Context, *MemberPractice) (*MemberPractice, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberPractice not implemented")
+}
+func (UnimplementedConfigServiceServer) ListGroup(context.Context, *GroupRequest) (*Groups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) ListMemberGroup(context.Context, *MemberGroupRequest) (*MemberGroups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberGroup not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -554,20 +596,74 @@ func _ConfigService_ListMemberCategories_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_ListMemberPractices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ConfigService_ListMemberPractice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberPracticeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).ListMemberPractices(ctx, in)
+		return srv.(ConfigServiceServer).ListMemberPractice(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/ListMemberPractices",
+		FullMethod: "/config.ConfigService/ListMemberPractice",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).ListMemberPractices(ctx, req.(*MemberPracticeRequest))
+		return srv.(ConfigServiceServer).ListMemberPractice(ctx, req.(*MemberPracticeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_CreateMemberPractice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberPractice)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateMemberPractice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateMemberPractice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateMemberPractice(ctx, req.(*MemberPractice))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_ListGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListGroup(ctx, req.(*GroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_ListMemberGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListMemberGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListMemberGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListMemberGroup(ctx, req.(*MemberGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -640,8 +736,20 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ConfigService_ListMemberCategories_Handler,
 		},
 		{
-			MethodName: "ListMemberPractices",
-			Handler:    _ConfigService_ListMemberPractices_Handler,
+			MethodName: "ListMemberPractice",
+			Handler:    _ConfigService_ListMemberPractice_Handler,
+		},
+		{
+			MethodName: "CreateMemberPractice",
+			Handler:    _ConfigService_CreateMemberPractice_Handler,
+		},
+		{
+			MethodName: "ListGroup",
+			Handler:    _ConfigService_ListGroup_Handler,
+		},
+		{
+			MethodName: "ListMemberGroup",
+			Handler:    _ConfigService_ListMemberGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
