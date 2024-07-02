@@ -29,7 +29,7 @@ service ConfigService {
    rpc CreateMemberCategory (MemberCategory) returns (MemberCategory);
    rpc GetMemberCategory(MemberCategory) returns(MemberCategory);
    rpc ListMemberCategories(MemberCategoryRequest) returns (MemberCategories);
-
+  rpc  ListMemberPractices(MemberPracticeRequest) returns (MemberPractices);
 }
 
 message Claims {
@@ -331,4 +331,200 @@ message MemberCategoryRequest {
 message MemberCategories {
   int32 total = 1;
   repeated MemberCategory member_categories = 2;
+}
+
+
+message Group {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 parent_id = 2;
+    string title = 3;
+    string address = 4;
+    int64 city_id = 5;
+    int64 district_id = 6;
+    int64 ward_id = 7;
+    Status status = 8;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	  }
+}
+
+message GroupRequest {
+  int64 id = 1; 
+  int64 parent_id = 2;
+  string title = 3;
+  string address = 4;
+  int64 city_id = 5;
+  int64 district_id = 6;
+  int64 ward_id = 7;
+  int32 status = 8;  
+  int32 limit =9;
+  int32 offset = 10;
+  repeated int64 ids = 13;
+  repeated string cols = 11;
+  repeated string includes =12;
+}
+message Groups {
+  int32 total = 1;
+  repeated Group groups =2;
+}
+
+
+message MemberGroup {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 group_id = 2;
+    int64 member_id = 3;
+    int64 created_at = 5;
+    Status status = 8;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	  }
+}
+
+message MemberGroupRequest {
+    int64 id = 1; 
+    int64 group_id = 2;
+    int64 member_id = 3;
+    int64 created_at = 5;
+    int32 status = 8;  
+    int32 limit =9;
+    int32 offset = 10;
+    repeated int64 ids = 13;
+    repeated string cols = 11;
+    repeated string includes =12;
+}  
+
+message MemberGroups {
+  repeated MemberGroup member_groups =2;
+}
+
+
+message Token {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 category_id = 2;
+    string title = 3;
+    string image = 4;
+    string image_other = 5;
+    string unit = 6;
+    int64 property = 7;
+    int64 max = 8;
+    string description =9;
+    Status status = 10;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	  }
+}
+
+message TokenRequest {
+  int64 id = 1; 
+  int64 category_id = 2;
+  string title = 3;
+  string image = 4;
+  string image_other = 5;
+  string unit = 6;
+  int64 property = 7;
+  int64 max = 8;
+  string description =14;
+  int32 status = 15; 
+  int32 limit =9;
+  int32 offset = 10;
+  repeated int64 ids = 13;
+  repeated string cols = 11;
+  repeated string includes =12;
+}
+
+message Tokens {
+  repeated Token tokens =2;
+}
+
+message AccountToken {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1; 
+  int64 account_id = 2;  
+  int64 token_id = 3;
+  int64 quantity = 4;
+  string hash = 5;
+}
+
+message AccountTokenRequest {
+  int64 id = 1; 
+  int64 account_id = 2;  
+  int64 token_id = 3;
+  int64 quantity = 4;
+  string hash = 5;
+  int32 status = 15; 
+  int32 limit =9;
+  int32 offset = 10;
+  repeated int64 ids = 13;
+  repeated string cols = 11;
+  repeated string includes =12;
+  repeated int64 account_ids = 14;
+}
+
+message AccountTokens {
+  repeated AccountToken account_tokens = 1;
+  int32 total = 2;
+}
+
+message MemberToken {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 member_id = 2;  
+    int64 token_id = 3;
+    int64 quantity = 4;
+    string hash = 5;
+}
+
+message MemberTokenRequest {
+  int64 id = 1; 
+  int64 member_id = 2;  
+  int64 token_id = 3;
+  int64 quantity = 4;
+  string hash = 5;
+  int32 status = 15; 
+  int32 limit =9;
+  int32 offset = 10;
+  repeated int64 ids = 13;
+  repeated string cols = 11;
+  repeated string includes =12;
+  repeated int64 account_ids = 14;
+}
+
+message MemberPractice {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;  
+    int64 question_id = 2;
+    int64 member_id = 3;
+    int64 created_at = 4;
+    int64 updated_at = 5;
+}
+
+message MemberPracticeRequest {
+  int64 id = 1;  
+  int64 question_id = 2;
+  int64 member_id = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+  int32 limit =9;
+  int32 offset = 10;
+  repeated int64 ids = 13;
+  repeated string cols = 11;
+  repeated string includes =12;
+  repeated int64 account_ids = 14;
+  repeated int64 question_ids = 15;
+  repeated int64 member_ids = 16;
+
+}
+
+message MemberPractices {
+  repeated MemberPractice member_practices = 1;
+  int32 total = 2;
 }

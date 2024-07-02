@@ -40,6 +40,7 @@ type ConfigServiceClient interface {
 	CreateMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error)
 	GetMemberCategory(ctx context.Context, in *MemberCategory, opts ...grpc.CallOption) (*MemberCategory, error)
 	ListMemberCategories(ctx context.Context, in *MemberCategoryRequest, opts ...grpc.CallOption) (*MemberCategories, error)
+	ListMemberPractices(ctx context.Context, in *MemberPracticeRequest, opts ...grpc.CallOption) (*MemberPractices, error)
 }
 
 type configServiceClient struct {
@@ -185,6 +186,15 @@ func (c *configServiceClient) ListMemberCategories(ctx context.Context, in *Memb
 	return out, nil
 }
 
+func (c *configServiceClient) ListMemberPractices(ctx context.Context, in *MemberPracticeRequest, opts ...grpc.CallOption) (*MemberPractices, error) {
+	out := new(MemberPractices)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberPractices", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -207,6 +217,7 @@ type ConfigServiceServer interface {
 	CreateMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error)
 	GetMemberCategory(context.Context, *MemberCategory) (*MemberCategory, error)
 	ListMemberCategories(context.Context, *MemberCategoryRequest) (*MemberCategories, error)
+	ListMemberPractices(context.Context, *MemberPracticeRequest) (*MemberPractices, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -257,6 +268,9 @@ func (UnimplementedConfigServiceServer) GetMemberCategory(context.Context, *Memb
 }
 func (UnimplementedConfigServiceServer) ListMemberCategories(context.Context, *MemberCategoryRequest) (*MemberCategories, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberCategories not implemented")
+}
+func (UnimplementedConfigServiceServer) ListMemberPractices(context.Context, *MemberPracticeRequest) (*MemberPractices, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberPractices not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -540,6 +554,24 @@ func _ConfigService_ListMemberCategories_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_ListMemberPractices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberPracticeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListMemberPractices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListMemberPractices",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListMemberPractices(ctx, req.(*MemberPracticeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -606,6 +638,10 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMemberCategories",
 			Handler:    _ConfigService_ListMemberCategories_Handler,
+		},
+		{
+			MethodName: "ListMemberPractices",
+			Handler:    _ConfigService_ListMemberPractices_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

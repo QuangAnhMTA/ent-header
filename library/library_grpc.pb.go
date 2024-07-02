@@ -41,6 +41,9 @@ type LibraryServiceClient interface {
 	ListKnowledge(ctx context.Context, in *KnowledgeRequest, opts ...grpc.CallOption) (*Knowledges, error)
 	GetKnowledge(ctx context.Context, in *Knowledge, opts ...grpc.CallOption) (*Knowledge, error)
 	ListTagDetail(ctx context.Context, in *TagDetailRequest, opts ...grpc.CallOption) (*TagDetails, error)
+	ListQuestion(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*Questions, error)
+	ListAnswer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error)
+	ListQuiz(ctx context.Context, in *QuizRequest, opts ...grpc.CallOption) (*Quizzes, error)
 }
 
 type libraryServiceClient struct {
@@ -213,6 +216,33 @@ func (c *libraryServiceClient) ListTagDetail(ctx context.Context, in *TagDetailR
 	return out, nil
 }
 
+func (c *libraryServiceClient) ListQuestion(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*Questions, error) {
+	out := new(Questions)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListQuestion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) ListAnswer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error) {
+	out := new(Answers)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListAnswer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) ListQuiz(ctx context.Context, in *QuizRequest, opts ...grpc.CallOption) (*Quizzes, error) {
+	out := new(Quizzes)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/ListQuiz", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -236,6 +266,9 @@ type LibraryServiceServer interface {
 	ListKnowledge(context.Context, *KnowledgeRequest) (*Knowledges, error)
 	GetKnowledge(context.Context, *Knowledge) (*Knowledge, error)
 	ListTagDetail(context.Context, *TagDetailRequest) (*TagDetails, error)
+	ListQuestion(context.Context, *QuestionRequest) (*Questions, error)
+	ListAnswer(context.Context, *AnswerRequest) (*Answers, error)
+	ListQuiz(context.Context, *QuizRequest) (*Quizzes, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -295,6 +328,15 @@ func (UnimplementedLibraryServiceServer) GetKnowledge(context.Context, *Knowledg
 }
 func (UnimplementedLibraryServiceServer) ListTagDetail(context.Context, *TagDetailRequest) (*TagDetails, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTagDetail not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListQuestion(context.Context, *QuestionRequest) (*Questions, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListQuestion not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListAnswer(context.Context, *AnswerRequest) (*Answers, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAnswer not implemented")
+}
+func (UnimplementedLibraryServiceServer) ListQuiz(context.Context, *QuizRequest) (*Quizzes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListQuiz not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -632,6 +674,60 @@ func _LibraryService_ListTagDetail_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_ListQuestion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuestionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListQuestion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListQuestion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListQuestion(ctx, req.(*QuestionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_ListAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AnswerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListAnswer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListAnswer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListAnswer(ctx, req.(*AnswerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_ListQuiz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuizRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).ListQuiz(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/ListQuiz",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).ListQuiz(ctx, req.(*QuizRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -710,6 +806,18 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTagDetail",
 			Handler:    _LibraryService_ListTagDetail_Handler,
+		},
+		{
+			MethodName: "ListQuestion",
+			Handler:    _LibraryService_ListQuestion_Handler,
+		},
+		{
+			MethodName: "ListAnswer",
+			Handler:    _LibraryService_ListAnswer_Handler,
+		},
+		{
+			MethodName: "ListQuiz",
+			Handler:    _LibraryService_ListQuiz_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

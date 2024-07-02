@@ -1263,6 +1263,153 @@ func (TagDetail_IsFavourite) EnumDescriptor() ([]byte, []int) {
 	return file_library_proto_rawDescGZIP(), []int{63, 1}
 }
 
+type Question_Status int32
+
+const (
+	Question_default_state Question_Status = 0
+	Question_deactive      Question_Status = 1
+	Question_active        Question_Status = 2
+)
+
+// Enum value maps for Question_Status.
+var (
+	Question_Status_name = map[int32]string{
+		0: "default_state",
+		1: "deactive",
+		2: "active",
+	}
+	Question_Status_value = map[string]int32{
+		"default_state": 0,
+		"deactive":      1,
+		"active":        2,
+	}
+)
+
+func (x Question_Status) Enum() *Question_Status {
+	p := new(Question_Status)
+	*p = x
+	return p
+}
+
+func (x Question_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Question_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_library_proto_enumTypes[25].Descriptor()
+}
+
+func (Question_Status) Type() protoreflect.EnumType {
+	return &file_library_proto_enumTypes[25]
+}
+
+func (x Question_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Question_Status.Descriptor instead.
+func (Question_Status) EnumDescriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{69, 0}
+}
+
+type Answer_Status int32
+
+const (
+	Answer_default_state Answer_Status = 0
+	Answer_deactive      Answer_Status = 1
+	Answer_active        Answer_Status = 2
+)
+
+// Enum value maps for Answer_Status.
+var (
+	Answer_Status_name = map[int32]string{
+		0: "default_state",
+		1: "deactive",
+		2: "active",
+	}
+	Answer_Status_value = map[string]int32{
+		"default_state": 0,
+		"deactive":      1,
+		"active":        2,
+	}
+)
+
+func (x Answer_Status) Enum() *Answer_Status {
+	p := new(Answer_Status)
+	*p = x
+	return p
+}
+
+func (x Answer_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Answer_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_library_proto_enumTypes[26].Descriptor()
+}
+
+func (Answer_Status) Type() protoreflect.EnumType {
+	return &file_library_proto_enumTypes[26]
+}
+
+func (x Answer_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Answer_Status.Descriptor instead.
+func (Answer_Status) EnumDescriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{72, 0}
+}
+
+type Quiz_Status int32
+
+const (
+	Quiz_default_state Quiz_Status = 0
+	Quiz_deactive      Quiz_Status = 1
+	Quiz_active        Quiz_Status = 2
+)
+
+// Enum value maps for Quiz_Status.
+var (
+	Quiz_Status_name = map[int32]string{
+		0: "default_state",
+		1: "deactive",
+		2: "active",
+	}
+	Quiz_Status_value = map[string]int32{
+		"default_state": 0,
+		"deactive":      1,
+		"active":        2,
+	}
+)
+
+func (x Quiz_Status) Enum() *Quiz_Status {
+	p := new(Quiz_Status)
+	*p = x
+	return p
+}
+
+func (x Quiz_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Quiz_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_library_proto_enumTypes[27].Descriptor()
+}
+
+func (Quiz_Status) Type() protoreflect.EnumType {
+	return &file_library_proto_enumTypes[27]
+}
+
+func (x Quiz_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Quiz_Status.Descriptor instead.
+func (Quiz_Status) EnumDescriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{75, 0}
+}
+
 type Listen struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -9072,6 +9219,927 @@ func (x *Labels) GetLabels() []*Label {
 	return nil
 }
 
+type Question struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	Id     int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" gorm:"primaryKey;not null;autoIncrement"`
+	QuizId int64 `protobuf:"varint,2,opt,name=quiz_id,json=quizId,proto3" json:"quiz_id,omitempty"`
+	// `gorm:"text"`
+	Content string `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty" gorm:"text"`
+	// `gorm:"text"`
+	Description string `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty" gorm:"text"`
+	// `gorm:"text"`
+	Translate string          `protobuf:"bytes,5,opt,name=translate,proto3" json:"translate,omitempty" gorm:"text"`
+	Audio     string          `protobuf:"bytes,6,opt,name=audio,proto3" json:"audio,omitempty"`
+	Image     string          `protobuf:"bytes,7,opt,name=image,proto3" json:"image,omitempty"`
+	Int32     int32           `protobuf:"varint,8,opt,name=int32,proto3" json:"int32,omitempty"`
+	Type      string          `protobuf:"bytes,9,opt,name=type,proto3" json:"type,omitempty"`
+	Status    Question_Status `protobuf:"varint,10,opt,name=status,proto3,enum=library.Question_Status" json:"status,omitempty"`
+	// `gorm:"-"`
+	Quiz *Quiz `protobuf:"bytes,11,opt,name=quiz,proto3" json:"quiz,omitempty" gorm:"-"`
+}
+
+func (x *Question) Reset() {
+	*x = Question{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[69]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Question) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Question) ProtoMessage() {}
+
+func (x *Question) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[69]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Question.ProtoReflect.Descriptor instead.
+func (*Question) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{69}
+}
+
+func (x *Question) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Question) GetQuizId() int64 {
+	if x != nil {
+		return x.QuizId
+	}
+	return 0
+}
+
+func (x *Question) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *Question) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Question) GetTranslate() string {
+	if x != nil {
+		return x.Translate
+	}
+	return ""
+}
+
+func (x *Question) GetAudio() string {
+	if x != nil {
+		return x.Audio
+	}
+	return ""
+}
+
+func (x *Question) GetImage() string {
+	if x != nil {
+		return x.Image
+	}
+	return ""
+}
+
+func (x *Question) GetInt32() int32 {
+	if x != nil {
+		return x.Int32
+	}
+	return 0
+}
+
+func (x *Question) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *Question) GetStatus() Question_Status {
+	if x != nil {
+		return x.Status
+	}
+	return Question_default_state
+}
+
+func (x *Question) GetQuiz() *Quiz {
+	if x != nil {
+		return x.Quiz
+	}
+	return nil
+}
+
+type QuestionRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	QuizId      int64    `protobuf:"varint,2,opt,name=quiz_id,json=quizId,proto3" json:"quiz_id,omitempty"`
+	Content     string   `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	Description string   `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Translate   string   `protobuf:"bytes,5,opt,name=translate,proto3" json:"translate,omitempty"`
+	Audio       string   `protobuf:"bytes,6,opt,name=audio,proto3" json:"audio,omitempty"`
+	Image       string   `protobuf:"bytes,7,opt,name=image,proto3" json:"image,omitempty"`
+	Int32       int32    `protobuf:"varint,8,opt,name=int32,proto3" json:"int32,omitempty"`
+	Type        string   `protobuf:"bytes,9,opt,name=type,proto3" json:"type,omitempty"`
+	Status      int32    `protobuf:"varint,10,opt,name=status,proto3" json:"status,omitempty"`
+	Limit       int32    `protobuf:"varint,17,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset      int32    `protobuf:"varint,18,opt,name=offset,proto3" json:"offset,omitempty"`
+	Cols        []string `protobuf:"bytes,16,rep,name=cols,proto3" json:"cols,omitempty"`
+	Includes    []string `protobuf:"bytes,19,rep,name=includes,proto3" json:"includes,omitempty"`
+	Keyxs       []string `protobuf:"bytes,20,rep,name=keyxs,proto3" json:"keyxs,omitempty"`
+	Ids         []int64  `protobuf:"varint,21,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	QuizIds     []int64  `protobuf:"varint,22,rep,packed,name=quiz_ids,json=quizIds,proto3" json:"quiz_ids,omitempty"`
+}
+
+func (x *QuestionRequest) Reset() {
+	*x = QuestionRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[70]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QuestionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QuestionRequest) ProtoMessage() {}
+
+func (x *QuestionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[70]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QuestionRequest.ProtoReflect.Descriptor instead.
+func (*QuestionRequest) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{70}
+}
+
+func (x *QuestionRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *QuestionRequest) GetQuizId() int64 {
+	if x != nil {
+		return x.QuizId
+	}
+	return 0
+}
+
+func (x *QuestionRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *QuestionRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *QuestionRequest) GetTranslate() string {
+	if x != nil {
+		return x.Translate
+	}
+	return ""
+}
+
+func (x *QuestionRequest) GetAudio() string {
+	if x != nil {
+		return x.Audio
+	}
+	return ""
+}
+
+func (x *QuestionRequest) GetImage() string {
+	if x != nil {
+		return x.Image
+	}
+	return ""
+}
+
+func (x *QuestionRequest) GetInt32() int32 {
+	if x != nil {
+		return x.Int32
+	}
+	return 0
+}
+
+func (x *QuestionRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *QuestionRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *QuestionRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *QuestionRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+func (x *QuestionRequest) GetCols() []string {
+	if x != nil {
+		return x.Cols
+	}
+	return nil
+}
+
+func (x *QuestionRequest) GetIncludes() []string {
+	if x != nil {
+		return x.Includes
+	}
+	return nil
+}
+
+func (x *QuestionRequest) GetKeyxs() []string {
+	if x != nil {
+		return x.Keyxs
+	}
+	return nil
+}
+
+func (x *QuestionRequest) GetIds() []int64 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+func (x *QuestionRequest) GetQuizIds() []int64 {
+	if x != nil {
+		return x.QuizIds
+	}
+	return nil
+}
+
+type Questions struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total     int32       `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Questions []*Question `protobuf:"bytes,2,rep,name=questions,proto3" json:"questions,omitempty"`
+}
+
+func (x *Questions) Reset() {
+	*x = Questions{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[71]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Questions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Questions) ProtoMessage() {}
+
+func (x *Questions) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[71]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Questions.ProtoReflect.Descriptor instead.
+func (*Questions) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{71}
+}
+
+func (x *Questions) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *Questions) GetQuestions() []*Question {
+	if x != nil {
+		return x.Questions
+	}
+	return nil
+}
+
+type Answer struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	Id         int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" gorm:"primaryKey;not null;autoIncrement"`
+	QuestionId int64 `protobuf:"varint,2,opt,name=question_id,json=questionId,proto3" json:"question_id,omitempty"`
+	// `gorm:"text"`
+	Content string `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty" gorm:"text"`
+	// `gorm:"text"`
+	Translate string        `protobuf:"bytes,4,opt,name=translate,proto3" json:"translate,omitempty" gorm:"text"`
+	Audio     string        `protobuf:"bytes,5,opt,name=audio,proto3" json:"audio,omitempty"`
+	Image     string        `protobuf:"bytes,6,opt,name=image,proto3" json:"image,omitempty"`
+	Type      int32         `protobuf:"varint,7,opt,name=type,proto3" json:"type,omitempty"`
+	Status    Answer_Status `protobuf:"varint,10,opt,name=status,proto3,enum=library.Answer_Status" json:"status,omitempty"`
+	// `gorm:"-"`
+	Question *Question `protobuf:"bytes,11,opt,name=question,proto3" json:"question,omitempty" gorm:"-"`
+}
+
+func (x *Answer) Reset() {
+	*x = Answer{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[72]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Answer) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Answer) ProtoMessage() {}
+
+func (x *Answer) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[72]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Answer.ProtoReflect.Descriptor instead.
+func (*Answer) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{72}
+}
+
+func (x *Answer) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Answer) GetQuestionId() int64 {
+	if x != nil {
+		return x.QuestionId
+	}
+	return 0
+}
+
+func (x *Answer) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *Answer) GetTranslate() string {
+	if x != nil {
+		return x.Translate
+	}
+	return ""
+}
+
+func (x *Answer) GetAudio() string {
+	if x != nil {
+		return x.Audio
+	}
+	return ""
+}
+
+func (x *Answer) GetImage() string {
+	if x != nil {
+		return x.Image
+	}
+	return ""
+}
+
+func (x *Answer) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+func (x *Answer) GetStatus() Answer_Status {
+	if x != nil {
+		return x.Status
+	}
+	return Answer_default_state
+}
+
+func (x *Answer) GetQuestion() *Question {
+	if x != nil {
+		return x.Question
+	}
+	return nil
+}
+
+type AnswerRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	QuestionId  int64    `protobuf:"varint,2,opt,name=question_id,json=questionId,proto3" json:"question_id,omitempty"`
+	Content     string   `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	Translate   string   `protobuf:"bytes,4,opt,name=translate,proto3" json:"translate,omitempty"`
+	Audio       string   `protobuf:"bytes,5,opt,name=audio,proto3" json:"audio,omitempty"`
+	Image       string   `protobuf:"bytes,6,opt,name=image,proto3" json:"image,omitempty"`
+	Type        int32    `protobuf:"varint,7,opt,name=type,proto3" json:"type,omitempty"`
+	Status      int32    `protobuf:"varint,8,opt,name=status,proto3" json:"status,omitempty"`
+	Limit       int32    `protobuf:"varint,17,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset      int32    `protobuf:"varint,18,opt,name=offset,proto3" json:"offset,omitempty"`
+	Cols        []string `protobuf:"bytes,16,rep,name=cols,proto3" json:"cols,omitempty"`
+	Includes    []string `protobuf:"bytes,19,rep,name=includes,proto3" json:"includes,omitempty"`
+	Keyxs       []string `protobuf:"bytes,20,rep,name=keyxs,proto3" json:"keyxs,omitempty"`
+	Ids         []int64  `protobuf:"varint,21,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	QuestionIds []int64  `protobuf:"varint,22,rep,packed,name=question_ids,json=questionIds,proto3" json:"question_ids,omitempty"`
+}
+
+func (x *AnswerRequest) Reset() {
+	*x = AnswerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[73]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AnswerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AnswerRequest) ProtoMessage() {}
+
+func (x *AnswerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[73]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AnswerRequest.ProtoReflect.Descriptor instead.
+func (*AnswerRequest) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{73}
+}
+
+func (x *AnswerRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AnswerRequest) GetQuestionId() int64 {
+	if x != nil {
+		return x.QuestionId
+	}
+	return 0
+}
+
+func (x *AnswerRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *AnswerRequest) GetTranslate() string {
+	if x != nil {
+		return x.Translate
+	}
+	return ""
+}
+
+func (x *AnswerRequest) GetAudio() string {
+	if x != nil {
+		return x.Audio
+	}
+	return ""
+}
+
+func (x *AnswerRequest) GetImage() string {
+	if x != nil {
+		return x.Image
+	}
+	return ""
+}
+
+func (x *AnswerRequest) GetType() int32 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+func (x *AnswerRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *AnswerRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *AnswerRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+func (x *AnswerRequest) GetCols() []string {
+	if x != nil {
+		return x.Cols
+	}
+	return nil
+}
+
+func (x *AnswerRequest) GetIncludes() []string {
+	if x != nil {
+		return x.Includes
+	}
+	return nil
+}
+
+func (x *AnswerRequest) GetKeyxs() []string {
+	if x != nil {
+		return x.Keyxs
+	}
+	return nil
+}
+
+func (x *AnswerRequest) GetIds() []int64 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+func (x *AnswerRequest) GetQuestionIds() []int64 {
+	if x != nil {
+		return x.QuestionIds
+	}
+	return nil
+}
+
+type Answers struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total   int32     `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Answers []*Answer `protobuf:"bytes,2,rep,name=answers,proto3" json:"answers,omitempty"`
+}
+
+func (x *Answers) Reset() {
+	*x = Answers{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[74]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Answers) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Answers) ProtoMessage() {}
+
+func (x *Answers) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[74]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Answers.ProtoReflect.Descriptor instead.
+func (*Answers) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{74}
+}
+
+func (x *Answers) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *Answers) GetAnswers() []*Answer {
+	if x != nil {
+		return x.Answers
+	}
+	return nil
+}
+
+type Quiz struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	Id     int64       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" gorm:"primaryKey;not null;autoIncrement"`
+	Title  string      `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Status Quiz_Status `protobuf:"varint,3,opt,name=status,proto3,enum=library.Quiz_Status" json:"status,omitempty"`
+}
+
+func (x *Quiz) Reset() {
+	*x = Quiz{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[75]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Quiz) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Quiz) ProtoMessage() {}
+
+func (x *Quiz) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[75]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Quiz.ProtoReflect.Descriptor instead.
+func (*Quiz) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{75}
+}
+
+func (x *Quiz) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Quiz) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Quiz) GetStatus() Quiz_Status {
+	if x != nil {
+		return x.Status
+	}
+	return Quiz_default_state
+}
+
+type QuizRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title    string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Status   int32    `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+	Limit    int32    `protobuf:"varint,17,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset   int32    `protobuf:"varint,18,opt,name=offset,proto3" json:"offset,omitempty"`
+	Cols     []string `protobuf:"bytes,16,rep,name=cols,proto3" json:"cols,omitempty"`
+	Includes []string `protobuf:"bytes,19,rep,name=includes,proto3" json:"includes,omitempty"`
+	Keyxs    []string `protobuf:"bytes,20,rep,name=keyxs,proto3" json:"keyxs,omitempty"`
+	Ids      []int64  `protobuf:"varint,21,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+}
+
+func (x *QuizRequest) Reset() {
+	*x = QuizRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[76]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QuizRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QuizRequest) ProtoMessage() {}
+
+func (x *QuizRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[76]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QuizRequest.ProtoReflect.Descriptor instead.
+func (*QuizRequest) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{76}
+}
+
+func (x *QuizRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *QuizRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *QuizRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *QuizRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *QuizRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+func (x *QuizRequest) GetCols() []string {
+	if x != nil {
+		return x.Cols
+	}
+	return nil
+}
+
+func (x *QuizRequest) GetIncludes() []string {
+	if x != nil {
+		return x.Includes
+	}
+	return nil
+}
+
+func (x *QuizRequest) GetKeyxs() []string {
+	if x != nil {
+		return x.Keyxs
+	}
+	return nil
+}
+
+func (x *QuizRequest) GetIds() []int64 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+type Quizzes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total   int32   `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Quizzes []*Quiz `protobuf:"bytes,2,rep,name=quizzes,proto3" json:"quizzes,omitempty"`
+}
+
+func (x *Quizzes) Reset() {
+	*x = Quizzes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_library_proto_msgTypes[77]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Quizzes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Quizzes) ProtoMessage() {}
+
+func (x *Quizzes) ProtoReflect() protoreflect.Message {
+	mi := &file_library_proto_msgTypes[77]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Quizzes.ProtoReflect.Descriptor instead.
+func (*Quizzes) Descriptor() ([]byte, []int) {
+	return file_library_proto_rawDescGZIP(), []int{77}
+}
+
+func (x *Quizzes) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *Quizzes) GetQuizzes() []*Quiz {
+	if x != nil {
+		return x.Quizzes
+	}
+	return nil
+}
+
 var File_library_proto protoreflect.FileDescriptor
 
 var file_library_proto_rawDesc = []byte{
@@ -10355,8 +11423,139 @@ var file_library_proto_rawDesc = []byte{
 	0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
 	0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x26, 0x0a, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c,
 	0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72,
-	0x79, 0x2e, 0x4c, 0x61, 0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x32,
-	0x80, 0x09, 0x0a, 0x0e, 0x4c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x79, 0x2e, 0x4c, 0x61, 0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x22,
+	0xef, 0x02, 0x0a, 0x08, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x17, 0x0a, 0x07,
+	0x71, 0x75, 0x69, 0x7a, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x71,
+	0x75, 0x69, 0x7a, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x12,
+	0x14, 0x0a, 0x05, 0x61, 0x75, 0x64, 0x69, 0x6f, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x61, 0x75, 0x64, 0x69, 0x6f, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18, 0x07,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x69,
+	0x6e, 0x74, 0x33, 0x32, 0x18, 0x08, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x69, 0x6e, 0x74, 0x33,
+	0x32, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18,
+	0x0a, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e,
+	0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52,
+	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x21, 0x0a, 0x04, 0x71, 0x75, 0x69, 0x7a, 0x18,
+	0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e,
+	0x51, 0x75, 0x69, 0x7a, 0x52, 0x04, 0x71, 0x75, 0x69, 0x7a, 0x22, 0x35, 0x0a, 0x06, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x12, 0x11, 0x0a, 0x0d, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f,
+	0x73, 0x74, 0x61, 0x74, 0x65, 0x10, 0x00, 0x12, 0x0c, 0x0a, 0x08, 0x64, 0x65, 0x61, 0x63, 0x74,
+	0x69, 0x76, 0x65, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10,
+	0x02, 0x22, 0xa3, 0x03, 0x0a, 0x0f, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x71, 0x75, 0x69, 0x7a, 0x5f, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x71, 0x75, 0x69, 0x7a, 0x49, 0x64, 0x12, 0x18,
+	0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64,
+	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x72,
+	0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x74,
+	0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x61, 0x75, 0x64, 0x69,
+	0x6f, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x61, 0x75, 0x64, 0x69, 0x6f, 0x12, 0x14,
+	0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69,
+	0x6d, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6e, 0x74, 0x33, 0x32, 0x18, 0x08, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x05, 0x69, 0x6e, 0x74, 0x33, 0x32, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79,
+	0x70, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x16,
+	0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06,
+	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18,
+	0x11, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x16, 0x0a, 0x06,
+	0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x12, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x6f, 0x66,
+	0x66, 0x73, 0x65, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x6c, 0x73, 0x18, 0x10, 0x20, 0x03,
+	0x28, 0x09, 0x52, 0x04, 0x63, 0x6f, 0x6c, 0x73, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e, 0x63, 0x6c,
+	0x75, 0x64, 0x65, 0x73, 0x18, 0x13, 0x20, 0x03, 0x28, 0x09, 0x52, 0x08, 0x69, 0x6e, 0x63, 0x6c,
+	0x75, 0x64, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6b, 0x65, 0x79, 0x78, 0x73, 0x18, 0x14, 0x20,
+	0x03, 0x28, 0x09, 0x52, 0x05, 0x6b, 0x65, 0x79, 0x78, 0x73, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64,
+	0x73, 0x18, 0x15, 0x20, 0x03, 0x28, 0x03, 0x52, 0x03, 0x69, 0x64, 0x73, 0x12, 0x19, 0x0a, 0x08,
+	0x71, 0x75, 0x69, 0x7a, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x16, 0x20, 0x03, 0x28, 0x03, 0x52, 0x07,
+	0x71, 0x75, 0x69, 0x7a, 0x49, 0x64, 0x73, 0x22, 0x52, 0x0a, 0x09, 0x51, 0x75, 0x65, 0x73, 0x74,
+	0x69, 0x6f, 0x6e, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x2f, 0x0a, 0x09, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x11, 0x2e,
+	0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x09, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0xc7, 0x02, 0x0a, 0x06,
+	0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69,
+	0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x12,
+	0x14, 0x0a, 0x05, 0x61, 0x75, 0x64, 0x69, 0x6f, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x61, 0x75, 0x64, 0x69, 0x6f, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18, 0x06,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74,
+	0x79, 0x70, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12,
+	0x2e, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x0e, 0x32,
+	0x16, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72,
+	0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
+	0x2d, 0x0a, 0x08, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x0b, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x11, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x51, 0x75, 0x65, 0x73,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x35,
+	0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x11, 0x0a, 0x0d, 0x64, 0x65, 0x66, 0x61,
+	0x75, 0x6c, 0x74, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x10, 0x00, 0x12, 0x0c, 0x0a, 0x08, 0x64,
+	0x65, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x61, 0x63, 0x74,
+	0x69, 0x76, 0x65, 0x10, 0x02, 0x22, 0xf9, 0x02, 0x0a, 0x0d, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x6c, 0x61, 0x74, 0x65,
+	0x12, 0x14, 0x0a, 0x05, 0x61, 0x75, 0x64, 0x69, 0x6f, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x61, 0x75, 0x64, 0x69, 0x6f, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18,
+	0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x12, 0x0a, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65,
+	0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x08, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69,
+	0x74, 0x18, 0x11, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x16,
+	0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x12, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06,
+	0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x6c, 0x73, 0x18, 0x10,
+	0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x63, 0x6f, 0x6c, 0x73, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e,
+	0x63, 0x6c, 0x75, 0x64, 0x65, 0x73, 0x18, 0x13, 0x20, 0x03, 0x28, 0x09, 0x52, 0x08, 0x69, 0x6e,
+	0x63, 0x6c, 0x75, 0x64, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6b, 0x65, 0x79, 0x78, 0x73, 0x18,
+	0x14, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x6b, 0x65, 0x79, 0x78, 0x73, 0x12, 0x10, 0x0a, 0x03,
+	0x69, 0x64, 0x73, 0x18, 0x15, 0x20, 0x03, 0x28, 0x03, 0x52, 0x03, 0x69, 0x64, 0x73, 0x12, 0x21,
+	0x0a, 0x0c, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x16,
+	0x20, 0x03, 0x28, 0x03, 0x52, 0x0b, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64,
+	0x73, 0x22, 0x4a, 0x0a, 0x07, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x12, 0x14, 0x0a, 0x05,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74,
+	0x61, 0x6c, 0x12, 0x29, 0x0a, 0x07, 0x61, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x18, 0x02, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x41, 0x6e,
+	0x73, 0x77, 0x65, 0x72, 0x52, 0x07, 0x61, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x22, 0x91, 0x01,
+	0x0a, 0x04, 0x51, 0x75, 0x69, 0x7a, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x2c, 0x0a, 0x06,
+	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x6c,
+	0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x51, 0x75, 0x69, 0x7a, 0x2e, 0x53, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x35, 0x0a, 0x06, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x12, 0x11, 0x0a, 0x0d, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f,
+	0x73, 0x74, 0x61, 0x74, 0x65, 0x10, 0x00, 0x12, 0x0c, 0x0a, 0x08, 0x64, 0x65, 0x61, 0x63, 0x74,
+	0x69, 0x76, 0x65, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10,
+	0x02, 0x22, 0xd1, 0x01, 0x0a, 0x0b, 0x51, 0x75, 0x69, 0x7a, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69,
+	0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
+	0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x11, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
+	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18,
+	0x12, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x12, 0x0a,
+	0x04, 0x63, 0x6f, 0x6c, 0x73, 0x18, 0x10, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x63, 0x6f, 0x6c,
+	0x73, 0x12, 0x1a, 0x0a, 0x08, 0x69, 0x6e, 0x63, 0x6c, 0x75, 0x64, 0x65, 0x73, 0x18, 0x13, 0x20,
+	0x03, 0x28, 0x09, 0x52, 0x08, 0x69, 0x6e, 0x63, 0x6c, 0x75, 0x64, 0x65, 0x73, 0x12, 0x14, 0x0a,
+	0x05, 0x6b, 0x65, 0x79, 0x78, 0x73, 0x18, 0x14, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x6b, 0x65,
+	0x79, 0x78, 0x73, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64, 0x73, 0x18, 0x15, 0x20, 0x03, 0x28, 0x03,
+	0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0x48, 0x0a, 0x07, 0x51, 0x75, 0x69, 0x7a, 0x7a, 0x65, 0x73,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x27, 0x0a, 0x07, 0x71, 0x75, 0x69, 0x7a, 0x7a, 0x65,
+	0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72,
+	0x79, 0x2e, 0x51, 0x75, 0x69, 0x7a, 0x52, 0x07, 0x71, 0x75, 0x69, 0x7a, 0x7a, 0x65, 0x73, 0x32,
+	0xaa, 0x0a, 0x0a, 0x0e, 0x4c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65,
 	0x73, 0x12, 0x16, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x75, 0x72,
 	0x73, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x6c, 0x69, 0x62, 0x72,
@@ -10428,10 +11627,21 @@ var file_library_proto_rawDesc = []byte{
 	0x69, 0x6c, 0x12, 0x19, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x54, 0x61, 0x67,
 	0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e,
 	0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x54, 0x61, 0x67, 0x44, 0x65, 0x74, 0x61, 0x69,
-	0x6c, 0x73, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
-	0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65, 0x6e, 0x74,
-	0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6c, 0x73, 0x12, 0x3c, 0x0a, 0x0c, 0x4c, 0x69, 0x73, 0x74, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x18, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x51, 0x75, 0x65,
+	0x73, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x6c,
+	0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x73,
+	0x12, 0x36, 0x0a, 0x0a, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x12, 0x16,
+	0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79,
+	0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x12, 0x32, 0x0a, 0x08, 0x4c, 0x69, 0x73, 0x74,
+	0x51, 0x75, 0x69, 0x7a, 0x12, 0x14, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x51,
+	0x75, 0x69, 0x7a, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x6c, 0x69, 0x62,
+	0x72, 0x61, 0x72, 0x79, 0x2e, 0x51, 0x75, 0x69, 0x7a, 0x7a, 0x65, 0x73, 0x42, 0x2b, 0x5a, 0x29,
+	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67,
+	0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65, 0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65,
+	0x72, 0x2f, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -10446,8 +11656,8 @@ func file_library_proto_rawDescGZIP() []byte {
 	return file_library_proto_rawDescData
 }
 
-var file_library_proto_enumTypes = make([]protoimpl.EnumInfo, 25)
-var file_library_proto_msgTypes = make([]protoimpl.MessageInfo, 69)
+var file_library_proto_enumTypes = make([]protoimpl.EnumInfo, 28)
+var file_library_proto_msgTypes = make([]protoimpl.MessageInfo, 78)
 var file_library_proto_goTypes = []interface{}{
 	(Course_Status)(0),              // 0: library.Course.Status
 	(Document_Status)(0),            // 1: library.Document.Status
@@ -10474,191 +11684,217 @@ var file_library_proto_goTypes = []interface{}{
 	(Tag_Status)(0),                 // 22: library.Tag.Status
 	(TagDetail_Status)(0),           // 23: library.TagDetail.Status
 	(TagDetail_IsFavourite)(0),      // 24: library.TagDetail.IsFavourite
-	(*Listen)(nil),                  // 25: library.Listen
-	(*CourseRequest)(nil),           // 26: library.CourseRequest
-	(*Course)(nil),                  // 27: library.Course
-	(*Courses)(nil),                 // 28: library.Courses
-	(*DocumentRequest)(nil),         // 29: library.DocumentRequest
-	(*Document)(nil),                // 30: library.Document
-	(*Documents)(nil),               // 31: library.Documents
-	(*ParagraphRequest)(nil),        // 32: library.ParagraphRequest
-	(*Paragraph)(nil),               // 33: library.Paragraph
-	(*Paragraphs)(nil),              // 34: library.Paragraphs
-	(*SentenceRequest)(nil),         // 35: library.SentenceRequest
-	(*Sentence)(nil),                // 36: library.Sentence
-	(*Sentences)(nil),               // 37: library.Sentences
-	(*AudioRequest)(nil),            // 38: library.AudioRequest
-	(*Audio)(nil),                   // 39: library.Audio
-	(*Audios)(nil),                  // 40: library.Audios
-	(*CourseTagRequest)(nil),        // 41: library.CourseTagRequest
-	(*CourseTag)(nil),               // 42: library.CourseTag
-	(*CourseTags)(nil),              // 43: library.CourseTags
-	(*SearchEngine)(nil),            // 44: library.SearchEngine
-	(*SearchEngineRequest)(nil),     // 45: library.SearchEngineRequest
-	(*SearchEngines)(nil),           // 46: library.SearchEngines
-	(*SentencePos)(nil),             // 47: library.SentencePos
-	(*SentencePosRequest)(nil),      // 48: library.SentencePosRequest
-	(*SentencePoses)(nil),           // 49: library.SentencePoses
-	(*Mean)(nil),                    // 50: library.Mean
-	(*MeanRequest)(nil),             // 51: library.MeanRequest
-	(*Means)(nil),                   // 52: library.Means
-	(*Pos)(nil),                     // 53: library.Pos
-	(*PosRequest)(nil),              // 54: library.PosRequest
-	(*Poses)(nil),                   // 55: library.Poses
-	(*Translation)(nil),             // 56: library.Translation
-	(*Translations)(nil),            // 57: library.Translations
-	(*TranslationRequest)(nil),      // 58: library.TranslationRequest
-	(*Character)(nil),               // 59: library.Character
-	(*CharacterRequest)(nil),        // 60: library.CharacterRequest
-	(*Characters)(nil),              // 61: library.Characters
-	(*VoiceUsing)(nil),              // 62: library.VoiceUsing
-	(*Voice)(nil),                   // 63: library.Voice
-	(*Phrase)(nil),                  // 64: library.Phrase
-	(*PhraseRequest)(nil),           // 65: library.PhraseRequest
-	(*Phrases)(nil),                 // 66: library.Phrases
-	(*Example)(nil),                 // 67: library.Example
-	(*ExampleRequest)(nil),          // 68: library.ExampleRequest
-	(*Examples)(nil),                // 69: library.Examples
-	(*Word)(nil),                    // 70: library.Word
-	(*WordRequest)(nil),             // 71: library.WordRequest
-	(*Words)(nil),                   // 72: library.Words
-	(*Phonetic)(nil),                // 73: library.Phonetic
-	(*PhoneticRequest)(nil),         // 74: library.PhoneticRequest
-	(*SentenceJob)(nil),             // 75: library.SentenceJob
-	(*Pronounce)(nil),               // 76: library.Pronounce
-	(*PronounceRequest)(nil),        // 77: library.PronounceRequest
-	(*Pronounces)(nil),              // 78: library.Pronounces
-	(*Knowledge)(nil),               // 79: library.Knowledge
-	(*KnowledgeRequest)(nil),        // 80: library.KnowledgeRequest
-	(*Knowledges)(nil),              // 81: library.Knowledges
-	(*KnowledgeExample)(nil),        // 82: library.KnowledgeExample
-	(*KnowledgeExampleRequest)(nil), // 83: library.KnowledgeExampleRequest
-	(*KnowledgeExamples)(nil),       // 84: library.KnowledgeExamples
-	(*Tag)(nil),                     // 85: library.Tag
-	(*TagRequest)(nil),              // 86: library.TagRequest
-	(*Tags)(nil),                    // 87: library.Tags
-	(*TagDetail)(nil),               // 88: library.TagDetail
-	(*TagDetailRequest)(nil),        // 89: library.TagDetailRequest
-	(*TagDetails)(nil),              // 90: library.TagDetails
-	(*Label)(nil),                   // 91: library.Label
-	(*LabelRequest)(nil),            // 92: library.LabelRequest
-	(*Labels)(nil),                  // 93: library.Labels
+	(Question_Status)(0),            // 25: library.Question.Status
+	(Answer_Status)(0),              // 26: library.Answer.Status
+	(Quiz_Status)(0),                // 27: library.Quiz.Status
+	(*Listen)(nil),                  // 28: library.Listen
+	(*CourseRequest)(nil),           // 29: library.CourseRequest
+	(*Course)(nil),                  // 30: library.Course
+	(*Courses)(nil),                 // 31: library.Courses
+	(*DocumentRequest)(nil),         // 32: library.DocumentRequest
+	(*Document)(nil),                // 33: library.Document
+	(*Documents)(nil),               // 34: library.Documents
+	(*ParagraphRequest)(nil),        // 35: library.ParagraphRequest
+	(*Paragraph)(nil),               // 36: library.Paragraph
+	(*Paragraphs)(nil),              // 37: library.Paragraphs
+	(*SentenceRequest)(nil),         // 38: library.SentenceRequest
+	(*Sentence)(nil),                // 39: library.Sentence
+	(*Sentences)(nil),               // 40: library.Sentences
+	(*AudioRequest)(nil),            // 41: library.AudioRequest
+	(*Audio)(nil),                   // 42: library.Audio
+	(*Audios)(nil),                  // 43: library.Audios
+	(*CourseTagRequest)(nil),        // 44: library.CourseTagRequest
+	(*CourseTag)(nil),               // 45: library.CourseTag
+	(*CourseTags)(nil),              // 46: library.CourseTags
+	(*SearchEngine)(nil),            // 47: library.SearchEngine
+	(*SearchEngineRequest)(nil),     // 48: library.SearchEngineRequest
+	(*SearchEngines)(nil),           // 49: library.SearchEngines
+	(*SentencePos)(nil),             // 50: library.SentencePos
+	(*SentencePosRequest)(nil),      // 51: library.SentencePosRequest
+	(*SentencePoses)(nil),           // 52: library.SentencePoses
+	(*Mean)(nil),                    // 53: library.Mean
+	(*MeanRequest)(nil),             // 54: library.MeanRequest
+	(*Means)(nil),                   // 55: library.Means
+	(*Pos)(nil),                     // 56: library.Pos
+	(*PosRequest)(nil),              // 57: library.PosRequest
+	(*Poses)(nil),                   // 58: library.Poses
+	(*Translation)(nil),             // 59: library.Translation
+	(*Translations)(nil),            // 60: library.Translations
+	(*TranslationRequest)(nil),      // 61: library.TranslationRequest
+	(*Character)(nil),               // 62: library.Character
+	(*CharacterRequest)(nil),        // 63: library.CharacterRequest
+	(*Characters)(nil),              // 64: library.Characters
+	(*VoiceUsing)(nil),              // 65: library.VoiceUsing
+	(*Voice)(nil),                   // 66: library.Voice
+	(*Phrase)(nil),                  // 67: library.Phrase
+	(*PhraseRequest)(nil),           // 68: library.PhraseRequest
+	(*Phrases)(nil),                 // 69: library.Phrases
+	(*Example)(nil),                 // 70: library.Example
+	(*ExampleRequest)(nil),          // 71: library.ExampleRequest
+	(*Examples)(nil),                // 72: library.Examples
+	(*Word)(nil),                    // 73: library.Word
+	(*WordRequest)(nil),             // 74: library.WordRequest
+	(*Words)(nil),                   // 75: library.Words
+	(*Phonetic)(nil),                // 76: library.Phonetic
+	(*PhoneticRequest)(nil),         // 77: library.PhoneticRequest
+	(*SentenceJob)(nil),             // 78: library.SentenceJob
+	(*Pronounce)(nil),               // 79: library.Pronounce
+	(*PronounceRequest)(nil),        // 80: library.PronounceRequest
+	(*Pronounces)(nil),              // 81: library.Pronounces
+	(*Knowledge)(nil),               // 82: library.Knowledge
+	(*KnowledgeRequest)(nil),        // 83: library.KnowledgeRequest
+	(*Knowledges)(nil),              // 84: library.Knowledges
+	(*KnowledgeExample)(nil),        // 85: library.KnowledgeExample
+	(*KnowledgeExampleRequest)(nil), // 86: library.KnowledgeExampleRequest
+	(*KnowledgeExamples)(nil),       // 87: library.KnowledgeExamples
+	(*Tag)(nil),                     // 88: library.Tag
+	(*TagRequest)(nil),              // 89: library.TagRequest
+	(*Tags)(nil),                    // 90: library.Tags
+	(*TagDetail)(nil),               // 91: library.TagDetail
+	(*TagDetailRequest)(nil),        // 92: library.TagDetailRequest
+	(*TagDetails)(nil),              // 93: library.TagDetails
+	(*Label)(nil),                   // 94: library.Label
+	(*LabelRequest)(nil),            // 95: library.LabelRequest
+	(*Labels)(nil),                  // 96: library.Labels
+	(*Question)(nil),                // 97: library.Question
+	(*QuestionRequest)(nil),         // 98: library.QuestionRequest
+	(*Questions)(nil),               // 99: library.Questions
+	(*Answer)(nil),                  // 100: library.Answer
+	(*AnswerRequest)(nil),           // 101: library.AnswerRequest
+	(*Answers)(nil),                 // 102: library.Answers
+	(*Quiz)(nil),                    // 103: library.Quiz
+	(*QuizRequest)(nil),             // 104: library.QuizRequest
+	(*Quizzes)(nil),                 // 105: library.Quizzes
 }
 var file_library_proto_depIdxs = []int32{
-	0,  // 0: library.Course.status:type_name -> library.Course.Status
-	30, // 1: library.Course.documents:type_name -> library.Document
-	27, // 2: library.Courses.courses:type_name -> library.Course
-	1,  // 3: library.Document.status:type_name -> library.Document.Status
-	33, // 4: library.Document.paragraphs:type_name -> library.Paragraph
-	27, // 5: library.Document.course:type_name -> library.Course
-	30, // 6: library.Documents.documents:type_name -> library.Document
-	27, // 7: library.Documents.course:type_name -> library.Course
-	2,  // 8: library.Paragraph.type:type_name -> library.Paragraph.Type
-	3,  // 9: library.Paragraph.process_approve:type_name -> library.Paragraph.ProcessApprove
-	4,  // 10: library.Paragraph.status:type_name -> library.Paragraph.Status
-	36, // 11: library.Paragraph.sentences:type_name -> library.Sentence
-	30, // 12: library.Paragraph.document:type_name -> library.Document
-	33, // 13: library.Paragraphs.paragraphs:type_name -> library.Paragraph
-	30, // 14: library.Paragraphs.document:type_name -> library.Document
-	5,  // 15: library.Sentence.status:type_name -> library.Sentence.Status
-	39, // 16: library.Sentence.audios:type_name -> library.Audio
-	56, // 17: library.Sentence.translation:type_name -> library.Translation
-	33, // 18: library.Sentence.paragraph:type_name -> library.Paragraph
-	47, // 19: library.Sentence.sentence_poses:type_name -> library.SentencePos
-	64, // 20: library.Sentence.phrases:type_name -> library.Phrase
-	36, // 21: library.Sentences.sentences:type_name -> library.Sentence
-	59, // 22: library.Sentences.characters:type_name -> library.Character
-	33, // 23: library.Sentences.pragraph:type_name -> library.Paragraph
-	6,  // 24: library.Audio.status:type_name -> library.Audio.Status
-	39, // 25: library.Audios.audios:type_name -> library.Audio
-	42, // 26: library.CourseTags.courseTags:type_name -> library.CourseTag
-	7,  // 27: library.SearchEngine.status:type_name -> library.SearchEngine.Status
-	27, // 28: library.SearchEngine.courses:type_name -> library.Course
-	30, // 29: library.SearchEngine.documents:type_name -> library.Document
-	33, // 30: library.SearchEngine.paragraphs:type_name -> library.Paragraph
-	44, // 31: library.SearchEngines.search_engines:type_name -> library.SearchEngine
-	8,  // 32: library.SentencePos.status:type_name -> library.SentencePos.Status
-	47, // 33: library.SentencePoses.sentence_poses:type_name -> library.SentencePos
-	9,  // 34: library.Mean.status:type_name -> library.Mean.Status
-	50, // 35: library.Means.means:type_name -> library.Mean
-	50, // 36: library.Pos.means:type_name -> library.Mean
-	70, // 37: library.Pos.word:type_name -> library.Word
-	53, // 38: library.Poses.poses:type_name -> library.Pos
-	10, // 39: library.Translation.status:type_name -> library.Translation.Status
-	56, // 40: library.Translations.translations:type_name -> library.Translation
-	11, // 41: library.Character.status:type_name -> library.Character.Status
-	59, // 42: library.Characters.characters:type_name -> library.Character
-	12, // 43: library.Voice.is_cloned:type_name -> library.Voice.IsCloned
-	13, // 44: library.Phrase.status:type_name -> library.Phrase.Status
-	91, // 45: library.Phrase.label_detail:type_name -> library.Label
-	64, // 46: library.Phrases.phrases:type_name -> library.Phrase
-	14, // 47: library.Example.status:type_name -> library.Example.Status
-	67, // 48: library.Examples.examples:type_name -> library.Example
-	15, // 49: library.Word.status:type_name -> library.Word.Status
-	70, // 50: library.Words.words:type_name -> library.Word
-	16, // 51: library.SentenceJob.process:type_name -> library.SentenceJob.Process
-	17, // 52: library.SentenceJob.action:type_name -> library.SentenceJob.Action
-	18, // 53: library.SentenceJob.status:type_name -> library.SentenceJob.Status
-	19, // 54: library.Pronounce.type:type_name -> library.Pronounce.Type
-	73, // 55: library.Pronounce.phonetics:type_name -> library.Phonetic
-	76, // 56: library.Pronounces.pronounces:type_name -> library.Pronounce
-	20, // 57: library.Knowledge.status:type_name -> library.Knowledge.Status
-	82, // 58: library.Knowledge.knowledge_examples:type_name -> library.KnowledgeExample
-	79, // 59: library.Knowledges.knowledges:type_name -> library.Knowledge
-	21, // 60: library.KnowledgeExample.status:type_name -> library.KnowledgeExample.Status
-	82, // 61: library.KnowledgeExamples.knowledge_examples:type_name -> library.KnowledgeExample
-	22, // 62: library.Tag.status:type_name -> library.Tag.Status
-	85, // 63: library.Tags.tags:type_name -> library.Tag
-	23, // 64: library.TagDetail.status:type_name -> library.TagDetail.Status
-	85, // 65: library.TagDetail.Tag:type_name -> library.Tag
-	27, // 66: library.TagDetail.course:type_name -> library.Course
-	30, // 67: library.TagDetail.document:type_name -> library.Document
-	33, // 68: library.TagDetail.paragraph:type_name -> library.Paragraph
-	24, // 69: library.TagDetail.is_favourite:type_name -> library.TagDetail.IsFavourite
-	88, // 70: library.TagDetails.tag_details:type_name -> library.TagDetail
-	85, // 71: library.TagDetails.tag:type_name -> library.Tag
-	91, // 72: library.Labels.labels:type_name -> library.Label
-	26, // 73: library.LibraryService.ListCourses:input_type -> library.CourseRequest
-	29, // 74: library.LibraryService.ListDocument:input_type -> library.DocumentRequest
-	32, // 75: library.LibraryService.ListParagraph:input_type -> library.ParagraphRequest
-	32, // 76: library.LibraryService.FindParagraph:input_type -> library.ParagraphRequest
-	45, // 77: library.LibraryService.GetDataSearchEngine:input_type -> library.SearchEngineRequest
-	35, // 78: library.LibraryService.ListSentence:input_type -> library.SentenceRequest
-	35, // 79: library.LibraryService.StartLearnListen:input_type -> library.SentenceRequest
-	25, // 80: library.LibraryService.EndLearnListen:input_type -> library.Listen
-	54, // 81: library.LibraryService.GetPos:input_type -> library.PosRequest
-	33, // 82: library.LibraryService.ApproveParagraph:input_type -> library.Paragraph
-	48, // 83: library.LibraryService.ListSentencePos:input_type -> library.SentencePosRequest
-	35, // 84: library.LibraryService.GetSentenceDetail:input_type -> library.SentenceRequest
-	77, // 85: library.LibraryService.ListPronounce:input_type -> library.PronounceRequest
-	77, // 86: library.LibraryService.GetPronounce:input_type -> library.PronounceRequest
-	48, // 87: library.LibraryService.ListSentencePoses:input_type -> library.SentencePosRequest
-	80, // 88: library.LibraryService.ListKnowledge:input_type -> library.KnowledgeRequest
-	79, // 89: library.LibraryService.GetKnowledge:input_type -> library.Knowledge
-	89, // 90: library.LibraryService.ListTagDetail:input_type -> library.TagDetailRequest
-	28, // 91: library.LibraryService.ListCourses:output_type -> library.Courses
-	31, // 92: library.LibraryService.ListDocument:output_type -> library.Documents
-	34, // 93: library.LibraryService.ListParagraph:output_type -> library.Paragraphs
-	33, // 94: library.LibraryService.FindParagraph:output_type -> library.Paragraph
-	46, // 95: library.LibraryService.GetDataSearchEngine:output_type -> library.SearchEngines
-	37, // 96: library.LibraryService.ListSentence:output_type -> library.Sentences
-	37, // 97: library.LibraryService.StartLearnListen:output_type -> library.Sentences
-	25, // 98: library.LibraryService.EndLearnListen:output_type -> library.Listen
-	53, // 99: library.LibraryService.GetPos:output_type -> library.Pos
-	33, // 100: library.LibraryService.ApproveParagraph:output_type -> library.Paragraph
-	49, // 101: library.LibraryService.ListSentencePos:output_type -> library.SentencePoses
-	36, // 102: library.LibraryService.GetSentenceDetail:output_type -> library.Sentence
-	78, // 103: library.LibraryService.ListPronounce:output_type -> library.Pronounces
-	76, // 104: library.LibraryService.GetPronounce:output_type -> library.Pronounce
-	49, // 105: library.LibraryService.ListSentencePoses:output_type -> library.SentencePoses
-	81, // 106: library.LibraryService.ListKnowledge:output_type -> library.Knowledges
-	79, // 107: library.LibraryService.GetKnowledge:output_type -> library.Knowledge
-	90, // 108: library.LibraryService.ListTagDetail:output_type -> library.TagDetails
-	91, // [91:109] is the sub-list for method output_type
-	73, // [73:91] is the sub-list for method input_type
-	73, // [73:73] is the sub-list for extension type_name
-	73, // [73:73] is the sub-list for extension extendee
-	0,  // [0:73] is the sub-list for field type_name
+	0,   // 0: library.Course.status:type_name -> library.Course.Status
+	33,  // 1: library.Course.documents:type_name -> library.Document
+	30,  // 2: library.Courses.courses:type_name -> library.Course
+	1,   // 3: library.Document.status:type_name -> library.Document.Status
+	36,  // 4: library.Document.paragraphs:type_name -> library.Paragraph
+	30,  // 5: library.Document.course:type_name -> library.Course
+	33,  // 6: library.Documents.documents:type_name -> library.Document
+	30,  // 7: library.Documents.course:type_name -> library.Course
+	2,   // 8: library.Paragraph.type:type_name -> library.Paragraph.Type
+	3,   // 9: library.Paragraph.process_approve:type_name -> library.Paragraph.ProcessApprove
+	4,   // 10: library.Paragraph.status:type_name -> library.Paragraph.Status
+	39,  // 11: library.Paragraph.sentences:type_name -> library.Sentence
+	33,  // 12: library.Paragraph.document:type_name -> library.Document
+	36,  // 13: library.Paragraphs.paragraphs:type_name -> library.Paragraph
+	33,  // 14: library.Paragraphs.document:type_name -> library.Document
+	5,   // 15: library.Sentence.status:type_name -> library.Sentence.Status
+	42,  // 16: library.Sentence.audios:type_name -> library.Audio
+	59,  // 17: library.Sentence.translation:type_name -> library.Translation
+	36,  // 18: library.Sentence.paragraph:type_name -> library.Paragraph
+	50,  // 19: library.Sentence.sentence_poses:type_name -> library.SentencePos
+	67,  // 20: library.Sentence.phrases:type_name -> library.Phrase
+	39,  // 21: library.Sentences.sentences:type_name -> library.Sentence
+	62,  // 22: library.Sentences.characters:type_name -> library.Character
+	36,  // 23: library.Sentences.pragraph:type_name -> library.Paragraph
+	6,   // 24: library.Audio.status:type_name -> library.Audio.Status
+	42,  // 25: library.Audios.audios:type_name -> library.Audio
+	45,  // 26: library.CourseTags.courseTags:type_name -> library.CourseTag
+	7,   // 27: library.SearchEngine.status:type_name -> library.SearchEngine.Status
+	30,  // 28: library.SearchEngine.courses:type_name -> library.Course
+	33,  // 29: library.SearchEngine.documents:type_name -> library.Document
+	36,  // 30: library.SearchEngine.paragraphs:type_name -> library.Paragraph
+	47,  // 31: library.SearchEngines.search_engines:type_name -> library.SearchEngine
+	8,   // 32: library.SentencePos.status:type_name -> library.SentencePos.Status
+	50,  // 33: library.SentencePoses.sentence_poses:type_name -> library.SentencePos
+	9,   // 34: library.Mean.status:type_name -> library.Mean.Status
+	53,  // 35: library.Means.means:type_name -> library.Mean
+	53,  // 36: library.Pos.means:type_name -> library.Mean
+	73,  // 37: library.Pos.word:type_name -> library.Word
+	56,  // 38: library.Poses.poses:type_name -> library.Pos
+	10,  // 39: library.Translation.status:type_name -> library.Translation.Status
+	59,  // 40: library.Translations.translations:type_name -> library.Translation
+	11,  // 41: library.Character.status:type_name -> library.Character.Status
+	62,  // 42: library.Characters.characters:type_name -> library.Character
+	12,  // 43: library.Voice.is_cloned:type_name -> library.Voice.IsCloned
+	13,  // 44: library.Phrase.status:type_name -> library.Phrase.Status
+	94,  // 45: library.Phrase.label_detail:type_name -> library.Label
+	67,  // 46: library.Phrases.phrases:type_name -> library.Phrase
+	14,  // 47: library.Example.status:type_name -> library.Example.Status
+	70,  // 48: library.Examples.examples:type_name -> library.Example
+	15,  // 49: library.Word.status:type_name -> library.Word.Status
+	73,  // 50: library.Words.words:type_name -> library.Word
+	16,  // 51: library.SentenceJob.process:type_name -> library.SentenceJob.Process
+	17,  // 52: library.SentenceJob.action:type_name -> library.SentenceJob.Action
+	18,  // 53: library.SentenceJob.status:type_name -> library.SentenceJob.Status
+	19,  // 54: library.Pronounce.type:type_name -> library.Pronounce.Type
+	76,  // 55: library.Pronounce.phonetics:type_name -> library.Phonetic
+	79,  // 56: library.Pronounces.pronounces:type_name -> library.Pronounce
+	20,  // 57: library.Knowledge.status:type_name -> library.Knowledge.Status
+	85,  // 58: library.Knowledge.knowledge_examples:type_name -> library.KnowledgeExample
+	82,  // 59: library.Knowledges.knowledges:type_name -> library.Knowledge
+	21,  // 60: library.KnowledgeExample.status:type_name -> library.KnowledgeExample.Status
+	85,  // 61: library.KnowledgeExamples.knowledge_examples:type_name -> library.KnowledgeExample
+	22,  // 62: library.Tag.status:type_name -> library.Tag.Status
+	88,  // 63: library.Tags.tags:type_name -> library.Tag
+	23,  // 64: library.TagDetail.status:type_name -> library.TagDetail.Status
+	88,  // 65: library.TagDetail.Tag:type_name -> library.Tag
+	30,  // 66: library.TagDetail.course:type_name -> library.Course
+	33,  // 67: library.TagDetail.document:type_name -> library.Document
+	36,  // 68: library.TagDetail.paragraph:type_name -> library.Paragraph
+	24,  // 69: library.TagDetail.is_favourite:type_name -> library.TagDetail.IsFavourite
+	91,  // 70: library.TagDetails.tag_details:type_name -> library.TagDetail
+	88,  // 71: library.TagDetails.tag:type_name -> library.Tag
+	94,  // 72: library.Labels.labels:type_name -> library.Label
+	25,  // 73: library.Question.status:type_name -> library.Question.Status
+	103, // 74: library.Question.quiz:type_name -> library.Quiz
+	97,  // 75: library.Questions.questions:type_name -> library.Question
+	26,  // 76: library.Answer.status:type_name -> library.Answer.Status
+	97,  // 77: library.Answer.question:type_name -> library.Question
+	100, // 78: library.Answers.answers:type_name -> library.Answer
+	27,  // 79: library.Quiz.status:type_name -> library.Quiz.Status
+	103, // 80: library.Quizzes.quizzes:type_name -> library.Quiz
+	29,  // 81: library.LibraryService.ListCourses:input_type -> library.CourseRequest
+	32,  // 82: library.LibraryService.ListDocument:input_type -> library.DocumentRequest
+	35,  // 83: library.LibraryService.ListParagraph:input_type -> library.ParagraphRequest
+	35,  // 84: library.LibraryService.FindParagraph:input_type -> library.ParagraphRequest
+	48,  // 85: library.LibraryService.GetDataSearchEngine:input_type -> library.SearchEngineRequest
+	38,  // 86: library.LibraryService.ListSentence:input_type -> library.SentenceRequest
+	38,  // 87: library.LibraryService.StartLearnListen:input_type -> library.SentenceRequest
+	28,  // 88: library.LibraryService.EndLearnListen:input_type -> library.Listen
+	57,  // 89: library.LibraryService.GetPos:input_type -> library.PosRequest
+	36,  // 90: library.LibraryService.ApproveParagraph:input_type -> library.Paragraph
+	51,  // 91: library.LibraryService.ListSentencePos:input_type -> library.SentencePosRequest
+	38,  // 92: library.LibraryService.GetSentenceDetail:input_type -> library.SentenceRequest
+	80,  // 93: library.LibraryService.ListPronounce:input_type -> library.PronounceRequest
+	80,  // 94: library.LibraryService.GetPronounce:input_type -> library.PronounceRequest
+	51,  // 95: library.LibraryService.ListSentencePoses:input_type -> library.SentencePosRequest
+	83,  // 96: library.LibraryService.ListKnowledge:input_type -> library.KnowledgeRequest
+	82,  // 97: library.LibraryService.GetKnowledge:input_type -> library.Knowledge
+	92,  // 98: library.LibraryService.ListTagDetail:input_type -> library.TagDetailRequest
+	98,  // 99: library.LibraryService.ListQuestion:input_type -> library.QuestionRequest
+	101, // 100: library.LibraryService.ListAnswer:input_type -> library.AnswerRequest
+	104, // 101: library.LibraryService.ListQuiz:input_type -> library.QuizRequest
+	31,  // 102: library.LibraryService.ListCourses:output_type -> library.Courses
+	34,  // 103: library.LibraryService.ListDocument:output_type -> library.Documents
+	37,  // 104: library.LibraryService.ListParagraph:output_type -> library.Paragraphs
+	36,  // 105: library.LibraryService.FindParagraph:output_type -> library.Paragraph
+	49,  // 106: library.LibraryService.GetDataSearchEngine:output_type -> library.SearchEngines
+	40,  // 107: library.LibraryService.ListSentence:output_type -> library.Sentences
+	40,  // 108: library.LibraryService.StartLearnListen:output_type -> library.Sentences
+	28,  // 109: library.LibraryService.EndLearnListen:output_type -> library.Listen
+	56,  // 110: library.LibraryService.GetPos:output_type -> library.Pos
+	36,  // 111: library.LibraryService.ApproveParagraph:output_type -> library.Paragraph
+	52,  // 112: library.LibraryService.ListSentencePos:output_type -> library.SentencePoses
+	39,  // 113: library.LibraryService.GetSentenceDetail:output_type -> library.Sentence
+	81,  // 114: library.LibraryService.ListPronounce:output_type -> library.Pronounces
+	79,  // 115: library.LibraryService.GetPronounce:output_type -> library.Pronounce
+	52,  // 116: library.LibraryService.ListSentencePoses:output_type -> library.SentencePoses
+	84,  // 117: library.LibraryService.ListKnowledge:output_type -> library.Knowledges
+	82,  // 118: library.LibraryService.GetKnowledge:output_type -> library.Knowledge
+	93,  // 119: library.LibraryService.ListTagDetail:output_type -> library.TagDetails
+	99,  // 120: library.LibraryService.ListQuestion:output_type -> library.Questions
+	102, // 121: library.LibraryService.ListAnswer:output_type -> library.Answers
+	105, // 122: library.LibraryService.ListQuiz:output_type -> library.Quizzes
+	102, // [102:123] is the sub-list for method output_type
+	81,  // [81:102] is the sub-list for method input_type
+	81,  // [81:81] is the sub-list for extension type_name
+	81,  // [81:81] is the sub-list for extension extendee
+	0,   // [0:81] is the sub-list for field type_name
 }
 
 func init() { file_library_proto_init() }
@@ -11495,14 +12731,122 @@ func file_library_proto_init() {
 				return nil
 			}
 		}
+		file_library_proto_msgTypes[69].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Question); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[70].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QuestionRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[71].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Questions); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[72].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Answer); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[73].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AnswerRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[74].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Answers); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[75].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Quiz); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[76].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QuizRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_library_proto_msgTypes[77].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Quizzes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_library_proto_rawDesc,
-			NumEnums:      25,
-			NumMessages:   69,
+			NumEnums:      28,
+			NumMessages:   78,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
