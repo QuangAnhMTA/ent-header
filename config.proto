@@ -398,6 +398,8 @@ message AccountGroup {
 		deactive = 1;
 		active = 2;
 	  }
+    // `gorm:"-"`
+    Account account = 9;
 }
 
 message AccountGroupRequest {
