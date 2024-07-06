@@ -27,6 +27,7 @@ service LibraryService {
   rpc ListQuestion (QuestionRequest) returns(Questions);
   rpc ListAnswer  (AnswerRequest) returns (Answers);
   rpc ListQuiz (QuizRequest) returns (Quizzes);
+  rpc ListSentenceGroup(SentenceGroupRequest) returns (SentenceGroups);
  }
 
 
@@ -240,6 +241,8 @@ message SentenceRequest {
   repeated int64 character_ids = 19;
   int64 current_id = 20;
   int32 group = 27;
+  int64 sentence_group_id = 28;
+  repeated int64 sentence_group_ids = 29;
 
 }
 
@@ -280,6 +283,7 @@ message Sentence {
   // `gorm:"-"`
   repeated Phrase phrases = 26;
   int32 group = 27;
+  int64 sentence_group_id = 28;
 }
 
 message Sentences {
@@ -1233,4 +1237,39 @@ message QuizRequest {
 message  Quizzes {
   int32 total = 1;
   repeated Quiz quizzes = 2;
+}
+
+
+message SentenceGroup {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1;
+    int64 course_id = 2;
+    int64 document_id = 3;
+    int64 paragraph_id = 4;
+    string image = 5;
+    Status status = 6;  
+    enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+    }
+}
+
+message SentenceGroupRequest {
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 document_id = 3;
+  int64 paragraph_id = 4;
+  string image = 5;
+  int32 status = 6;
+  int32 limit = 17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19; 
+  repeated int64 ids = 21;
+}
+
+message SentenceGroups {
+  repeated SentenceGroup setence_groups = 1;
+  int32 total = 2;
 }
