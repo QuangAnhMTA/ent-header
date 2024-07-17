@@ -479,6 +479,7 @@ message Mean {
       active = 2;
   }
   string example_vi = 12;
+  string example = 13;
 }
 
 message MeanRequest {

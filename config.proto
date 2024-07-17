@@ -387,6 +387,7 @@ message GroupRequest {
 message Groups {
   int32 total = 1;
   repeated Group groups =2;
+  Group group_parent = 3;
 }
 
 
