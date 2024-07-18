@@ -8,3 +8,8 @@ gen:
 	protoc-go-tags --dir=config
 	protoc-go-tags --dir=library
 	protoc-go-tags --dir=transaction
+
+
+
+
+	

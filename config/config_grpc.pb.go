@@ -44,6 +44,7 @@ type ConfigServiceClient interface {
 	CreateMemberPractice(ctx context.Context, in *MemberPractice, opts ...grpc.CallOption) (*MemberPractice, error)
 	ListGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error)
 	ListMemberGroup(ctx context.Context, in *MemberGroupRequest, opts ...grpc.CallOption) (*MemberGroups, error)
+	GetGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Group, error)
 }
 
 type configServiceClient struct {
@@ -225,6 +226,15 @@ func (c *configServiceClient) ListMemberGroup(ctx context.Context, in *MemberGro
 	return out, nil
 }
 
+func (c *configServiceClient) GetGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/GetGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -251,6 +261,7 @@ type ConfigServiceServer interface {
 	CreateMemberPractice(context.Context, *MemberPractice) (*MemberPractice, error)
 	ListGroup(context.Context, *GroupRequest) (*Groups, error)
 	ListMemberGroup(context.Context, *MemberGroupRequest) (*MemberGroups, error)
+	GetGroup(context.Context, *GroupRequest) (*Group, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -313,6 +324,9 @@ func (UnimplementedConfigServiceServer) ListGroup(context.Context, *GroupRequest
 }
 func (UnimplementedConfigServiceServer) ListMemberGroup(context.Context, *MemberGroupRequest) (*MemberGroups, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) GetGroup(context.Context, *GroupRequest) (*Group, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGroup not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -668,6 +682,24 @@ func _ConfigService_ListMemberGroup_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_GetGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).GetGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/GetGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).GetGroup(ctx, req.(*GroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -750,6 +782,10 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMemberGroup",
 			Handler:    _ConfigService_ListMemberGroup_Handler,
+		},
+		{
+			MethodName: "GetGroup",
+			Handler:    _ConfigService_GetGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

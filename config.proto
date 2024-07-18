@@ -33,6 +33,8 @@ service ConfigService {
    rpc CreateMemberPractice(MemberPractice) returns (MemberPractice);
    rpc ListGroup(GroupRequest) returns (Groups);
    rpc ListMemberGroup(MemberGroupRequest) returns (MemberGroups);
+   rpc GetGroup(GroupRequest) returns(Group);
+
 } 
 
 message Claims {
