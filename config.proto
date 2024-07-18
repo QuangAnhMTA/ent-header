@@ -369,6 +369,8 @@ message Group {
 	}
     // `gorm:"-"`
     repeated AccountGroup account_groups = 9;
+    // `gorm:"-"`
+    string parent_title = 11;
 }
 
 message GroupRequest {
