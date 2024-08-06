@@ -456,7 +456,7 @@ func (x MemberToken_Type) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use MemberToken_Type.Descriptor instead.
 func (MemberToken_Type) EnumDescriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{33, 0}
+	return file_transaction_proto_rawDescGZIP(), []int{34, 0}
 }
 
 type MemberToken_Status int32
@@ -505,7 +505,7 @@ func (x MemberToken_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use MemberToken_Status.Descriptor instead.
 func (MemberToken_Status) EnumDescriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{33, 1}
+	return file_transaction_proto_rawDescGZIP(), []int{34, 1}
 }
 
 type AccountToken_Type int32
@@ -554,7 +554,7 @@ func (x AccountToken_Type) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use AccountToken_Type.Descriptor instead.
 func (AccountToken_Type) EnumDescriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{34, 0}
+	return file_transaction_proto_rawDescGZIP(), []int{35, 0}
 }
 
 type AccountToken_Status int32
@@ -603,7 +603,7 @@ func (x AccountToken_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use AccountToken_Status.Descriptor instead.
 func (AccountToken_Status) EnumDescriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{34, 1}
+	return file_transaction_proto_rawDescGZIP(), []int{35, 1}
 }
 
 type Listen struct {
@@ -4065,6 +4065,61 @@ func (x *Answer) GetUpdatedAt() int64 {
 	return 0
 }
 
+type Answers struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total   int32     `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Answers []*Answer `protobuf:"bytes,2,rep,name=answers,proto3" json:"answers,omitempty"`
+}
+
+func (x *Answers) Reset() {
+	*x = Answers{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_transaction_proto_msgTypes[33]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Answers) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Answers) ProtoMessage() {}
+
+func (x *Answers) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_proto_msgTypes[33]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Answers.ProtoReflect.Descriptor instead.
+func (*Answers) Descriptor() ([]byte, []int) {
+	return file_transaction_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *Answers) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *Answers) GetAnswers() []*Answer {
+	if x != nil {
+		return x.Answers
+	}
+	return nil
+}
+
 type MemberToken struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4083,7 +4138,7 @@ type MemberToken struct {
 func (x *MemberToken) Reset() {
 	*x = MemberToken{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_transaction_proto_msgTypes[33]
+		mi := &file_transaction_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4096,7 +4151,7 @@ func (x *MemberToken) String() string {
 func (*MemberToken) ProtoMessage() {}
 
 func (x *MemberToken) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[33]
+	mi := &file_transaction_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4109,7 +4164,7 @@ func (x *MemberToken) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MemberToken.ProtoReflect.Descriptor instead.
 func (*MemberToken) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{33}
+	return file_transaction_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *MemberToken) GetId() int64 {
@@ -4178,7 +4233,7 @@ type AccountToken struct {
 func (x *AccountToken) Reset() {
 	*x = AccountToken{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_transaction_proto_msgTypes[34]
+		mi := &file_transaction_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4191,7 +4246,7 @@ func (x *AccountToken) String() string {
 func (*AccountToken) ProtoMessage() {}
 
 func (x *AccountToken) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[34]
+	mi := &file_transaction_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4204,7 +4259,7 @@ func (x *AccountToken) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AccountToken.ProtoReflect.Descriptor instead.
 func (*AccountToken) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{34}
+	return file_transaction_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *AccountToken) GetId() int64 {
@@ -4803,7 +4858,12 @@ var file_transaction_proto_rawDesc = []byte{
 	0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x03,
 	0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x75,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x03, 0x52,
-	0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0xe9, 0x02, 0x0a, 0x0b, 0x4d,
+	0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x4e, 0x0a, 0x07, 0x41, 0x6e,
+	0x73, 0x77, 0x65, 0x72, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x2d, 0x0a, 0x07, 0x61,
+	0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x74,
+	0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65,
+	0x72, 0x52, 0x07, 0x61, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x22, 0xe9, 0x02, 0x0a, 0x0b, 0x4d,
 	0x65, 0x6d, 0x62, 0x65, 0x72, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65,
 	0x6d, 0x62, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x6d,
@@ -4847,7 +4907,7 @@ var file_transaction_proto_rawDesc = []byte{
 	0x02, 0x22, 0x35, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x11, 0x0a, 0x0d, 0x64,
 	0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x10, 0x00, 0x12, 0x0c,
 	0x0a, 0x08, 0x64, 0x65, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06,
-	0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10, 0x02, 0x32, 0xfc, 0x0b, 0x0a, 0x12, 0x54, 0x72, 0x61,
+	0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10, 0x02, 0x32, 0xb9, 0x0c, 0x0a, 0x12, 0x54, 0x72, 0x61,
 	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
 	0x3d, 0x0a, 0x0a, 0x4c, 0x69, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x12, 0x1a, 0x2e,
 	0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4c, 0x69, 0x73, 0x74,
@@ -4943,10 +5003,14 @@ var file_transaction_proto_rawDesc = []byte{
 	0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x12, 0x13, 0x2e,
 	0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x41, 0x6e, 0x73, 0x77,
 	0x65, 0x72, 0x1a, 0x13, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x42, 0x2f, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54,
-	0x41, 0x2f, 0x65, 0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x74, 0x72, 0x61,
-	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x12, 0x3b, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x12, 0x14, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x73, 0x1a, 0x14,
+	0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x41, 0x6e, 0x73,
+	0x77, 0x65, 0x72, 0x73, 0x42, 0x2f, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65,
+	0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4962,7 +5026,7 @@ func file_transaction_proto_rawDescGZIP() []byte {
 }
 
 var file_transaction_proto_enumTypes = make([]protoimpl.EnumInfo, 12)
-var file_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
 var file_transaction_proto_goTypes = []interface{}{
 	(Paragraph_Process)(0),       // 0: transaction.Paragraph.Process
 	(Favourite_Status)(0),        // 1: transaction.Favourite.Status
@@ -5009,101 +5073,105 @@ var file_transaction_proto_goTypes = []interface{}{
 	(*LearnRequest)(nil),         // 42: transaction.LearnRequest
 	(*Learns)(nil),               // 43: transaction.Learns
 	(*Answer)(nil),               // 44: transaction.Answer
-	(*MemberToken)(nil),          // 45: transaction.MemberToken
-	(*AccountToken)(nil),         // 46: transaction.AccountToken
-	(*library.Sentence)(nil),     // 47: library.Sentence
-	(*library.SentencePos)(nil),  // 48: library.SentencePos
-	(*library.Paragraph)(nil),    // 49: library.Paragraph
-	(*library.Document)(nil),     // 50: library.Document
-	(*library.Course)(nil),       // 51: library.Course
+	(*Answers)(nil),              // 45: transaction.Answers
+	(*MemberToken)(nil),          // 46: transaction.MemberToken
+	(*AccountToken)(nil),         // 47: transaction.AccountToken
+	(*library.Sentence)(nil),     // 48: library.Sentence
+	(*library.SentencePos)(nil),  // 49: library.SentencePos
+	(*library.Paragraph)(nil),    // 50: library.Paragraph
+	(*library.Document)(nil),     // 51: library.Document
+	(*library.Course)(nil),       // 52: library.Course
 }
 var file_transaction_proto_depIdxs = []int32{
 	14, // 0: transaction.Speaks.speaks:type_name -> transaction.Speak
-	47, // 1: transaction.Lookup.sentence:type_name -> library.Sentence
-	48, // 2: transaction.Lookup.sentence_pos:type_name -> library.SentencePos
+	48, // 1: transaction.Lookup.sentence:type_name -> library.Sentence
+	49, // 2: transaction.Lookup.sentence_pos:type_name -> library.SentencePos
 	17, // 3: transaction.Lookups.lookups:type_name -> transaction.Lookup
-	47, // 4: transaction.Sentence.sentence:type_name -> library.Sentence
+	48, // 4: transaction.Sentence.sentence:type_name -> library.Sentence
 	20, // 5: transaction.Sentences.sentences:type_name -> transaction.Sentence
-	49, // 6: transaction.Paragraph.paragraph:type_name -> library.Paragraph
-	50, // 7: transaction.Paragraph.document:type_name -> library.Document
-	51, // 8: transaction.Paragraph.course:type_name -> library.Course
+	50, // 6: transaction.Paragraph.paragraph:type_name -> library.Paragraph
+	51, // 7: transaction.Paragraph.document:type_name -> library.Document
+	52, // 8: transaction.Paragraph.course:type_name -> library.Course
 	0,  // 9: transaction.Paragraph.process:type_name -> transaction.Paragraph.Process
 	23, // 10: transaction.Paragraphs.paragraphs:type_name -> transaction.Paragraph
 	26, // 11: transaction.ListenDisplays.listen_displays:type_name -> transaction.ListenDisplay
 	29, // 12: transaction.SpeakDisplays.speak_displays:type_name -> transaction.SpeakDisplay
-	49, // 13: transaction.Favourite.paragraph:type_name -> library.Paragraph
-	50, // 14: transaction.Favourite.document:type_name -> library.Document
-	51, // 15: transaction.Favourite.course:type_name -> library.Course
+	50, // 13: transaction.Favourite.paragraph:type_name -> library.Paragraph
+	51, // 14: transaction.Favourite.document:type_name -> library.Document
+	52, // 15: transaction.Favourite.course:type_name -> library.Course
 	1,  // 16: transaction.Favourite.status:type_name -> transaction.Favourite.Status
 	32, // 17: transaction.Favourites.favourites:type_name -> transaction.Favourite
 	2,  // 18: transaction.New.type:type_name -> transaction.New.Type
 	3,  // 19: transaction.New.status:type_name -> transaction.New.Status
-	49, // 20: transaction.New.paragraph:type_name -> library.Paragraph
+	50, // 20: transaction.New.paragraph:type_name -> library.Paragraph
 	38, // 21: transaction.New.new_details:type_name -> transaction.NewDetail
 	35, // 22: transaction.News.News:type_name -> transaction.New
 	4,  // 23: transaction.NewDetail.status:type_name -> transaction.NewDetail.Status
-	47, // 24: transaction.NewDetail.sentence:type_name -> library.Sentence
+	48, // 24: transaction.NewDetail.sentence:type_name -> library.Sentence
 	35, // 25: transaction.NewDetail.new:type_name -> transaction.New
 	38, // 26: transaction.NewDetails.new_details:type_name -> transaction.NewDetail
 	5,  // 27: transaction.Learn.status:type_name -> transaction.Learn.Status
 	6,  // 28: transaction.Learn.type:type_name -> transaction.Learn.Type
 	7,  // 29: transaction.Learn.process:type_name -> transaction.Learn.Process
 	41, // 30: transaction.Learns.learns:type_name -> transaction.Learn
-	8,  // 31: transaction.MemberToken.type:type_name -> transaction.MemberToken.Type
-	9,  // 32: transaction.MemberToken.status:type_name -> transaction.MemberToken.Status
-	10, // 33: transaction.AccountToken.type:type_name -> transaction.AccountToken.Type
-	11, // 34: transaction.AccountToken.status:type_name -> transaction.AccountToken.Status
-	13, // 35: transaction.TransactionService.ListListen:input_type -> transaction.ListenRequest
-	12, // 36: transaction.TransactionService.EndLearnListen:input_type -> transaction.Listen
-	16, // 37: transaction.TransactionService.ListSpeak:input_type -> transaction.SpeakRequest
-	14, // 38: transaction.TransactionService.EndLearnSpeak:input_type -> transaction.Speak
-	20, // 39: transaction.TransactionService.CreateSentence:input_type -> transaction.Sentence
-	17, // 40: transaction.TransactionService.CreateLookup:input_type -> transaction.Lookup
-	23, // 41: transaction.TransactionService.CreateParagraph:input_type -> transaction.Paragraph
-	23, // 42: transaction.TransactionService.CompleteParagraph:input_type -> transaction.Paragraph
-	18, // 43: transaction.TransactionService.ListLookup:input_type -> transaction.LookupRequest
-	21, // 44: transaction.TransactionService.ListSentence:input_type -> transaction.SentenceRequest
-	24, // 45: transaction.TransactionService.GetParagraphMax:input_type -> transaction.ParagraphRequest
-	24, // 46: transaction.TransactionService.ListParagraph:input_type -> transaction.ParagraphRequest
-	27, // 47: transaction.TransactionService.ListListenDisplay:input_type -> transaction.ListenDisplayRequest
-	30, // 48: transaction.TransactionService.ListSpeakDisplay:input_type -> transaction.SpeakDisplayRequest
-	33, // 49: transaction.TransactionService.ListFavourite:input_type -> transaction.FavouriteRequest
-	32, // 50: transaction.TransactionService.CreateFavourite:input_type -> transaction.Favourite
-	32, // 51: transaction.TransactionService.DeleteFavourite:input_type -> transaction.Favourite
-	23, // 52: transaction.TransactionService.StartParagraph:input_type -> transaction.Paragraph
-	39, // 53: transaction.TransactionService.ListNewDetail:input_type -> transaction.NewDetailRequest
-	36, // 54: transaction.TransactionService.ListNew:input_type -> transaction.NewRequest
-	41, // 55: transaction.TransactionService.StartLearn:input_type -> transaction.Learn
-	41, // 56: transaction.TransactionService.EndLearn:input_type -> transaction.Learn
-	44, // 57: transaction.TransactionService.CreateAnswer:input_type -> transaction.Answer
-	12, // 58: transaction.TransactionService.ListListen:output_type -> transaction.Listen
-	12, // 59: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
-	15, // 60: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
-	14, // 61: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
-	20, // 62: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
-	17, // 63: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
-	23, // 64: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
-	23, // 65: transaction.TransactionService.CompleteParagraph:output_type -> transaction.Paragraph
-	19, // 66: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
-	22, // 67: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
-	23, // 68: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
-	25, // 69: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
-	28, // 70: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
-	31, // 71: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
-	34, // 72: transaction.TransactionService.ListFavourite:output_type -> transaction.Favourites
-	32, // 73: transaction.TransactionService.CreateFavourite:output_type -> transaction.Favourite
-	32, // 74: transaction.TransactionService.DeleteFavourite:output_type -> transaction.Favourite
-	23, // 75: transaction.TransactionService.StartParagraph:output_type -> transaction.Paragraph
-	40, // 76: transaction.TransactionService.ListNewDetail:output_type -> transaction.NewDetails
-	37, // 77: transaction.TransactionService.ListNew:output_type -> transaction.News
-	41, // 78: transaction.TransactionService.StartLearn:output_type -> transaction.Learn
-	41, // 79: transaction.TransactionService.EndLearn:output_type -> transaction.Learn
-	44, // 80: transaction.TransactionService.CreateAnswer:output_type -> transaction.Answer
-	58, // [58:81] is the sub-list for method output_type
-	35, // [35:58] is the sub-list for method input_type
-	35, // [35:35] is the sub-list for extension type_name
-	35, // [35:35] is the sub-list for extension extendee
-	0,  // [0:35] is the sub-list for field type_name
+	44, // 31: transaction.Answers.answers:type_name -> transaction.Answer
+	8,  // 32: transaction.MemberToken.type:type_name -> transaction.MemberToken.Type
+	9,  // 33: transaction.MemberToken.status:type_name -> transaction.MemberToken.Status
+	10, // 34: transaction.AccountToken.type:type_name -> transaction.AccountToken.Type
+	11, // 35: transaction.AccountToken.status:type_name -> transaction.AccountToken.Status
+	13, // 36: transaction.TransactionService.ListListen:input_type -> transaction.ListenRequest
+	12, // 37: transaction.TransactionService.EndLearnListen:input_type -> transaction.Listen
+	16, // 38: transaction.TransactionService.ListSpeak:input_type -> transaction.SpeakRequest
+	14, // 39: transaction.TransactionService.EndLearnSpeak:input_type -> transaction.Speak
+	20, // 40: transaction.TransactionService.CreateSentence:input_type -> transaction.Sentence
+	17, // 41: transaction.TransactionService.CreateLookup:input_type -> transaction.Lookup
+	23, // 42: transaction.TransactionService.CreateParagraph:input_type -> transaction.Paragraph
+	23, // 43: transaction.TransactionService.CompleteParagraph:input_type -> transaction.Paragraph
+	18, // 44: transaction.TransactionService.ListLookup:input_type -> transaction.LookupRequest
+	21, // 45: transaction.TransactionService.ListSentence:input_type -> transaction.SentenceRequest
+	24, // 46: transaction.TransactionService.GetParagraphMax:input_type -> transaction.ParagraphRequest
+	24, // 47: transaction.TransactionService.ListParagraph:input_type -> transaction.ParagraphRequest
+	27, // 48: transaction.TransactionService.ListListenDisplay:input_type -> transaction.ListenDisplayRequest
+	30, // 49: transaction.TransactionService.ListSpeakDisplay:input_type -> transaction.SpeakDisplayRequest
+	33, // 50: transaction.TransactionService.ListFavourite:input_type -> transaction.FavouriteRequest
+	32, // 51: transaction.TransactionService.CreateFavourite:input_type -> transaction.Favourite
+	32, // 52: transaction.TransactionService.DeleteFavourite:input_type -> transaction.Favourite
+	23, // 53: transaction.TransactionService.StartParagraph:input_type -> transaction.Paragraph
+	39, // 54: transaction.TransactionService.ListNewDetail:input_type -> transaction.NewDetailRequest
+	36, // 55: transaction.TransactionService.ListNew:input_type -> transaction.NewRequest
+	41, // 56: transaction.TransactionService.StartLearn:input_type -> transaction.Learn
+	41, // 57: transaction.TransactionService.EndLearn:input_type -> transaction.Learn
+	44, // 58: transaction.TransactionService.CreateAnswer:input_type -> transaction.Answer
+	45, // 59: transaction.TransactionService.CreateAnswers:input_type -> transaction.Answers
+	12, // 60: transaction.TransactionService.ListListen:output_type -> transaction.Listen
+	12, // 61: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
+	15, // 62: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
+	14, // 63: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
+	20, // 64: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
+	17, // 65: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
+	23, // 66: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
+	23, // 67: transaction.TransactionService.CompleteParagraph:output_type -> transaction.Paragraph
+	19, // 68: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
+	22, // 69: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
+	23, // 70: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
+	25, // 71: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
+	28, // 72: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
+	31, // 73: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
+	34, // 74: transaction.TransactionService.ListFavourite:output_type -> transaction.Favourites
+	32, // 75: transaction.TransactionService.CreateFavourite:output_type -> transaction.Favourite
+	32, // 76: transaction.TransactionService.DeleteFavourite:output_type -> transaction.Favourite
+	23, // 77: transaction.TransactionService.StartParagraph:output_type -> transaction.Paragraph
+	40, // 78: transaction.TransactionService.ListNewDetail:output_type -> transaction.NewDetails
+	37, // 79: transaction.TransactionService.ListNew:output_type -> transaction.News
+	41, // 80: transaction.TransactionService.StartLearn:output_type -> transaction.Learn
+	41, // 81: transaction.TransactionService.EndLearn:output_type -> transaction.Learn
+	44, // 82: transaction.TransactionService.CreateAnswer:output_type -> transaction.Answer
+	45, // 83: transaction.TransactionService.CreateAnswers:output_type -> transaction.Answers
+	60, // [60:84] is the sub-list for method output_type
+	36, // [36:60] is the sub-list for method input_type
+	36, // [36:36] is the sub-list for extension type_name
+	36, // [36:36] is the sub-list for extension extendee
+	0,  // [0:36] is the sub-list for field type_name
 }
 
 func init() { file_transaction_proto_init() }
@@ -5509,7 +5577,7 @@ func file_transaction_proto_init() {
 			}
 		}
 		file_transaction_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MemberToken); i {
+			switch v := v.(*Answers); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5521,6 +5589,18 @@ func file_transaction_proto_init() {
 			}
 		}
 		file_transaction_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MemberToken); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_transaction_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AccountToken); i {
 			case 0:
 				return &v.state
@@ -5539,7 +5619,7 @@ func file_transaction_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_transaction_proto_rawDesc,
 			NumEnums:      12,
-			NumMessages:   35,
+			NumMessages:   36,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

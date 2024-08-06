@@ -32,6 +32,8 @@ service TransactionService {
   rpc StartLearn(Learn) returns (Learn);
   rpc EndLearn(Learn) returns(Learn);
   rpc CreateAnswer(Answer) returns(Answer);
+  rpc CreateAnswers(Answers) returns(Answers);
+
 }
 
 
@@ -479,6 +481,10 @@ message Answer {
 	int64 updated_at = 11;
   }
 
+  message Answers {
+	int32 total = 1;
+	repeated Answer answers = 2;
+  }
 
 message MemberToken {
     // `gorm:"primaryKey;not null;autoIncrement"`
