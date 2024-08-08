@@ -1040,7 +1040,7 @@ message TagDetail {
       active = 2;
   }
   // `gorm:"-"`
-  Tag Tag = 6;
+  Tag tag = 6;
   // `gorm:"-"`
   Course course = 7;
   // `gorm:"-"`
