@@ -34,6 +34,9 @@ service ConfigService {
    rpc ListGroup(GroupRequest) returns (Groups);
    rpc ListMemberGroup(MemberGroupRequest) returns (MemberGroups);
    rpc GetGroup(GroupRequest) returns(Group);
+   rpc CreateGroup(Group) returns(Group);
+   rpc CreateMemberGroup(MemberGroup) returns (MemberGroup);
+   rpc ApproveMemberToGroup(MemberGroup) returns (MemberGroup);
 
 } 
 
@@ -371,6 +374,7 @@ message Group {
     repeated AccountGroup account_groups = 9;
     // `gorm:"-"`
     string parent_title = 11;
+    string token = 12;
 }
 
 message GroupRequest {
@@ -384,6 +388,7 @@ message GroupRequest {
   int32 status = 8;  
   int32 limit =9;
   int32 offset = 10;
+  string token = 15;
   repeated int64 ids = 13;
   repeated string cols = 11;
   repeated string includes =12;
@@ -446,6 +451,12 @@ message MemberGroup {
 		deactive = 1;
 		active = 2;
 	  }
+    enum ApproveProcess {
+      default_approve_process = 0;
+      no = 1;
+      processing = 2;
+      yes = 3;
+    }
 }
 
 message MemberGroupRequest {
@@ -456,6 +467,7 @@ message MemberGroupRequest {
     int32 status = 8;  
     int32 limit =9;
     int32 offset = 10;
+    int32 approve_process = 7;
     repeated int64 ids = 13;
     repeated string cols = 11;
     repeated string includes =12;

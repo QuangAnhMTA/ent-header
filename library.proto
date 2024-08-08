@@ -1009,12 +1009,14 @@ message Tag {
         deactive = 1;
         active = 2;
     }
+    string item = 4;
 }
 
 message TagRequest {
     int64 id = 1;
     string title = 2;
-    int32 status = 3;  
+    int32 status = 3; 
+    string item = 4; 
     int32 limit = 17;
     int32 offset = 18;
     repeated int64 ids = 14;

@@ -45,6 +45,9 @@ type ConfigServiceClient interface {
 	ListGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error)
 	ListMemberGroup(ctx context.Context, in *MemberGroupRequest, opts ...grpc.CallOption) (*MemberGroups, error)
 	GetGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Group, error)
+	CreateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
+	CreateMemberGroup(ctx context.Context, in *MemberGroup, opts ...grpc.CallOption) (*MemberGroup, error)
+	ApproveMemberToGroup(ctx context.Context, in *MemberGroup, opts ...grpc.CallOption) (*MemberGroup, error)
 }
 
 type configServiceClient struct {
@@ -235,6 +238,33 @@ func (c *configServiceClient) GetGroup(ctx context.Context, in *GroupRequest, op
 	return out, nil
 }
 
+func (c *configServiceClient) CreateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) CreateMemberGroup(ctx context.Context, in *MemberGroup, opts ...grpc.CallOption) (*MemberGroup, error) {
+	out := new(MemberGroup)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateMemberGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) ApproveMemberToGroup(ctx context.Context, in *MemberGroup, opts ...grpc.CallOption) (*MemberGroup, error) {
+	out := new(MemberGroup)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ApproveMemberToGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -262,6 +292,9 @@ type ConfigServiceServer interface {
 	ListGroup(context.Context, *GroupRequest) (*Groups, error)
 	ListMemberGroup(context.Context, *MemberGroupRequest) (*MemberGroups, error)
 	GetGroup(context.Context, *GroupRequest) (*Group, error)
+	CreateGroup(context.Context, *Group) (*Group, error)
+	CreateMemberGroup(context.Context, *MemberGroup) (*MemberGroup, error)
+	ApproveMemberToGroup(context.Context, *MemberGroup) (*MemberGroup, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -327,6 +360,15 @@ func (UnimplementedConfigServiceServer) ListMemberGroup(context.Context, *Member
 }
 func (UnimplementedConfigServiceServer) GetGroup(context.Context, *GroupRequest) (*Group, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateGroup(context.Context, *Group) (*Group, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateMemberGroup(context.Context, *MemberGroup) (*MemberGroup, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) ApproveMemberToGroup(context.Context, *MemberGroup) (*MemberGroup, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApproveMemberToGroup not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -700,6 +742,60 @@ func _ConfigService_GetGroup_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_CreateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Group)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateGroup(ctx, req.(*Group))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_CreateMemberGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberGroup)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateMemberGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateMemberGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateMemberGroup(ctx, req.(*MemberGroup))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_ApproveMemberToGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberGroup)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ApproveMemberToGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ApproveMemberToGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ApproveMemberToGroup(ctx, req.(*MemberGroup))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -786,6 +882,18 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetGroup",
 			Handler:    _ConfigService_GetGroup_Handler,
+		},
+		{
+			MethodName: "CreateGroup",
+			Handler:    _ConfigService_CreateGroup_Handler,
+		},
+		{
+			MethodName: "CreateMemberGroup",
+			Handler:    _ConfigService_CreateMemberGroup_Handler,
+		},
+		{
+			MethodName: "ApproveMemberToGroup",
+			Handler:    _ConfigService_ApproveMemberToGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
