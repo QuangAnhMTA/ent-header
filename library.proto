@@ -29,7 +29,7 @@ service LibraryService {
   rpc ListQuiz (QuizRequest) returns (Quizzes);
   rpc ListSentenceGroup(SentenceGroupRequest) returns (SentenceGroups);
   rpc ListTag(TagRequest) returns (Tags);
-  rpc FindTag(TagDetail) returns (Tag);
+  rpc FindTag(TagRequest) returns (Tag);
  }
 
 

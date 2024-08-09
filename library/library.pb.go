@@ -12057,7 +12057,7 @@ var file_library_proto_rawDesc = []byte{
 	0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x53, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63,
 	0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x0d, 0x73, 0x65, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x47,
 	0x72, 0x6f, 0x75, 0x70, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x32, 0xa6, 0x0b, 0x0a, 0x0e,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x32, 0xd4, 0x0b, 0x0a, 0x0e,
 	0x4c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x37,
 	0x0a, 0x0b, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x73, 0x12, 0x16, 0x2e,
 	0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x52, 0x65,
@@ -12148,10 +12148,13 @@ var file_library_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x75, 0x70, 0x73, 0x12, 0x2d, 0x0a, 0x07, 0x4c, 0x69, 0x73, 0x74, 0x54, 0x61, 0x67,
 	0x12, 0x13, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x54, 0x61, 0x67, 0x52, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e,
-	0x54, 0x61, 0x67, 0x73, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
-	0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65,
-	0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72,
-	0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x54, 0x61, 0x67, 0x73, 0x12, 0x2c, 0x0a, 0x07, 0x46, 0x69, 0x6e, 0x64, 0x54, 0x61, 0x67, 0x12,
+	0x13, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x54, 0x61, 0x67, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x54,
+	0x61, 0x67, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65, 0x6e, 0x74,
+	0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -12388,31 +12391,33 @@ var file_library_proto_depIdxs = []int32{
 	105, // 104: library.LibraryService.ListQuiz:input_type -> library.QuizRequest
 	108, // 105: library.LibraryService.ListSentenceGroup:input_type -> library.SentenceGroupRequest
 	90,  // 106: library.LibraryService.ListTag:input_type -> library.TagRequest
-	32,  // 107: library.LibraryService.ListCourses:output_type -> library.Courses
-	35,  // 108: library.LibraryService.ListDocument:output_type -> library.Documents
-	38,  // 109: library.LibraryService.ListParagraph:output_type -> library.Paragraphs
-	37,  // 110: library.LibraryService.FindParagraph:output_type -> library.Paragraph
-	50,  // 111: library.LibraryService.GetDataSearchEngine:output_type -> library.SearchEngines
-	41,  // 112: library.LibraryService.ListSentence:output_type -> library.Sentences
-	41,  // 113: library.LibraryService.StartLearnListen:output_type -> library.Sentences
-	29,  // 114: library.LibraryService.EndLearnListen:output_type -> library.Listen
-	57,  // 115: library.LibraryService.GetPos:output_type -> library.Pos
-	37,  // 116: library.LibraryService.ApproveParagraph:output_type -> library.Paragraph
-	53,  // 117: library.LibraryService.ListSentencePos:output_type -> library.SentencePoses
-	40,  // 118: library.LibraryService.GetSentenceDetail:output_type -> library.Sentence
-	82,  // 119: library.LibraryService.ListPronounce:output_type -> library.Pronounces
-	80,  // 120: library.LibraryService.GetPronounce:output_type -> library.Pronounce
-	53,  // 121: library.LibraryService.ListSentencePoses:output_type -> library.SentencePoses
-	85,  // 122: library.LibraryService.ListKnowledge:output_type -> library.Knowledges
-	83,  // 123: library.LibraryService.GetKnowledge:output_type -> library.Knowledge
-	94,  // 124: library.LibraryService.ListTagDetail:output_type -> library.TagDetails
-	100, // 125: library.LibraryService.ListQuestion:output_type -> library.Questions
-	103, // 126: library.LibraryService.ListAnswer:output_type -> library.Answers
-	106, // 127: library.LibraryService.ListQuiz:output_type -> library.Quizzes
-	109, // 128: library.LibraryService.ListSentenceGroup:output_type -> library.SentenceGroups
-	91,  // 129: library.LibraryService.ListTag:output_type -> library.Tags
-	107, // [107:130] is the sub-list for method output_type
-	84,  // [84:107] is the sub-list for method input_type
+	90,  // 107: library.LibraryService.FindTag:input_type -> library.TagRequest
+	32,  // 108: library.LibraryService.ListCourses:output_type -> library.Courses
+	35,  // 109: library.LibraryService.ListDocument:output_type -> library.Documents
+	38,  // 110: library.LibraryService.ListParagraph:output_type -> library.Paragraphs
+	37,  // 111: library.LibraryService.FindParagraph:output_type -> library.Paragraph
+	50,  // 112: library.LibraryService.GetDataSearchEngine:output_type -> library.SearchEngines
+	41,  // 113: library.LibraryService.ListSentence:output_type -> library.Sentences
+	41,  // 114: library.LibraryService.StartLearnListen:output_type -> library.Sentences
+	29,  // 115: library.LibraryService.EndLearnListen:output_type -> library.Listen
+	57,  // 116: library.LibraryService.GetPos:output_type -> library.Pos
+	37,  // 117: library.LibraryService.ApproveParagraph:output_type -> library.Paragraph
+	53,  // 118: library.LibraryService.ListSentencePos:output_type -> library.SentencePoses
+	40,  // 119: library.LibraryService.GetSentenceDetail:output_type -> library.Sentence
+	82,  // 120: library.LibraryService.ListPronounce:output_type -> library.Pronounces
+	80,  // 121: library.LibraryService.GetPronounce:output_type -> library.Pronounce
+	53,  // 122: library.LibraryService.ListSentencePoses:output_type -> library.SentencePoses
+	85,  // 123: library.LibraryService.ListKnowledge:output_type -> library.Knowledges
+	83,  // 124: library.LibraryService.GetKnowledge:output_type -> library.Knowledge
+	94,  // 125: library.LibraryService.ListTagDetail:output_type -> library.TagDetails
+	100, // 126: library.LibraryService.ListQuestion:output_type -> library.Questions
+	103, // 127: library.LibraryService.ListAnswer:output_type -> library.Answers
+	106, // 128: library.LibraryService.ListQuiz:output_type -> library.Quizzes
+	109, // 129: library.LibraryService.ListSentenceGroup:output_type -> library.SentenceGroups
+	91,  // 130: library.LibraryService.ListTag:output_type -> library.Tags
+	89,  // 131: library.LibraryService.FindTag:output_type -> library.Tag
+	108, // [108:132] is the sub-list for method output_type
+	84,  // [84:108] is the sub-list for method input_type
 	84,  // [84:84] is the sub-list for extension type_name
 	84,  // [84:84] is the sub-list for extension extendee
 	0,   // [0:84] is the sub-list for field type_name

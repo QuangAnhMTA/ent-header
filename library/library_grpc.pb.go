@@ -46,6 +46,7 @@ type LibraryServiceClient interface {
 	ListQuiz(ctx context.Context, in *QuizRequest, opts ...grpc.CallOption) (*Quizzes, error)
 	ListSentenceGroup(ctx context.Context, in *SentenceGroupRequest, opts ...grpc.CallOption) (*SentenceGroups, error)
 	ListTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tags, error)
+	FindTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tag, error)
 }
 
 type libraryServiceClient struct {
@@ -263,6 +264,15 @@ func (c *libraryServiceClient) ListTag(ctx context.Context, in *TagRequest, opts
 	return out, nil
 }
 
+func (c *libraryServiceClient) FindTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tag, error) {
+	out := new(Tag)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/FindTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -291,6 +301,7 @@ type LibraryServiceServer interface {
 	ListQuiz(context.Context, *QuizRequest) (*Quizzes, error)
 	ListSentenceGroup(context.Context, *SentenceGroupRequest) (*SentenceGroups, error)
 	ListTag(context.Context, *TagRequest) (*Tags, error)
+	FindTag(context.Context, *TagRequest) (*Tag, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -365,6 +376,9 @@ func (UnimplementedLibraryServiceServer) ListSentenceGroup(context.Context, *Sen
 }
 func (UnimplementedLibraryServiceServer) ListTag(context.Context, *TagRequest) (*Tags, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTag not implemented")
+}
+func (UnimplementedLibraryServiceServer) FindTag(context.Context, *TagRequest) (*Tag, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindTag not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -792,6 +806,24 @@ func _LibraryService_ListTag_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_FindTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).FindTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/FindTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).FindTag(ctx, req.(*TagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -890,6 +922,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTag",
 			Handler:    _LibraryService_ListTag_Handler,
+		},
+		{
+			MethodName: "FindTag",
+			Handler:    _LibraryService_FindTag_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
