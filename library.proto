@@ -1014,6 +1014,8 @@ message Tag {
     int64 parent_id = 5;
     string keyx = 6;
     int32 process_translate = 7;
+    // `gorm:"-"`
+    repeated Tag children_tags = 8;
 }
 
 message TagRequest {
