@@ -28,6 +28,7 @@ service LibraryService {
   rpc ListAnswer  (AnswerRequest) returns (Answers);
   rpc ListQuiz (QuizRequest) returns (Quizzes);
   rpc ListSentenceGroup(SentenceGroupRequest) returns (SentenceGroups);
+  rpc ListTag(TagRequest) returns (Tags);
  }
 
 
@@ -1010,6 +1011,9 @@ message Tag {
         active = 2;
     }
     string item = 4;
+    int64 parent_id = 5;
+    string keyx = 6;
+    int32 process_translate = 7;
 }
 
 message TagRequest {
@@ -1017,6 +1021,9 @@ message TagRequest {
     string title = 2;
     int32 status = 3; 
     string item = 4; 
+    int64 parent_id = 5;
+    string keyx = 6;
+    int32 process_translate = 7;
     int32 limit = 17;
     int32 offset = 18;
     repeated int64 ids = 14;
