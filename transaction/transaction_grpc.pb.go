@@ -47,7 +47,7 @@ type TransactionServiceClient interface {
 	EndLearn(ctx context.Context, in *Learn, opts ...grpc.CallOption) (*Learn, error)
 	CreateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
 	UpdateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
-	ListMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
+	ListMemberAnswer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answer, error)
 	CreateAnswers(ctx context.Context, in *Answers, opts ...grpc.CallOption) (*Answers, error)
 }
 
@@ -275,7 +275,7 @@ func (c *transactionServiceClient) UpdateMemberAnswer(ctx context.Context, in *A
 	return out, nil
 }
 
-func (c *transactionServiceClient) ListMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
+func (c *transactionServiceClient) ListMemberAnswer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answer, error) {
 	out := new(Answer)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListMemberAnswer", in, out, opts...)
 	if err != nil {
@@ -322,7 +322,7 @@ type TransactionServiceServer interface {
 	EndLearn(context.Context, *Learn) (*Learn, error)
 	CreateMemberAnswer(context.Context, *Answer) (*Answer, error)
 	UpdateMemberAnswer(context.Context, *Answer) (*Answer, error)
-	ListMemberAnswer(context.Context, *Answer) (*Answer, error)
+	ListMemberAnswer(context.Context, *AnswerRequest) (*Answer, error)
 	CreateAnswers(context.Context, *Answers) (*Answers, error)
 }
 
@@ -402,7 +402,7 @@ func (UnimplementedTransactionServiceServer) CreateMemberAnswer(context.Context,
 func (UnimplementedTransactionServiceServer) UpdateMemberAnswer(context.Context, *Answer) (*Answer, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberAnswer not implemented")
 }
-func (UnimplementedTransactionServiceServer) ListMemberAnswer(context.Context, *Answer) (*Answer, error) {
+func (UnimplementedTransactionServiceServer) ListMemberAnswer(context.Context, *AnswerRequest) (*Answer, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberAnswer not implemented")
 }
 func (UnimplementedTransactionServiceServer) CreateAnswers(context.Context, *Answers) (*Answers, error) {
@@ -853,7 +853,7 @@ func _TransactionService_UpdateMemberAnswer_Handler(srv interface{}, ctx context
 }
 
 func _TransactionService_ListMemberAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Answer)
+	in := new(AnswerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -865,7 +865,7 @@ func _TransactionService_ListMemberAnswer_Handler(srv interface{}, ctx context.C
 		FullMethod: "/transaction.TransactionService/ListMemberAnswer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).ListMemberAnswer(ctx, req.(*Answer))
+		return srv.(TransactionServiceServer).ListMemberAnswer(ctx, req.(*AnswerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
