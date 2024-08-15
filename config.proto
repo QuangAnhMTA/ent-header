@@ -375,6 +375,8 @@ message Group {
     // `gorm:"-"`
     string parent_title = 11;
     string token = 12;
+    // `gorm:"-"`
+    repeated MemberGroup member_groups = 13;
 }
 
 message GroupRequest {

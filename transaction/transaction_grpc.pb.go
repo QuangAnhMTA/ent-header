@@ -45,7 +45,9 @@ type TransactionServiceClient interface {
 	ListNew(ctx context.Context, in *NewRequest, opts ...grpc.CallOption) (*News, error)
 	StartLearn(ctx context.Context, in *Learn, opts ...grpc.CallOption) (*Learn, error)
 	EndLearn(ctx context.Context, in *Learn, opts ...grpc.CallOption) (*Learn, error)
-	CreateAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
+	CreateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
+	UpdateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
+	ListMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
 	CreateAnswers(ctx context.Context, in *Answers, opts ...grpc.CallOption) (*Answers, error)
 }
 
@@ -255,9 +257,27 @@ func (c *transactionServiceClient) EndLearn(ctx context.Context, in *Learn, opts
 	return out, nil
 }
 
-func (c *transactionServiceClient) CreateAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
+func (c *transactionServiceClient) CreateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
 	out := new(Answer)
-	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateAnswer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateMemberAnswer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) UpdateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
+	out := new(Answer)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/UpdateMemberAnswer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
+	out := new(Answer)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListMemberAnswer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +320,9 @@ type TransactionServiceServer interface {
 	ListNew(context.Context, *NewRequest) (*News, error)
 	StartLearn(context.Context, *Learn) (*Learn, error)
 	EndLearn(context.Context, *Learn) (*Learn, error)
-	CreateAnswer(context.Context, *Answer) (*Answer, error)
+	CreateMemberAnswer(context.Context, *Answer) (*Answer, error)
+	UpdateMemberAnswer(context.Context, *Answer) (*Answer, error)
+	ListMemberAnswer(context.Context, *Answer) (*Answer, error)
 	CreateAnswers(context.Context, *Answers) (*Answers, error)
 }
 
@@ -374,8 +396,14 @@ func (UnimplementedTransactionServiceServer) StartLearn(context.Context, *Learn)
 func (UnimplementedTransactionServiceServer) EndLearn(context.Context, *Learn) (*Learn, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearn not implemented")
 }
-func (UnimplementedTransactionServiceServer) CreateAnswer(context.Context, *Answer) (*Answer, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAnswer not implemented")
+func (UnimplementedTransactionServiceServer) CreateMemberAnswer(context.Context, *Answer) (*Answer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberAnswer not implemented")
+}
+func (UnimplementedTransactionServiceServer) UpdateMemberAnswer(context.Context, *Answer) (*Answer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberAnswer not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListMemberAnswer(context.Context, *Answer) (*Answer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberAnswer not implemented")
 }
 func (UnimplementedTransactionServiceServer) CreateAnswers(context.Context, *Answers) (*Answers, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnswers not implemented")
@@ -788,20 +816,56 @@ func _TransactionService_EndLearn_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TransactionService_CreateAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TransactionService_CreateMemberAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Answer)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TransactionServiceServer).CreateAnswer(ctx, in)
+		return srv.(TransactionServiceServer).CreateMemberAnswer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/transaction.TransactionService/CreateAnswer",
+		FullMethod: "/transaction.TransactionService/CreateMemberAnswer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).CreateAnswer(ctx, req.(*Answer))
+		return srv.(TransactionServiceServer).CreateMemberAnswer(ctx, req.(*Answer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_UpdateMemberAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Answer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).UpdateMemberAnswer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/UpdateMemberAnswer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).UpdateMemberAnswer(ctx, req.(*Answer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ListMemberAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Answer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListMemberAnswer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListMemberAnswer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListMemberAnswer(ctx, req.(*Answer))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -920,8 +984,16 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TransactionService_EndLearn_Handler,
 		},
 		{
-			MethodName: "CreateAnswer",
-			Handler:    _TransactionService_CreateAnswer_Handler,
+			MethodName: "CreateMemberAnswer",
+			Handler:    _TransactionService_CreateMemberAnswer_Handler,
+		},
+		{
+			MethodName: "UpdateMemberAnswer",
+			Handler:    _TransactionService_UpdateMemberAnswer_Handler,
+		},
+		{
+			MethodName: "ListMemberAnswer",
+			Handler:    _TransactionService_ListMemberAnswer_Handler,
 		},
 		{
 			MethodName: "CreateAnswers",

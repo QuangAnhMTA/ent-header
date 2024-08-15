@@ -31,7 +31,9 @@ service TransactionService {
   rpc ListNew(NewRequest) returns(News);
   rpc StartLearn(Learn) returns (Learn);
   rpc EndLearn(Learn) returns(Learn);
-  rpc CreateAnswer(Answer) returns(Answer);
+  rpc CreateMemberAnswer(Answer) returns(Answer);
+  rpc UpdateMemberAnswer(Answer) returns(Answer);
+  rpc ListMemberAnswer(Answer) returns(Answer);
   rpc CreateAnswers(Answers) returns(Answers);
 
 }
@@ -479,7 +481,35 @@ message Answer {
 	string hash = 9;
 	int64 created_at = 10;
 	int64 updated_at = 11;
+	Status status = 13;  
+	enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	}
   }
+
+  message AnswerRequest {
+	int64 id = 1;
+	int64 question_id = 2;
+	int64 member_id = 3;
+	int64 quiz_id = 4;
+	int64 answer_id = 5;
+	string content = 6;
+	int64 duration = 7;
+	int32 right = 8;
+	string hash = 9;
+	int64 created_at = 10;
+	int64 updated_at = 11;
+	int32 status = 12;
+	int32 limit =14;
+	int32 offset = 15;
+	repeated string cols = 16;
+	repeated string includes =17;
+	repeated int64 ids = 18;
+  }
+
+
 
   message Answers {
 	int32 total = 1;
