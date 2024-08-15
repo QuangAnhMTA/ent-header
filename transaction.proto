@@ -33,7 +33,7 @@ service TransactionService {
   rpc EndLearn(Learn) returns(Learn);
   rpc CreateMemberAnswer(Answer) returns(Answer);
   rpc UpdateMemberAnswer(Answer) returns(Answer);
-  rpc ListMemberAnswer(AnswerRequest) returns(Answer);
+  rpc ListMemberAnswer(AnswerRequest) returns(Answers);
   rpc CreateAnswers(Answers) returns(Answers);
 
 }
