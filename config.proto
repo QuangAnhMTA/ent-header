@@ -163,6 +163,14 @@ message RegisterAccountResponse {
     int64 created_at = 6;
     int32 status = 7;
     string token = 8;
+    int32 limit =9;
+    int32 offset = 10;
+    repeated string cols = 11;
+    repeated string includes =12;
+    repeated int64 ids = 13;
+    string nickname = 14;
+    int32 is_main = 15;
+    int32 is_onboard = 16;
   }
   
   message Member {
