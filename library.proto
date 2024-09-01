@@ -611,7 +611,7 @@ message Character {
   int64 voice_id = 6;
   string fullname = 7;
   string gender =8;
-  int32 age = 9;
+  string age = 9;
   int32 accent = 10;
   string avatar = 11;
   string description = 12;
