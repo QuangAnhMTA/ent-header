@@ -681,6 +681,7 @@ message MemberExercise {
     int64 speak_high =7;
     int64 speak_low = 8;
     int64 finished_at = 9;
+    int64 start_at = 15;
     int64 created_at = 10;
     Status status = 11;  
     enum Status {
@@ -692,6 +693,8 @@ message MemberExercise {
     library.Paragraph paragraph = 12; 
     // `gorm:"-"`
     repeated int64 member_ids = 13;
+    // `gorm:"-"`
+    AccountExercise account_exercise = 14; 
 }
 
 message MemberExerciseRequest {
