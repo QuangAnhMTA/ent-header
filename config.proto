@@ -634,7 +634,7 @@ message AccountExercise {
     int64 paragraph_id = 4;
     int64 start_at = 5;
     int64 end_at = 6;
-    int64 created = 7;
+    int64 created_at = 7;
     Status status = 8;  
     enum Status {
 		default_state = 0;
