@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package config;
 option go_package = "github.com/QuangAnhMTA/ent-header/config";
+import "library.proto";
 
 
 service ConfigService {
@@ -38,6 +39,10 @@ service ConfigService {
    rpc CreateMemberGroup(MemberGroup) returns (MemberGroup);
    rpc ApproveMemberToGroup(MemberGroup) returns (MemberGroup);
 
+   rpc CreateAccountExercise(AccountExercise) returns (AccountExercise);
+   rpc ListAccountExercises(AccountExerciseRequest) returns (AccountExercises);
+   rpc CreateMemberExercise(MemberExercise) returns (MemberExercises);
+   rpc ListMemberMemberExercise(MemberExerciseRequest) returns (MemberExercises);
 } 
 
 message Claims {
@@ -621,5 +626,96 @@ message MemberPractices {
 }
 
 
+message AccountExercise {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 account_id = 2;
+    int64 group_id = 3;
+    int64 paragraph_id = 4;
+    int64 start_at = 5;
+    int64 end_at = 6;
+    int64 created = 7;
+    Status status = 8;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	  }
+    // `gorm:"-"`
+    library.Paragraph paragraph = 9;
+}
+
+message AccountExerciseRequest {
+    int64 id = 1; 
+    int64 account_id = 2;
+    int64 group_id = 3;
+    int64 paragraph_id = 4;
+    int64 start_at = 5;
+    int64 end_at = 6;
+    int64 created = 7;
+    int32 status = 8; 
+    int32 limit =9;
+    int32 offset = 10;
+    repeated int64 ids = 13;
+    repeated string cols = 11;
+    repeated string includes =12;
+    repeated int64 account_ids = 14;
+    repeated int64 paragraph_ids = 15;
+
+}
+
+message AccountExercises {
+  int32 total = 1;
+  repeated AccountExercise account_exercises = 2;
+}
 
 
+message MemberExercise {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 member_id = 2;
+    int64 account_exercise_id = 3;
+    float speak = 4;
+    int64 listen = 5;
+    int64 speak_medium =6;
+    int64 speak_high =7;
+    int64 speak_low = 8;
+    int64 finished_at = 9;
+    int64 created_at = 10;
+    Status status = 11;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	  }
+    // `gorm:"-"`
+    library.Paragraph paragraph = 12; 
+}
+
+message MemberExerciseRequest {
+  int64 id = 1; 
+  int64 member_id = 2;
+  int64 account_exercise_id = 3;
+  float speak = 4;
+  int64 listen = 5;
+  int64 speak_medium =6;
+  int64 speak_high =7;
+  int64 speak_low = 8;
+  int64 finished_at = 9;
+  int64 created_at = 10;
+  int32 status = 11; 
+  int32 limit =17;
+  int32 offset = 18;
+  repeated int64 ids = 19;
+  repeated string cols = 20;
+  repeated string includes =12;
+  repeated int64 account_exercise_ids = 14;
+  repeated int64 member_ids = 16; 
+  repeated int64 paragraph_ids = 15; 
+
+}
+
+message MemberExercises {
+  int32 total = 1;
+  repeated MemberExercise member_exercises = 2;
+}
