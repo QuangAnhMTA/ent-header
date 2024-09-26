@@ -52,6 +52,8 @@ type ConfigServiceClient interface {
 	ListAccountExercises(ctx context.Context, in *AccountExerciseRequest, opts ...grpc.CallOption) (*AccountExercises, error)
 	CreateMemberExercise(ctx context.Context, in *MemberExercise, opts ...grpc.CallOption) (*MemberExercises, error)
 	ListMemberMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercises, error)
+	ListGroupParagraph(ctx context.Context, in *GroupParagraphRequest, opts ...grpc.CallOption) (*GroupParagraphs, error)
+	CreateGroupParagraph(ctx context.Context, in *GroupParagraph, opts ...grpc.CallOption) (*GroupParagraph, error)
 }
 
 type configServiceClient struct {
@@ -305,6 +307,24 @@ func (c *configServiceClient) ListMemberMemberExercise(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *configServiceClient) ListGroupParagraph(ctx context.Context, in *GroupParagraphRequest, opts ...grpc.CallOption) (*GroupParagraphs, error) {
+	out := new(GroupParagraphs)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListGroupParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) CreateGroupParagraph(ctx context.Context, in *GroupParagraph, opts ...grpc.CallOption) (*GroupParagraph, error) {
+	out := new(GroupParagraph)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateGroupParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -339,6 +359,8 @@ type ConfigServiceServer interface {
 	ListAccountExercises(context.Context, *AccountExerciseRequest) (*AccountExercises, error)
 	CreateMemberExercise(context.Context, *MemberExercise) (*MemberExercises, error)
 	ListMemberMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error)
+	ListGroupParagraph(context.Context, *GroupParagraphRequest) (*GroupParagraphs, error)
+	CreateGroupParagraph(context.Context, *GroupParagraph) (*GroupParagraph, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -425,6 +447,12 @@ func (UnimplementedConfigServiceServer) CreateMemberExercise(context.Context, *M
 }
 func (UnimplementedConfigServiceServer) ListMemberMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberMemberExercise not implemented")
+}
+func (UnimplementedConfigServiceServer) ListGroupParagraph(context.Context, *GroupParagraphRequest) (*GroupParagraphs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGroupParagraph not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateGroupParagraph(context.Context, *GroupParagraph) (*GroupParagraph, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGroupParagraph not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -924,6 +952,42 @@ func _ConfigService_ListMemberMemberExercise_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_ListGroupParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupParagraphRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListGroupParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListGroupParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListGroupParagraph(ctx, req.(*GroupParagraphRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_CreateGroupParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupParagraph)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateGroupParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateGroupParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateGroupParagraph(ctx, req.(*GroupParagraph))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1038,6 +1102,14 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMemberMemberExercise",
 			Handler:    _ConfigService_ListMemberMemberExercise_Handler,
+		},
+		{
+			MethodName: "ListGroupParagraph",
+			Handler:    _ConfigService_ListGroupParagraph_Handler,
+		},
+		{
+			MethodName: "CreateGroupParagraph",
+			Handler:    _ConfigService_CreateGroupParagraph_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

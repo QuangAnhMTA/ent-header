@@ -43,6 +43,8 @@ service ConfigService {
    rpc ListAccountExercises(AccountExerciseRequest) returns (AccountExercises);
    rpc CreateMemberExercise(MemberExercise) returns (MemberExercises);
    rpc ListMemberMemberExercise(MemberExerciseRequest) returns (MemberExercises);
+   rpc ListGroupParagraph(GroupParagraphRequest) returns (GroupParagraphs);
+   rpc CreateGroupParagraph(GroupParagraph) returns (GroupParagraph);
 } 
 
 message Claims {
@@ -643,8 +645,9 @@ message AccountExercise {
 	  }
     // `gorm:"-"`
     library.Paragraph paragraph = 9;
+    // `gorm:"-"`
+    repeated int64 member_ids = 13;
 }
-
 message AccountExerciseRequest {
     int64 id = 1; 
     int64 account_id = 2;
@@ -695,6 +698,8 @@ message MemberExercise {
     repeated int64 member_ids = 13;
     // `gorm:"-"`
     AccountExercise account_exercise = 14; 
+    // `gorm:"-"`
+    int64 paragraph_id = 16;
 }
 
 message MemberExerciseRequest {
@@ -724,3 +729,52 @@ message MemberExercises {
   int32 total = 1;
   repeated MemberExercise member_exercises = 2;
 }
+
+message GroupParagraph {
+    // `gorm:"primaryKey;not null;autoIncrement"`
+    int64 id = 1; 
+    int64 group_id = 2;
+    int64 paragraph_id = 3;
+    string title = 4;
+    Status status = 5;  
+    enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	  }
+    ApproveProcess approve_process =6;
+    enum ApproveProcess {
+      default_approved = 0;
+      not_approved = 1 ;
+      yes_approved = 2;
+      again_approved= 3;
+    }
+    // `gorm:"-"`
+    Group group = 7;
+    // `gorm:"-"`
+    library.Paragraph  paragraph = 8;
+}
+
+message GroupParagraphRequest {
+    int64 id = 1; 
+    int64 group_id = 2;
+    int64 paragraph_id = 3;
+    string title = 4;
+    int32 status = 5;
+    int32 approve_process = 6;
+    int32 limit =9;
+    int32 offset = 10;
+    repeated int64 ids = 13;
+    repeated string cols = 11;
+    repeated string includes =12;
+    repeated int64 group_ids = 14;
+    repeated int64 paragraph_ids = 15;
+}
+
+message GroupParagraphs {
+    repeated GroupParagraph group_paragraphs = 1;
+    int32 total = 2;
+}
+
+
+
