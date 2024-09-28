@@ -47,6 +47,7 @@ type LibraryServiceClient interface {
 	ListSentenceGroup(ctx context.Context, in *SentenceGroupRequest, opts ...grpc.CallOption) (*SentenceGroups, error)
 	ListTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tags, error)
 	FindTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tag, error)
+	UpdateSentences(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type libraryServiceClient struct {
@@ -273,6 +274,15 @@ func (c *libraryServiceClient) FindTag(ctx context.Context, in *TagRequest, opts
 	return out, nil
 }
 
+func (c *libraryServiceClient) UpdateSentences(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/UpdateSentences", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -302,6 +312,7 @@ type LibraryServiceServer interface {
 	ListSentenceGroup(context.Context, *SentenceGroupRequest) (*SentenceGroups, error)
 	ListTag(context.Context, *TagRequest) (*Tags, error)
 	FindTag(context.Context, *TagRequest) (*Tag, error)
+	UpdateSentences(context.Context, *Sentences) (*Empty, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -379,6 +390,9 @@ func (UnimplementedLibraryServiceServer) ListTag(context.Context, *TagRequest) (
 }
 func (UnimplementedLibraryServiceServer) FindTag(context.Context, *TagRequest) (*Tag, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindTag not implemented")
+}
+func (UnimplementedLibraryServiceServer) UpdateSentences(context.Context, *Sentences) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSentences not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -824,6 +838,24 @@ func _LibraryService_FindTag_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_UpdateSentences_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Sentences)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).UpdateSentences(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/UpdateSentences",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).UpdateSentences(ctx, req.(*Sentences))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -926,6 +958,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindTag",
 			Handler:    _LibraryService_FindTag_Handler,
+		},
+		{
+			MethodName: "UpdateSentences",
+			Handler:    _LibraryService_UpdateSentences_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
