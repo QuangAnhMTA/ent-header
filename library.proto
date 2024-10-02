@@ -31,6 +31,8 @@ service LibraryService {
   rpc ListTag(TagRequest) returns (Tags);
   rpc FindTag(TagRequest) returns (Tag);
   rpc UpdateSentences(Sentences) returns(Empty);
+  rpc UpdateSentenceGroup(SentenceGroup) returns (SentenceGroup);
+  rpc CreateSentenceGroup(SentenceGroup) returns (SentenceGroup);
  }
 
 
