@@ -143,9 +143,9 @@ message ParagraphRequest {
   int32 type = 3;
   int32 position = 4;
   int32 status = 5;
+  string title = 8;
   int32 limit =9;
   int32 offset = 10;
-  string title = 8;
   repeated string cols = 11;
   repeated string includes =12;
   repeated int64 document_ids = 13;
