@@ -45,6 +45,7 @@ service ConfigService {
    rpc ListMemberMemberExercise(MemberExerciseRequest) returns (MemberExercises);
    rpc ListGroupParagraph(GroupParagraphRequest) returns (GroupParagraphs);
    rpc CreateGroupParagraph(GroupParagraph) returns (GroupParagraph);
+   rpc UpdateGroupParagraph(GroupParagraph) returns (GroupParagraph);
 } 
 
 message Claims {
@@ -700,6 +701,8 @@ message MemberExercise {
     AccountExercise account_exercise = 14; 
     // `gorm:"-"`
     int64 paragraph_id = 16;
+    // `gorm:"-"`
+    Member member = 17;
 }
 
 message MemberExerciseRequest {
@@ -753,6 +756,7 @@ message GroupParagraph {
     Group group = 7;
     // `gorm:"-"`
     library.Paragraph  paragraph = 8;
+    int32 position = 9;
 }
 
 message GroupParagraphRequest {
