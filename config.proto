@@ -647,7 +647,9 @@ message AccountExercise {
     // `gorm:"-"`
     library.Paragraph paragraph = 9;
     // `gorm:"-"`
-    repeated int64 member_ids = 13;
+    repeated int64 member_ids = 10;
+    int32 members = 11;
+    int32 members_finish = 12;
 }
 message AccountExerciseRequest {
     int64 id = 1; 
@@ -665,7 +667,8 @@ message AccountExerciseRequest {
     repeated string includes =12;
     repeated int64 account_ids = 14;
     repeated int64 paragraph_ids = 15;
-
+    int32 members = 16;
+    int32 members_finish = 17;
 }
 
 message AccountExercises {
