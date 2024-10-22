@@ -38,7 +38,6 @@ service TransactionService {
 
 }
 
-
 message Listen {
 	// `gorm:"primaryKey;not null;autoIncrement"`
 	int64 id = 1;
