@@ -5742,21 +5742,22 @@ type Character struct {
 	unknownFields protoimpl.UnknownFields
 
 	// `gorm:"primaryKey;not null;autoIncrement"`
-	Id                int64            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" gorm:"primaryKey;not null;autoIncrement"`
-	CreateId          int64            `protobuf:"varint,2,opt,name=create_id,json=createId,proto3" json:"create_id,omitempty"`
-	CourseId          int64            `protobuf:"varint,3,opt,name=course_id,json=courseId,proto3" json:"course_id,omitempty"`
-	DocumentId        int64            `protobuf:"varint,4,opt,name=document_id,json=documentId,proto3" json:"document_id,omitempty"`
-	ParagraphId       int64            `protobuf:"varint,5,opt,name=paragraph_id,json=paragraphId,proto3" json:"paragraph_id,omitempty"`
-	VoiceId           int64            `protobuf:"varint,6,opt,name=voice_id,json=voiceId,proto3" json:"voice_id,omitempty"`
-	Fullname          string           `protobuf:"bytes,7,opt,name=fullname,proto3" json:"fullname,omitempty"`
-	Gender            string           `protobuf:"bytes,8,opt,name=gender,proto3" json:"gender,omitempty"`
-	Age               string           `protobuf:"bytes,9,opt,name=age,proto3" json:"age,omitempty"`
-	Accent            int32            `protobuf:"varint,10,opt,name=accent,proto3" json:"accent,omitempty"`
-	Avatar            string           `protobuf:"bytes,11,opt,name=avatar,proto3" json:"avatar,omitempty"`
-	Description       string           `protobuf:"bytes,12,opt,name=description,proto3" json:"description,omitempty"`
-	CreatedAt         int64            `protobuf:"varint,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	Status            Character_Status `protobuf:"varint,14,opt,name=status,proto3,enum=library.Character_Status" json:"status,omitempty"`
-	SentenceCurrentId int64            `protobuf:"varint,15,opt,name=sentence_current_id,json=sentenceCurrentId,proto3" json:"sentence_current_id,omitempty"`
+	Id          int64            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" gorm:"primaryKey;not null;autoIncrement"`
+	CreateId    int64            `protobuf:"varint,2,opt,name=create_id,json=createId,proto3" json:"create_id,omitempty"`
+	CourseId    int64            `protobuf:"varint,3,opt,name=course_id,json=courseId,proto3" json:"course_id,omitempty"`
+	DocumentId  int64            `protobuf:"varint,4,opt,name=document_id,json=documentId,proto3" json:"document_id,omitempty"`
+	ParagraphId int64            `protobuf:"varint,5,opt,name=paragraph_id,json=paragraphId,proto3" json:"paragraph_id,omitempty"`
+	VoiceId     int64            `protobuf:"varint,6,opt,name=voice_id,json=voiceId,proto3" json:"voice_id,omitempty"`
+	Fullname    string           `protobuf:"bytes,7,opt,name=fullname,proto3" json:"fullname,omitempty"`
+	Gender      string           `protobuf:"bytes,8,opt,name=gender,proto3" json:"gender,omitempty"`
+	Age         string           `protobuf:"bytes,9,opt,name=age,proto3" json:"age,omitempty"`
+	Accent      int32            `protobuf:"varint,10,opt,name=accent,proto3" json:"accent,omitempty"`
+	Avatar      string           `protobuf:"bytes,11,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	Description string           `protobuf:"bytes,12,opt,name=description,proto3" json:"description,omitempty"`
+	CreatedAt   int64            `protobuf:"varint,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Status      Character_Status `protobuf:"varint,14,opt,name=status,proto3,enum=library.Character_Status" json:"status,omitempty"`
+	// `gorm:"-"`
+	SentenceCurrentId int64 `protobuf:"varint,15,opt,name=sentence_current_id,json=sentenceCurrentId,proto3" json:"sentence_current_id,omitempty" gorm:"-"`
 }
 
 func (x *Character) Reset() {
@@ -12384,7 +12385,7 @@ var file_library_proto_rawDesc = []byte{
 	0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x53, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x47, 0x72,
 	0x6f, 0x75, 0x70, 0x52, 0x0d, 0x73, 0x65, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x47, 0x72, 0x6f, 0x75,
 	0x70, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x32, 0x89, 0x0f, 0x0a, 0x0e, 0x4c, 0x69, 0x62,
+	0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x32, 0xc0, 0x0f, 0x0a, 0x0e, 0x4c, 0x69, 0x62,
 	0x72, 0x61, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x37, 0x0a, 0x0b, 0x4c,
 	0x69, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x73, 0x12, 0x16, 0x2e, 0x6c, 0x69, 0x62,
 	0x72, 0x61, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
@@ -12501,14 +12502,17 @@ var file_library_proto_rawDesc = []byte{
 	0x12, 0x36, 0x0a, 0x0c, 0x53, 0x6f, 0x72, 0x74, 0x53, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65,
 	0x12, 0x12, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x53, 0x65, 0x6e, 0x74, 0x65,
 	0x6e, 0x63, 0x65, 0x73, 0x1a, 0x12, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x53,
-	0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x73, 0x12, 0x3a, 0x0a, 0x0e, 0x53, 0x68, 0x6f, 0x72,
-	0x74, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x12, 0x13, 0x2e, 0x6c, 0x69, 0x62,
-	0x72, 0x61, 0x72, 0x79, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x73, 0x1a,
-	0x13, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72,
-	0x61, 0x70, 0x68, 0x73, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
-	0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65,
-	0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72,
-	0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x73, 0x12, 0x39, 0x0a, 0x0d, 0x53, 0x6f, 0x72, 0x74,
+	0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x12, 0x13, 0x2e, 0x6c, 0x69, 0x62, 0x72,
+	0x61, 0x72, 0x79, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61, 0x70, 0x68, 0x73, 0x1a, 0x13,
+	0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x67, 0x72, 0x61,
+	0x70, 0x68, 0x73, 0x12, 0x36, 0x0a, 0x0e, 0x55, 0x70, 0x73, 0x65, 0x72, 0x74, 0x53, 0x65, 0x6e,
+	0x74, 0x65, 0x6e, 0x63, 0x65, 0x12, 0x11, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x2e,
+	0x53, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x1a, 0x11, 0x2e, 0x6c, 0x69, 0x62, 0x72, 0x61,
+	0x72, 0x79, 0x2e, 0x53, 0x65, 0x6e, 0x74, 0x65, 0x6e, 0x63, 0x65, 0x42, 0x2b, 0x5a, 0x29, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41,
+	0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65, 0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72,
+	0x2f, 0x6c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -12753,40 +12757,42 @@ var file_library_proto_depIdxs = []int32{
 	64,  // 111: library.LibraryService.UpsertCharacter:input_type -> library.Character
 	65,  // 112: library.LibraryService.ListCharacter:input_type -> library.CharacterRequest
 	42,  // 113: library.LibraryService.SortSentence:input_type -> library.Sentences
-	39,  // 114: library.LibraryService.ShortParagraph:input_type -> library.Paragraphs
-	33,  // 115: library.LibraryService.ListCourses:output_type -> library.Courses
-	36,  // 116: library.LibraryService.ListDocument:output_type -> library.Documents
-	39,  // 117: library.LibraryService.ListParagraph:output_type -> library.Paragraphs
-	38,  // 118: library.LibraryService.FindParagraph:output_type -> library.Paragraph
-	51,  // 119: library.LibraryService.GetDataSearchEngine:output_type -> library.SearchEngines
-	42,  // 120: library.LibraryService.ListSentence:output_type -> library.Sentences
-	42,  // 121: library.LibraryService.StartLearnListen:output_type -> library.Sentences
-	30,  // 122: library.LibraryService.EndLearnListen:output_type -> library.Listen
-	58,  // 123: library.LibraryService.GetPos:output_type -> library.Pos
-	38,  // 124: library.LibraryService.ApproveParagraph:output_type -> library.Paragraph
-	54,  // 125: library.LibraryService.ListSentencePos:output_type -> library.SentencePoses
-	41,  // 126: library.LibraryService.GetSentenceDetail:output_type -> library.Sentence
-	83,  // 127: library.LibraryService.ListPronounce:output_type -> library.Pronounces
-	81,  // 128: library.LibraryService.GetPronounce:output_type -> library.Pronounce
-	54,  // 129: library.LibraryService.ListSentencePoses:output_type -> library.SentencePoses
-	86,  // 130: library.LibraryService.ListKnowledge:output_type -> library.Knowledges
-	84,  // 131: library.LibraryService.GetKnowledge:output_type -> library.Knowledge
-	95,  // 132: library.LibraryService.ListTagDetail:output_type -> library.TagDetails
-	101, // 133: library.LibraryService.ListQuestion:output_type -> library.Questions
-	104, // 134: library.LibraryService.ListAnswer:output_type -> library.Answers
-	107, // 135: library.LibraryService.ListQuiz:output_type -> library.Quizzes
-	110, // 136: library.LibraryService.ListSentenceGroup:output_type -> library.SentenceGroups
-	92,  // 137: library.LibraryService.ListTag:output_type -> library.Tags
-	90,  // 138: library.LibraryService.FindTag:output_type -> library.Tag
-	29,  // 139: library.LibraryService.UpdateSentences:output_type -> library.Empty
-	108, // 140: library.LibraryService.UpdateSentenceGroup:output_type -> library.SentenceGroup
-	108, // 141: library.LibraryService.CreateSentenceGroup:output_type -> library.SentenceGroup
-	64,  // 142: library.LibraryService.UpsertCharacter:output_type -> library.Character
-	66,  // 143: library.LibraryService.ListCharacter:output_type -> library.Characters
-	42,  // 144: library.LibraryService.SortSentence:output_type -> library.Sentences
-	39,  // 145: library.LibraryService.ShortParagraph:output_type -> library.Paragraphs
-	115, // [115:146] is the sub-list for method output_type
-	84,  // [84:115] is the sub-list for method input_type
+	39,  // 114: library.LibraryService.SortParagraph:input_type -> library.Paragraphs
+	41,  // 115: library.LibraryService.UpsertSentence:input_type -> library.Sentence
+	33,  // 116: library.LibraryService.ListCourses:output_type -> library.Courses
+	36,  // 117: library.LibraryService.ListDocument:output_type -> library.Documents
+	39,  // 118: library.LibraryService.ListParagraph:output_type -> library.Paragraphs
+	38,  // 119: library.LibraryService.FindParagraph:output_type -> library.Paragraph
+	51,  // 120: library.LibraryService.GetDataSearchEngine:output_type -> library.SearchEngines
+	42,  // 121: library.LibraryService.ListSentence:output_type -> library.Sentences
+	42,  // 122: library.LibraryService.StartLearnListen:output_type -> library.Sentences
+	30,  // 123: library.LibraryService.EndLearnListen:output_type -> library.Listen
+	58,  // 124: library.LibraryService.GetPos:output_type -> library.Pos
+	38,  // 125: library.LibraryService.ApproveParagraph:output_type -> library.Paragraph
+	54,  // 126: library.LibraryService.ListSentencePos:output_type -> library.SentencePoses
+	41,  // 127: library.LibraryService.GetSentenceDetail:output_type -> library.Sentence
+	83,  // 128: library.LibraryService.ListPronounce:output_type -> library.Pronounces
+	81,  // 129: library.LibraryService.GetPronounce:output_type -> library.Pronounce
+	54,  // 130: library.LibraryService.ListSentencePoses:output_type -> library.SentencePoses
+	86,  // 131: library.LibraryService.ListKnowledge:output_type -> library.Knowledges
+	84,  // 132: library.LibraryService.GetKnowledge:output_type -> library.Knowledge
+	95,  // 133: library.LibraryService.ListTagDetail:output_type -> library.TagDetails
+	101, // 134: library.LibraryService.ListQuestion:output_type -> library.Questions
+	104, // 135: library.LibraryService.ListAnswer:output_type -> library.Answers
+	107, // 136: library.LibraryService.ListQuiz:output_type -> library.Quizzes
+	110, // 137: library.LibraryService.ListSentenceGroup:output_type -> library.SentenceGroups
+	92,  // 138: library.LibraryService.ListTag:output_type -> library.Tags
+	90,  // 139: library.LibraryService.FindTag:output_type -> library.Tag
+	29,  // 140: library.LibraryService.UpdateSentences:output_type -> library.Empty
+	108, // 141: library.LibraryService.UpdateSentenceGroup:output_type -> library.SentenceGroup
+	108, // 142: library.LibraryService.CreateSentenceGroup:output_type -> library.SentenceGroup
+	64,  // 143: library.LibraryService.UpsertCharacter:output_type -> library.Character
+	66,  // 144: library.LibraryService.ListCharacter:output_type -> library.Characters
+	42,  // 145: library.LibraryService.SortSentence:output_type -> library.Sentences
+	39,  // 146: library.LibraryService.SortParagraph:output_type -> library.Paragraphs
+	41,  // 147: library.LibraryService.UpsertSentence:output_type -> library.Sentence
+	116, // [116:148] is the sub-list for method output_type
+	84,  // [84:116] is the sub-list for method input_type
 	84,  // [84:84] is the sub-list for extension type_name
 	84,  // [84:84] is the sub-list for extension extendee
 	0,   // [0:84] is the sub-list for field type_name

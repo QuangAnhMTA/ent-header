@@ -36,7 +36,8 @@ service LibraryService {
   rpc UpsertCharacter(Character) returns (Character);
   rpc ListCharacter(CharacterRequest) returns (Characters);
   rpc SortSentence(Sentences) returns (Sentences);
-  rpc ShortParagraph(Paragraphs) returns (Paragraphs);
+  rpc SortParagraph(Paragraphs) returns (Paragraphs);
+  rpc UpsertSentence(Sentence) returns (Sentence);
  }
 
 
@@ -648,6 +649,7 @@ message Character {
       deactive = 1;
       active = 2;
   }
+  // `gorm:"-"`
   int64 sentence_current_id = 15;
 }
 

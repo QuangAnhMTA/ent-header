@@ -53,7 +53,8 @@ type LibraryServiceClient interface {
 	UpsertCharacter(ctx context.Context, in *Character, opts ...grpc.CallOption) (*Character, error)
 	ListCharacter(ctx context.Context, in *CharacterRequest, opts ...grpc.CallOption) (*Characters, error)
 	SortSentence(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Sentences, error)
-	ShortParagraph(ctx context.Context, in *Paragraphs, opts ...grpc.CallOption) (*Paragraphs, error)
+	SortParagraph(ctx context.Context, in *Paragraphs, opts ...grpc.CallOption) (*Paragraphs, error)
+	UpsertSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
 }
 
 type libraryServiceClient struct {
@@ -334,9 +335,18 @@ func (c *libraryServiceClient) SortSentence(ctx context.Context, in *Sentences, 
 	return out, nil
 }
 
-func (c *libraryServiceClient) ShortParagraph(ctx context.Context, in *Paragraphs, opts ...grpc.CallOption) (*Paragraphs, error) {
+func (c *libraryServiceClient) SortParagraph(ctx context.Context, in *Paragraphs, opts ...grpc.CallOption) (*Paragraphs, error) {
 	out := new(Paragraphs)
-	err := c.cc.Invoke(ctx, "/library.LibraryService/ShortParagraph", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/SortParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) UpsertSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error) {
+	out := new(Sentence)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/UpsertSentence", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -378,7 +388,8 @@ type LibraryServiceServer interface {
 	UpsertCharacter(context.Context, *Character) (*Character, error)
 	ListCharacter(context.Context, *CharacterRequest) (*Characters, error)
 	SortSentence(context.Context, *Sentences) (*Sentences, error)
-	ShortParagraph(context.Context, *Paragraphs) (*Paragraphs, error)
+	SortParagraph(context.Context, *Paragraphs) (*Paragraphs, error)
+	UpsertSentence(context.Context, *Sentence) (*Sentence, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -475,8 +486,11 @@ func (UnimplementedLibraryServiceServer) ListCharacter(context.Context, *Charact
 func (UnimplementedLibraryServiceServer) SortSentence(context.Context, *Sentences) (*Sentences, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SortSentence not implemented")
 }
-func (UnimplementedLibraryServiceServer) ShortParagraph(context.Context, *Paragraphs) (*Paragraphs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ShortParagraph not implemented")
+func (UnimplementedLibraryServiceServer) SortParagraph(context.Context, *Paragraphs) (*Paragraphs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SortParagraph not implemented")
+}
+func (UnimplementedLibraryServiceServer) UpsertSentence(context.Context, *Sentence) (*Sentence, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertSentence not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1030,20 +1044,38 @@ func _LibraryService_SortSentence_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LibraryService_ShortParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LibraryService_SortParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Paragraphs)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibraryServiceServer).ShortParagraph(ctx, in)
+		return srv.(LibraryServiceServer).SortParagraph(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/library.LibraryService/ShortParagraph",
+		FullMethod: "/library.LibraryService/SortParagraph",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibraryServiceServer).ShortParagraph(ctx, req.(*Paragraphs))
+		return srv.(LibraryServiceServer).SortParagraph(ctx, req.(*Paragraphs))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_UpsertSentence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Sentence)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).UpsertSentence(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/UpsertSentence",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).UpsertSentence(ctx, req.(*Sentence))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1176,8 +1208,12 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LibraryService_SortSentence_Handler,
 		},
 		{
-			MethodName: "ShortParagraph",
-			Handler:    _LibraryService_ShortParagraph_Handler,
+			MethodName: "SortParagraph",
+			Handler:    _LibraryService_SortParagraph_Handler,
+		},
+		{
+			MethodName: "UpsertSentence",
+			Handler:    _LibraryService_UpsertSentence_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
