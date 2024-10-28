@@ -34,12 +34,13 @@ service LibraryService {
   rpc UpdateSentenceGroup(SentenceGroup) returns (SentenceGroup);
   rpc CreateSentenceGroup(SentenceGroup) returns (SentenceGroup);
   rpc UpsertCharacter(Character) returns (Character);
+  rpc ListCharacter(CharacterRequest) returns (Characters);
+  rpc SortSentence(Sentences) returns (Sentences);
+  rpc ShortParagraph(Paragraphs) returns (Paragraphs);
  }
 
 
 
-
- 
  message Empty{
   string messages = 1;
   int32 number = 2;
