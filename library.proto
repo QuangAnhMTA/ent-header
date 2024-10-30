@@ -222,6 +222,7 @@ message Paragraph {
   // `gorm:"-"`
   Document document =25;
   string item = 26;
+  int64 updated_at = 27;
   
 }
 
@@ -313,6 +314,8 @@ message Sentence {
   int32 group = 27;
   int64 sentence_group_id = 28;
   int32 position = 29;
+  int64 created_at = 30;
+  int64 updated_at = 31;
 }
 
 message Sentences {
