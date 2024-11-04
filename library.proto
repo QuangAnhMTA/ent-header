@@ -279,10 +279,10 @@ message Sentence {
   int64 paragraph_id = 4;
   int64 character_id = 5;
   string content = 6;
-  string keywords = 7;
-  string words = 8;
+  // string keywords = 7;
+  // string words = 8;
   int32 process_audio = 9;
-  int32 process_content = 10;
+  int32 process_grammar = 10;
   int32 process_pos = 11;
   int32 process_word = 12;
   int32 process_phrase = 14;
