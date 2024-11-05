@@ -38,6 +38,7 @@ service LibraryService {
   rpc SortSentence(Sentences) returns (Sentences);
   rpc SortParagraph(Paragraphs) returns (Paragraphs);
   rpc UpsertSentence(Sentence) returns (Sentence);
+  rpc TokenizeSentence(SentenceRequest) returns (Sentences);
  }
 
 
@@ -268,6 +269,7 @@ message SentenceRequest {
   int32 process_phrase = 25;
   int32 process_translate = 26;
   int32 position =31;
+  string paragraph_content = 32;
 
 }
 

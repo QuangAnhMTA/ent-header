@@ -55,6 +55,7 @@ type LibraryServiceClient interface {
 	SortSentence(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Sentences, error)
 	SortParagraph(ctx context.Context, in *Paragraphs, opts ...grpc.CallOption) (*Paragraphs, error)
 	UpsertSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
+	TokenizeSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 }
 
 type libraryServiceClient struct {
@@ -353,6 +354,15 @@ func (c *libraryServiceClient) UpsertSentence(ctx context.Context, in *Sentence,
 	return out, nil
 }
 
+func (c *libraryServiceClient) TokenizeSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error) {
+	out := new(Sentences)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/TokenizeSentence", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -390,6 +400,7 @@ type LibraryServiceServer interface {
 	SortSentence(context.Context, *Sentences) (*Sentences, error)
 	SortParagraph(context.Context, *Paragraphs) (*Paragraphs, error)
 	UpsertSentence(context.Context, *Sentence) (*Sentence, error)
+	TokenizeSentence(context.Context, *SentenceRequest) (*Sentences, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -491,6 +502,9 @@ func (UnimplementedLibraryServiceServer) SortParagraph(context.Context, *Paragra
 }
 func (UnimplementedLibraryServiceServer) UpsertSentence(context.Context, *Sentence) (*Sentence, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpsertSentence not implemented")
+}
+func (UnimplementedLibraryServiceServer) TokenizeSentence(context.Context, *SentenceRequest) (*Sentences, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TokenizeSentence not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1080,6 +1094,24 @@ func _LibraryService_UpsertSentence_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_TokenizeSentence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).TokenizeSentence(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/TokenizeSentence",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).TokenizeSentence(ctx, req.(*SentenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1214,6 +1246,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpsertSentence",
 			Handler:    _LibraryService_UpsertSentence_Handler,
+		},
+		{
+			MethodName: "TokenizeSentence",
+			Handler:    _LibraryService_TokenizeSentence_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
