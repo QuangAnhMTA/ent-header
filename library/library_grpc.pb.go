@@ -47,7 +47,7 @@ type LibraryServiceClient interface {
 	ListSentenceGroup(ctx context.Context, in *SentenceGroupRequest, opts ...grpc.CallOption) (*SentenceGroups, error)
 	ListTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tags, error)
 	FindTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tag, error)
-	UpdateSentences(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Empty, error)
+	UpdateSentences(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Sentences, error)
 	UpdateSentenceGroup(ctx context.Context, in *SentenceGroup, opts ...grpc.CallOption) (*SentenceGroup, error)
 	CreateSentenceGroup(ctx context.Context, in *SentenceGroup, opts ...grpc.CallOption) (*SentenceGroup, error)
 	UpsertCharacter(ctx context.Context, in *Character, opts ...grpc.CallOption) (*Character, error)
@@ -282,8 +282,8 @@ func (c *libraryServiceClient) FindTag(ctx context.Context, in *TagRequest, opts
 	return out, nil
 }
 
-func (c *libraryServiceClient) UpdateSentences(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Empty, error) {
-	out := new(Empty)
+func (c *libraryServiceClient) UpdateSentences(ctx context.Context, in *Sentences, opts ...grpc.CallOption) (*Sentences, error) {
+	out := new(Sentences)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/UpdateSentences", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -392,7 +392,7 @@ type LibraryServiceServer interface {
 	ListSentenceGroup(context.Context, *SentenceGroupRequest) (*SentenceGroups, error)
 	ListTag(context.Context, *TagRequest) (*Tags, error)
 	FindTag(context.Context, *TagRequest) (*Tag, error)
-	UpdateSentences(context.Context, *Sentences) (*Empty, error)
+	UpdateSentences(context.Context, *Sentences) (*Sentences, error)
 	UpdateSentenceGroup(context.Context, *SentenceGroup) (*SentenceGroup, error)
 	CreateSentenceGroup(context.Context, *SentenceGroup) (*SentenceGroup, error)
 	UpsertCharacter(context.Context, *Character) (*Character, error)
@@ -479,7 +479,7 @@ func (UnimplementedLibraryServiceServer) ListTag(context.Context, *TagRequest) (
 func (UnimplementedLibraryServiceServer) FindTag(context.Context, *TagRequest) (*Tag, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindTag not implemented")
 }
-func (UnimplementedLibraryServiceServer) UpdateSentences(context.Context, *Sentences) (*Empty, error) {
+func (UnimplementedLibraryServiceServer) UpdateSentences(context.Context, *Sentences) (*Sentences, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSentences not implemented")
 }
 func (UnimplementedLibraryServiceServer) UpdateSentenceGroup(context.Context, *SentenceGroup) (*SentenceGroup, error) {

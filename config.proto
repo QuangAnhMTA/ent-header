@@ -708,6 +708,7 @@ message MemberExercise {
     int64 paragraph_id = 16;
     // `gorm:"-"`
     Member member = 17;
+    string token = 18;
 }
 
 message MemberExerciseRequest {
@@ -730,6 +731,7 @@ message MemberExerciseRequest {
   repeated int64 account_exercise_ids = 14;
   repeated int64 member_ids = 16; 
   repeated int64 paragraph_ids = 15; 
+  string token = 22;
 
 }
 
