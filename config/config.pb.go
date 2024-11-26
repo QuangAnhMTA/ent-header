@@ -5419,6 +5419,10 @@ type AccountExercise struct {
 	MemberIds     []int64 `protobuf:"varint,10,rep,packed,name=member_ids,json=memberIds,proto3" json:"member_ids,omitempty" gorm:"-"`
 	Members       int32   `protobuf:"varint,11,opt,name=members,proto3" json:"members,omitempty"`
 	MembersFinish int32   `protobuf:"varint,12,opt,name=members_finish,json=membersFinish,proto3" json:"members_finish,omitempty"`
+	// `gorm:"-"`
+	Account *Account `protobuf:"bytes,13,opt,name=account,proto3" json:"account,omitempty" gorm:"-"`
+	// `gorm:"-"`
+	Group *Group `protobuf:"bytes,14,opt,name=Group,proto3" json:"Group,omitempty" gorm:"-"`
 }
 
 func (x *AccountExercise) Reset() {
@@ -5535,6 +5539,20 @@ func (x *AccountExercise) GetMembersFinish() int32 {
 		return x.MembersFinish
 	}
 	return 0
+}
+
+func (x *AccountExercise) GetAccount() *Account {
+	if x != nil {
+		return x.Account
+	}
+	return nil
+}
+
+func (x *AccountExercise) GetGroup() *Group {
+	if x != nil {
+		return x.Group
+	}
+	return nil
 }
 
 type AccountExerciseRequest struct {
@@ -7225,8 +7243,8 @@ var file_config_proto_rawDesc = []byte{
 	0x16, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x50,
 	0x72, 0x61, 0x63, 0x74, 0x69, 0x63, 0x65, 0x52, 0x0f, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x50,
 	0x72, 0x61, 0x63, 0x74, 0x69, 0x63, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61,
-	0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x22, 0xd0,
-	0x03, 0x0a, 0x0f, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x45, 0x78, 0x65, 0x72, 0x63, 0x69,
+	0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x22, 0xa0,
+	0x04, 0x0a, 0x0f, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x45, 0x78, 0x65, 0x72, 0x63, 0x69,
 	0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02,
 	0x69, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x69, 0x64,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49,
@@ -7251,7 +7269,12 @@ var file_config_proto_rawDesc = []byte{
 	0x62, 0x65, 0x72, 0x73, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x6d, 0x65, 0x6d, 0x62,
 	0x65, 0x72, 0x73, 0x12, 0x25, 0x0a, 0x0e, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x5f, 0x66,
 	0x69, 0x6e, 0x69, 0x73, 0x68, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0d, 0x6d, 0x65, 0x6d,
-	0x62, 0x65, 0x72, 0x73, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x22, 0x35, 0x0a, 0x06, 0x53, 0x74,
+	0x62, 0x65, 0x72, 0x73, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x12, 0x29, 0x0a, 0x07, 0x61, 0x63,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x63, 0x6f,
+	0x6e, 0x66, 0x69, 0x67, 0x2e, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x07, 0x61, 0x63,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x23, 0x0a, 0x05, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x18, 0x0e,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x47, 0x72,
+	0x6f, 0x75, 0x70, 0x52, 0x05, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x22, 0x35, 0x0a, 0x06, 0x53, 0x74,
 	0x61, 0x74, 0x75, 0x73, 0x12, 0x11, 0x0a, 0x0d, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f,
 	0x73, 0x74, 0x61, 0x74, 0x65, 0x10, 0x00, 0x12, 0x0c, 0x0a, 0x08, 0x64, 0x65, 0x61, 0x63, 0x74,
 	0x69, 0x76, 0x65, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x10,
@@ -7719,84 +7742,86 @@ var file_config_proto_depIdxs = []int32{
 	62, // 39: config.MemberPractices.member_practices:type_name -> config.MemberPractice
 	12, // 40: config.AccountExercise.status:type_name -> config.AccountExercise.Status
 	75, // 41: config.AccountExercise.paragraph:type_name -> library.Paragraph
-	65, // 42: config.AccountExercises.account_exercises:type_name -> config.AccountExercise
-	13, // 43: config.MemberExercise.status:type_name -> config.MemberExercise.Status
-	75, // 44: config.MemberExercise.paragraph:type_name -> library.Paragraph
-	65, // 45: config.MemberExercise.account_exercise:type_name -> config.AccountExercise
-	31, // 46: config.MemberExercise.member:type_name -> config.Member
-	68, // 47: config.MemberExercises.member_exercises:type_name -> config.MemberExercise
-	14, // 48: config.GroupParagraph.status:type_name -> config.GroupParagraph.Status
-	15, // 49: config.GroupParagraph.approve_process:type_name -> config.GroupParagraph.ApproveProcess
-	45, // 50: config.GroupParagraph.group:type_name -> config.Group
-	75, // 51: config.GroupParagraph.paragraph:type_name -> library.Paragraph
-	71, // 52: config.GroupParagraphs.group_paragraphs:type_name -> config.GroupParagraph
-	20, // 53: config.ConfigService.CheckRegisterAccount:input_type -> config.CheckRegisterAccountRequest
-	22, // 54: config.ConfigService.VerifyOtpRegister:input_type -> config.VerifyOtpRegisterRequest
-	24, // 55: config.ConfigService.RegisterAccount:input_type -> config.RegisterAccountRequest
-	26, // 56: config.ConfigService.Login:input_type -> config.LoginAccountRequest
-	30, // 57: config.ConfigService.MemberLogin:input_type -> config.MemberRequest
-	31, // 58: config.ConfigService.ChangeMemberPassword:input_type -> config.Member
-	17, // 59: config.ConfigService.ListAccounts:input_type -> config.AccountRequest
-	17, // 60: config.ConfigService.UpdateAccount:input_type -> config.AccountRequest
-	30, // 61: config.ConfigService.ListMembers:input_type -> config.MemberRequest
-	31, // 62: config.ConfigService.CreateMember:input_type -> config.Member
-	31, // 63: config.ConfigService.GetMember:input_type -> config.Member
-	34, // 64: config.ConfigService.ListCategories:input_type -> config.CategoryRequest
-	42, // 65: config.ConfigService.CreateMemberCategory:input_type -> config.MemberCategory
-	42, // 66: config.ConfigService.GetMemberCategory:input_type -> config.MemberCategory
-	43, // 67: config.ConfigService.ListMemberCategories:input_type -> config.MemberCategoryRequest
-	63, // 68: config.ConfigService.ListMemberPractice:input_type -> config.MemberPracticeRequest
-	62, // 69: config.ConfigService.CreateMemberPractice:input_type -> config.MemberPractice
-	46, // 70: config.ConfigService.ListGroup:input_type -> config.GroupRequest
-	52, // 71: config.ConfigService.ListMemberGroup:input_type -> config.MemberGroupRequest
-	46, // 72: config.ConfigService.GetGroup:input_type -> config.GroupRequest
-	45, // 73: config.ConfigService.CreateGroup:input_type -> config.Group
-	51, // 74: config.ConfigService.CreateMemberGroup:input_type -> config.MemberGroup
-	51, // 75: config.ConfigService.ApproveMemberToGroup:input_type -> config.MemberGroup
-	65, // 76: config.ConfigService.CreateAccountExercise:input_type -> config.AccountExercise
-	66, // 77: config.ConfigService.ListAccountExercises:input_type -> config.AccountExerciseRequest
-	68, // 78: config.ConfigService.CreateMemberExercise:input_type -> config.MemberExercise
-	69, // 79: config.ConfigService.ListMemberMemberExercise:input_type -> config.MemberExerciseRequest
-	72, // 80: config.ConfigService.ListGroupParagraph:input_type -> config.GroupParagraphRequest
-	71, // 81: config.ConfigService.CreateGroupParagraph:input_type -> config.GroupParagraph
-	71, // 82: config.ConfigService.UpdateGroupParagraph:input_type -> config.GroupParagraph
-	73, // 83: config.ConfigService.SortGroupParagraph:input_type -> config.GroupParagraphs
-	21, // 84: config.ConfigService.CheckRegisterAccount:output_type -> config.CheckRegisterAccountResponse
-	23, // 85: config.ConfigService.VerifyOtpRegister:output_type -> config.VerifyOtpRegisterResponse
-	18, // 86: config.ConfigService.RegisterAccount:output_type -> config.Account
-	27, // 87: config.ConfigService.Login:output_type -> config.LoginAccountResponse
-	28, // 88: config.ConfigService.MemberLogin:output_type -> config.LoginMemberResponse
-	31, // 89: config.ConfigService.ChangeMemberPassword:output_type -> config.Member
-	19, // 90: config.ConfigService.ListAccounts:output_type -> config.Accounts
-	18, // 91: config.ConfigService.UpdateAccount:output_type -> config.Account
-	32, // 92: config.ConfigService.ListMembers:output_type -> config.Members
-	31, // 93: config.ConfigService.CreateMember:output_type -> config.Member
-	31, // 94: config.ConfigService.GetMember:output_type -> config.Member
-	35, // 95: config.ConfigService.ListCategories:output_type -> config.Categories
-	42, // 96: config.ConfigService.CreateMemberCategory:output_type -> config.MemberCategory
-	42, // 97: config.ConfigService.GetMemberCategory:output_type -> config.MemberCategory
-	44, // 98: config.ConfigService.ListMemberCategories:output_type -> config.MemberCategories
-	64, // 99: config.ConfigService.ListMemberPractice:output_type -> config.MemberPractices
-	62, // 100: config.ConfigService.CreateMemberPractice:output_type -> config.MemberPractice
-	47, // 101: config.ConfigService.ListGroup:output_type -> config.Groups
-	53, // 102: config.ConfigService.ListMemberGroup:output_type -> config.MemberGroups
-	45, // 103: config.ConfigService.GetGroup:output_type -> config.Group
-	45, // 104: config.ConfigService.CreateGroup:output_type -> config.Group
-	51, // 105: config.ConfigService.CreateMemberGroup:output_type -> config.MemberGroup
-	51, // 106: config.ConfigService.ApproveMemberToGroup:output_type -> config.MemberGroup
-	65, // 107: config.ConfigService.CreateAccountExercise:output_type -> config.AccountExercise
-	67, // 108: config.ConfigService.ListAccountExercises:output_type -> config.AccountExercises
-	70, // 109: config.ConfigService.CreateMemberExercise:output_type -> config.MemberExercises
-	70, // 110: config.ConfigService.ListMemberMemberExercise:output_type -> config.MemberExercises
-	73, // 111: config.ConfigService.ListGroupParagraph:output_type -> config.GroupParagraphs
-	71, // 112: config.ConfigService.CreateGroupParagraph:output_type -> config.GroupParagraph
-	71, // 113: config.ConfigService.UpdateGroupParagraph:output_type -> config.GroupParagraph
-	73, // 114: config.ConfigService.SortGroupParagraph:output_type -> config.GroupParagraphs
-	84, // [84:115] is the sub-list for method output_type
-	53, // [53:84] is the sub-list for method input_type
-	53, // [53:53] is the sub-list for extension type_name
-	53, // [53:53] is the sub-list for extension extendee
-	0,  // [0:53] is the sub-list for field type_name
+	18, // 42: config.AccountExercise.account:type_name -> config.Account
+	45, // 43: config.AccountExercise.Group:type_name -> config.Group
+	65, // 44: config.AccountExercises.account_exercises:type_name -> config.AccountExercise
+	13, // 45: config.MemberExercise.status:type_name -> config.MemberExercise.Status
+	75, // 46: config.MemberExercise.paragraph:type_name -> library.Paragraph
+	65, // 47: config.MemberExercise.account_exercise:type_name -> config.AccountExercise
+	31, // 48: config.MemberExercise.member:type_name -> config.Member
+	68, // 49: config.MemberExercises.member_exercises:type_name -> config.MemberExercise
+	14, // 50: config.GroupParagraph.status:type_name -> config.GroupParagraph.Status
+	15, // 51: config.GroupParagraph.approve_process:type_name -> config.GroupParagraph.ApproveProcess
+	45, // 52: config.GroupParagraph.group:type_name -> config.Group
+	75, // 53: config.GroupParagraph.paragraph:type_name -> library.Paragraph
+	71, // 54: config.GroupParagraphs.group_paragraphs:type_name -> config.GroupParagraph
+	20, // 55: config.ConfigService.CheckRegisterAccount:input_type -> config.CheckRegisterAccountRequest
+	22, // 56: config.ConfigService.VerifyOtpRegister:input_type -> config.VerifyOtpRegisterRequest
+	24, // 57: config.ConfigService.RegisterAccount:input_type -> config.RegisterAccountRequest
+	26, // 58: config.ConfigService.Login:input_type -> config.LoginAccountRequest
+	30, // 59: config.ConfigService.MemberLogin:input_type -> config.MemberRequest
+	31, // 60: config.ConfigService.ChangeMemberPassword:input_type -> config.Member
+	17, // 61: config.ConfigService.ListAccounts:input_type -> config.AccountRequest
+	17, // 62: config.ConfigService.UpdateAccount:input_type -> config.AccountRequest
+	30, // 63: config.ConfigService.ListMembers:input_type -> config.MemberRequest
+	31, // 64: config.ConfigService.CreateMember:input_type -> config.Member
+	31, // 65: config.ConfigService.GetMember:input_type -> config.Member
+	34, // 66: config.ConfigService.ListCategories:input_type -> config.CategoryRequest
+	42, // 67: config.ConfigService.CreateMemberCategory:input_type -> config.MemberCategory
+	42, // 68: config.ConfigService.GetMemberCategory:input_type -> config.MemberCategory
+	43, // 69: config.ConfigService.ListMemberCategories:input_type -> config.MemberCategoryRequest
+	63, // 70: config.ConfigService.ListMemberPractice:input_type -> config.MemberPracticeRequest
+	62, // 71: config.ConfigService.CreateMemberPractice:input_type -> config.MemberPractice
+	46, // 72: config.ConfigService.ListGroup:input_type -> config.GroupRequest
+	52, // 73: config.ConfigService.ListMemberGroup:input_type -> config.MemberGroupRequest
+	46, // 74: config.ConfigService.GetGroup:input_type -> config.GroupRequest
+	45, // 75: config.ConfigService.CreateGroup:input_type -> config.Group
+	51, // 76: config.ConfigService.CreateMemberGroup:input_type -> config.MemberGroup
+	51, // 77: config.ConfigService.ApproveMemberToGroup:input_type -> config.MemberGroup
+	65, // 78: config.ConfigService.CreateAccountExercise:input_type -> config.AccountExercise
+	66, // 79: config.ConfigService.ListAccountExercises:input_type -> config.AccountExerciseRequest
+	68, // 80: config.ConfigService.CreateMemberExercise:input_type -> config.MemberExercise
+	69, // 81: config.ConfigService.ListMemberMemberExercise:input_type -> config.MemberExerciseRequest
+	72, // 82: config.ConfigService.ListGroupParagraph:input_type -> config.GroupParagraphRequest
+	71, // 83: config.ConfigService.CreateGroupParagraph:input_type -> config.GroupParagraph
+	71, // 84: config.ConfigService.UpdateGroupParagraph:input_type -> config.GroupParagraph
+	73, // 85: config.ConfigService.SortGroupParagraph:input_type -> config.GroupParagraphs
+	21, // 86: config.ConfigService.CheckRegisterAccount:output_type -> config.CheckRegisterAccountResponse
+	23, // 87: config.ConfigService.VerifyOtpRegister:output_type -> config.VerifyOtpRegisterResponse
+	18, // 88: config.ConfigService.RegisterAccount:output_type -> config.Account
+	27, // 89: config.ConfigService.Login:output_type -> config.LoginAccountResponse
+	28, // 90: config.ConfigService.MemberLogin:output_type -> config.LoginMemberResponse
+	31, // 91: config.ConfigService.ChangeMemberPassword:output_type -> config.Member
+	19, // 92: config.ConfigService.ListAccounts:output_type -> config.Accounts
+	18, // 93: config.ConfigService.UpdateAccount:output_type -> config.Account
+	32, // 94: config.ConfigService.ListMembers:output_type -> config.Members
+	31, // 95: config.ConfigService.CreateMember:output_type -> config.Member
+	31, // 96: config.ConfigService.GetMember:output_type -> config.Member
+	35, // 97: config.ConfigService.ListCategories:output_type -> config.Categories
+	42, // 98: config.ConfigService.CreateMemberCategory:output_type -> config.MemberCategory
+	42, // 99: config.ConfigService.GetMemberCategory:output_type -> config.MemberCategory
+	44, // 100: config.ConfigService.ListMemberCategories:output_type -> config.MemberCategories
+	64, // 101: config.ConfigService.ListMemberPractice:output_type -> config.MemberPractices
+	62, // 102: config.ConfigService.CreateMemberPractice:output_type -> config.MemberPractice
+	47, // 103: config.ConfigService.ListGroup:output_type -> config.Groups
+	53, // 104: config.ConfigService.ListMemberGroup:output_type -> config.MemberGroups
+	45, // 105: config.ConfigService.GetGroup:output_type -> config.Group
+	45, // 106: config.ConfigService.CreateGroup:output_type -> config.Group
+	51, // 107: config.ConfigService.CreateMemberGroup:output_type -> config.MemberGroup
+	51, // 108: config.ConfigService.ApproveMemberToGroup:output_type -> config.MemberGroup
+	65, // 109: config.ConfigService.CreateAccountExercise:output_type -> config.AccountExercise
+	67, // 110: config.ConfigService.ListAccountExercises:output_type -> config.AccountExercises
+	70, // 111: config.ConfigService.CreateMemberExercise:output_type -> config.MemberExercises
+	70, // 112: config.ConfigService.ListMemberMemberExercise:output_type -> config.MemberExercises
+	73, // 113: config.ConfigService.ListGroupParagraph:output_type -> config.GroupParagraphs
+	71, // 114: config.ConfigService.CreateGroupParagraph:output_type -> config.GroupParagraph
+	71, // 115: config.ConfigService.UpdateGroupParagraph:output_type -> config.GroupParagraph
+	73, // 116: config.ConfigService.SortGroupParagraph:output_type -> config.GroupParagraphs
+	86, // [86:117] is the sub-list for method output_type
+	55, // [55:86] is the sub-list for method input_type
+	55, // [55:55] is the sub-list for extension type_name
+	55, // [55:55] is the sub-list for extension extendee
+	0,  // [0:55] is the sub-list for field type_name
 }
 
 func init() { file_config_proto_init() }

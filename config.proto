@@ -652,6 +652,10 @@ message AccountExercise {
     repeated int64 member_ids = 10;
     int32 members = 11;
     int32 members_finish = 12;
+    // `gorm:"-"`
+    Account account = 13;
+    // `gorm:"-"`
+    Group Group = 14;
 }
 message AccountExerciseRequest {
     int64 id = 1; 
