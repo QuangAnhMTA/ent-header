@@ -48,6 +48,8 @@ type ConfigServiceClient interface {
 	CreateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*Group, error)
 	CreateMemberGroup(ctx context.Context, in *MemberGroup, opts ...grpc.CallOption) (*MemberGroup, error)
 	ApproveMemberToGroup(ctx context.Context, in *MemberGroup, opts ...grpc.CallOption) (*MemberGroup, error)
+	ListAccountGroup(ctx context.Context, in *AccountGroupRequest, opts ...grpc.CallOption) (*AccountGroups, error)
+	CreateAccountGroup(ctx context.Context, in *AccountGroup, opts ...grpc.CallOption) (*AccountGroup, error)
 	CreateAccountExercise(ctx context.Context, in *AccountExercise, opts ...grpc.CallOption) (*AccountExercise, error)
 	ListAccountExercises(ctx context.Context, in *AccountExerciseRequest, opts ...grpc.CallOption) (*AccountExercises, error)
 	CreateMemberExercise(ctx context.Context, in *MemberExercise, opts ...grpc.CallOption) (*MemberExercises, error)
@@ -273,6 +275,24 @@ func (c *configServiceClient) ApproveMemberToGroup(ctx context.Context, in *Memb
 	return out, nil
 }
 
+func (c *configServiceClient) ListAccountGroup(ctx context.Context, in *AccountGroupRequest, opts ...grpc.CallOption) (*AccountGroups, error) {
+	out := new(AccountGroups)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListAccountGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) CreateAccountGroup(ctx context.Context, in *AccountGroup, opts ...grpc.CallOption) (*AccountGroup, error) {
+	out := new(AccountGroup)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateAccountGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *configServiceClient) CreateAccountExercise(ctx context.Context, in *AccountExercise, opts ...grpc.CallOption) (*AccountExercise, error) {
 	out := new(AccountExercise)
 	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateAccountExercise", in, out, opts...)
@@ -375,6 +395,8 @@ type ConfigServiceServer interface {
 	CreateGroup(context.Context, *Group) (*Group, error)
 	CreateMemberGroup(context.Context, *MemberGroup) (*MemberGroup, error)
 	ApproveMemberToGroup(context.Context, *MemberGroup) (*MemberGroup, error)
+	ListAccountGroup(context.Context, *AccountGroupRequest) (*AccountGroups, error)
+	CreateAccountGroup(context.Context, *AccountGroup) (*AccountGroup, error)
 	CreateAccountExercise(context.Context, *AccountExercise) (*AccountExercise, error)
 	ListAccountExercises(context.Context, *AccountExerciseRequest) (*AccountExercises, error)
 	CreateMemberExercise(context.Context, *MemberExercise) (*MemberExercises, error)
@@ -457,6 +479,12 @@ func (UnimplementedConfigServiceServer) CreateMemberGroup(context.Context, *Memb
 }
 func (UnimplementedConfigServiceServer) ApproveMemberToGroup(context.Context, *MemberGroup) (*MemberGroup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApproveMemberToGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) ListAccountGroup(context.Context, *AccountGroupRequest) (*AccountGroups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAccountGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) CreateAccountGroup(context.Context, *AccountGroup) (*AccountGroup, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountGroup not implemented")
 }
 func (UnimplementedConfigServiceServer) CreateAccountExercise(context.Context, *AccountExercise) (*AccountExercise, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountExercise not implemented")
@@ -908,6 +936,42 @@ func _ConfigService_ApproveMemberToGroup_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_ListAccountGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListAccountGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListAccountGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListAccountGroup(ctx, req.(*AccountGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_CreateAccountGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountGroup)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CreateAccountGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CreateAccountGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CreateAccountGroup(ctx, req.(*AccountGroup))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ConfigService_CreateAccountExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AccountExercise)
 	if err := dec(in); err != nil {
@@ -1150,6 +1214,14 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ApproveMemberToGroup",
 			Handler:    _ConfigService_ApproveMemberToGroup_Handler,
+		},
+		{
+			MethodName: "ListAccountGroup",
+			Handler:    _ConfigService_ListAccountGroup_Handler,
+		},
+		{
+			MethodName: "CreateAccountGroup",
+			Handler:    _ConfigService_CreateAccountGroup_Handler,
 		},
 		{
 			MethodName: "CreateAccountExercise",

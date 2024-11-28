@@ -38,7 +38,8 @@ service ConfigService {
    rpc CreateGroup(Group) returns(Group);
    rpc CreateMemberGroup(MemberGroup) returns (MemberGroup);
    rpc ApproveMemberToGroup(MemberGroup) returns (MemberGroup);
-
+   rpc ListAccountGroup(AccountGroupRequest) returns (AccountGroups);
+   rpc CreateAccountGroup(AccountGroup) returns(AccountGroup);
    rpc CreateAccountExercise(AccountExercise) returns (AccountExercise);
    rpc ListAccountExercises(AccountExerciseRequest) returns (AccountExercises);
    rpc CreateMemberExercise(MemberExercise) returns (MemberExercises);
@@ -436,6 +437,8 @@ message AccountGroup {
 	  }
     // `gorm:"-"`
     Account account = 9;
+    // `gorm:"-"` 
+    Group group = 10;
 }
 
 message AccountGroupRequest {
