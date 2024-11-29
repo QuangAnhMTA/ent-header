@@ -49,6 +49,9 @@ type TransactionServiceClient interface {
 	UpdateMemberAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
 	ListMemberAnswer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error)
 	CreateAnswers(ctx context.Context, in *Answers, opts ...grpc.CallOption) (*Answers, error)
+	ListReportToken(ctx context.Context, in *ReportTokenRequest, opts ...grpc.CallOption) (*ReportTokens, error)
+	ListReportPoint(ctx context.Context, in *ReportPointRequest, opts ...grpc.CallOption) (*ReportPoints, error)
+	ListReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMembers, error)
 }
 
 type transactionServiceClient struct {
@@ -293,6 +296,33 @@ func (c *transactionServiceClient) CreateAnswers(ctx context.Context, in *Answer
 	return out, nil
 }
 
+func (c *transactionServiceClient) ListReportToken(ctx context.Context, in *ReportTokenRequest, opts ...grpc.CallOption) (*ReportTokens, error) {
+	out := new(ReportTokens)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListReportToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListReportPoint(ctx context.Context, in *ReportPointRequest, opts ...grpc.CallOption) (*ReportPoints, error) {
+	out := new(ReportPoints)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListReportPoint", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMembers, error) {
+	out := new(ReportMembers)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListReportMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -324,6 +354,9 @@ type TransactionServiceServer interface {
 	UpdateMemberAnswer(context.Context, *Answer) (*Answer, error)
 	ListMemberAnswer(context.Context, *AnswerRequest) (*Answers, error)
 	CreateAnswers(context.Context, *Answers) (*Answers, error)
+	ListReportToken(context.Context, *ReportTokenRequest) (*ReportTokens, error)
+	ListReportPoint(context.Context, *ReportPointRequest) (*ReportPoints, error)
+	ListReportMember(context.Context, *ReportMemberRequest) (*ReportMembers, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -407,6 +440,15 @@ func (UnimplementedTransactionServiceServer) ListMemberAnswer(context.Context, *
 }
 func (UnimplementedTransactionServiceServer) CreateAnswers(context.Context, *Answers) (*Answers, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnswers not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListReportToken(context.Context, *ReportTokenRequest) (*ReportTokens, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListReportToken not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListReportPoint(context.Context, *ReportPointRequest) (*ReportPoints, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListReportPoint not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListReportMember(context.Context, *ReportMemberRequest) (*ReportMembers, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListReportMember not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -888,6 +930,60 @@ func _TransactionService_CreateAnswers_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_ListReportToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListReportToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListReportToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListReportToken(ctx, req.(*ReportTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ListReportPoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportPointRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListReportPoint(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListReportPoint",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListReportPoint(ctx, req.(*ReportPointRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ListReportMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListReportMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListReportMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListReportMember(ctx, req.(*ReportMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -998,6 +1094,18 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAnswers",
 			Handler:    _TransactionService_CreateAnswers_Handler,
+		},
+		{
+			MethodName: "ListReportToken",
+			Handler:    _TransactionService_ListReportToken_Handler,
+		},
+		{
+			MethodName: "ListReportPoint",
+			Handler:    _TransactionService_ListReportPoint_Handler,
+		},
+		{
+			MethodName: "ListReportMember",
+			Handler:    _TransactionService_ListReportMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
