@@ -596,12 +596,14 @@ message ReportMemberRequest {
 	repeated int64 object_ids = 19;
 	int64 start_at = 20;
 	int64 end_at = 21;
+	int64 start_day = 22;
+	int64 end_day = 23;
 }
 
 
 message ReportMembers {
 	int64 total = 1;
-	ReportMember report_members = 2;
+	repeated ReportMember report_members = 2;
 }
 
 
@@ -640,6 +642,8 @@ message ReportPointRequest {
 	repeated int64 object_ids = 19;
 	int64 start_at = 20;
 	int64 end_at = 21;
+	int64 start_day = 22;
+	int64 end_day = 23;
 }
 
 message ReportPoints {
@@ -689,9 +693,11 @@ message ReportTokenRequest {
 	repeated int64 object_ids = 19;
 	int64 start_at = 20;
 	int64 end_at = 21;
+	int64 start_day = 22;
+	int64 end_day = 23;
 }
 
 message ReportTokens {
-	repeated ReportPoint report_tokens = 1;
+	repeated ReportToken report_tokens = 1;
 	int64 total = 2;
 }
