@@ -50,6 +50,7 @@ message Listen {
 	int64 created_at = 6;
 	// `gorm:"-"`
 	repeated int64 sentence_ids =20;
+	string member_exercise_token = 15;
   }
   message ListenRequest {
 	int64 id = 1;
@@ -83,6 +84,9 @@ message Speak {
 	config.Member member = 13;
 	// `gorm:"-"`
 	library.Paragraph paragraph = 14;
+	string member_exercise_token = 15;
+	// `gorm:"-"`
+	string url = 16;
 }
 
 message Speaks {
@@ -128,6 +132,7 @@ message Lookup {
 	library.SentencePos sentence_pos = 9;
 	int64 quantity = 10;
 	int64 updated_at = 11;
+	string member_exercise_token = 15;
 }
 message LookupRequest {
 	int64 id = 1;
