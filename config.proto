@@ -88,9 +88,15 @@ message Account {
       deactive = 1;
       active = 2;
   }
-  int64 role_id = 9;
+  Type type = 9;
+  enum Type {
+    default_type = 0;
+    user = 1;
+    teacher = 2;
+  }
+  int64 role_id = 10;
   // `gorm:"-"`
-  Role role = 10;
+  Role role = 11;
 }
 
 message Accounts {
@@ -413,6 +419,8 @@ message GroupRequest {
   repeated int64 ids = 13;
   repeated string cols = 11;
   repeated string includes =12;
+  int64 account_id = 14;
+  int64 member_id = 16;
 }
 message Groups {
   int32 total = 1;
@@ -439,6 +447,7 @@ message AccountGroup {
     Account account = 9;
     // `gorm:"-"` 
     Group group = 10;
+    int64 updated_at = 11;
 }
 
 message AccountGroupRequest {
