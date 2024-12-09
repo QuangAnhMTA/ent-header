@@ -8,6 +8,7 @@ service LibraryService {
 	// ---------------- Course -----------------
   rpc ListCourses(CourseRequest) returns (Courses);
   rpc ListDocument(DocumentRequest) returns (Documents);
+  rpc FindDocument(DocumentRequest) returns (Document);
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc FindParagraph(ParagraphRequest) returns (Paragraph);
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);
@@ -39,6 +40,8 @@ service LibraryService {
   rpc SortParagraph(Paragraphs) returns (Paragraphs);
   rpc UpsertSentence(Sentence) returns (Sentence);
   rpc TokenizeSentence(SentenceRequest) returns (Sentences);
+  rpc SortSentenceGroup(SentenceGroups) returns (SentenceGroups);
+
  }
 
 
@@ -224,7 +227,13 @@ message Paragraph {
   Document document =25;
   string item = 26;
   int64 updated_at = 27;
-  
+  // `gorm:"-"`
+  int64 document_current_id = 28;
+  // `gorm:"-"`
+  int64 paragraph_current_id = 29;
+  // `gorm:"-"`
+  int64 course_current_id = 30;
+
 }
 
 message Paragraphs {
@@ -1307,6 +1316,8 @@ message SentenceGroup {
     }
     int32 process_image = 12;
     int64 created_at = 13;
+    int64 position = 14;
+    int64 updated_at = 15;
 }
 
 message SentenceGroupRequest {
@@ -1328,6 +1339,8 @@ message SentenceGroupRequest {
   repeated string cols = 16;
   repeated string includes =19; 
   repeated int64 ids = 21;
+  int64 position = 22;
+
 }
 
 message SentenceGroups {

@@ -25,6 +25,7 @@ type LibraryServiceClient interface {
 	// ---------------- Course -----------------
 	ListCourses(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Courses, error)
 	ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error)
+	FindDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Document, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	FindParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
@@ -56,6 +57,7 @@ type LibraryServiceClient interface {
 	SortParagraph(ctx context.Context, in *Paragraphs, opts ...grpc.CallOption) (*Paragraphs, error)
 	UpsertSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
 	TokenizeSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
+	SortSentenceGroup(ctx context.Context, in *SentenceGroups, opts ...grpc.CallOption) (*SentenceGroups, error)
 }
 
 type libraryServiceClient struct {
@@ -78,6 +80,15 @@ func (c *libraryServiceClient) ListCourses(ctx context.Context, in *CourseReques
 func (c *libraryServiceClient) ListDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Documents, error) {
 	out := new(Documents)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/ListDocument", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) FindDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Document, error) {
+	out := new(Document)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/FindDocument", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -363,6 +374,15 @@ func (c *libraryServiceClient) TokenizeSentence(ctx context.Context, in *Sentenc
 	return out, nil
 }
 
+func (c *libraryServiceClient) SortSentenceGroup(ctx context.Context, in *SentenceGroups, opts ...grpc.CallOption) (*SentenceGroups, error) {
+	out := new(SentenceGroups)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/SortSentenceGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -370,6 +390,7 @@ type LibraryServiceServer interface {
 	// ---------------- Course -----------------
 	ListCourses(context.Context, *CourseRequest) (*Courses, error)
 	ListDocument(context.Context, *DocumentRequest) (*Documents, error)
+	FindDocument(context.Context, *DocumentRequest) (*Document, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	FindParagraph(context.Context, *ParagraphRequest) (*Paragraph, error)
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
@@ -401,6 +422,7 @@ type LibraryServiceServer interface {
 	SortParagraph(context.Context, *Paragraphs) (*Paragraphs, error)
 	UpsertSentence(context.Context, *Sentence) (*Sentence, error)
 	TokenizeSentence(context.Context, *SentenceRequest) (*Sentences, error)
+	SortSentenceGroup(context.Context, *SentenceGroups) (*SentenceGroups, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -412,6 +434,9 @@ func (UnimplementedLibraryServiceServer) ListCourses(context.Context, *CourseReq
 }
 func (UnimplementedLibraryServiceServer) ListDocument(context.Context, *DocumentRequest) (*Documents, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDocument not implemented")
+}
+func (UnimplementedLibraryServiceServer) FindDocument(context.Context, *DocumentRequest) (*Document, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindDocument not implemented")
 }
 func (UnimplementedLibraryServiceServer) ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListParagraph not implemented")
@@ -506,6 +531,9 @@ func (UnimplementedLibraryServiceServer) UpsertSentence(context.Context, *Senten
 func (UnimplementedLibraryServiceServer) TokenizeSentence(context.Context, *SentenceRequest) (*Sentences, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TokenizeSentence not implemented")
 }
+func (UnimplementedLibraryServiceServer) SortSentenceGroup(context.Context, *SentenceGroups) (*SentenceGroups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SortSentenceGroup not implemented")
+}
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to LibraryServiceServer will
@@ -550,6 +578,24 @@ func _LibraryService_ListDocument_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LibraryServiceServer).ListDocument(ctx, req.(*DocumentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_FindDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DocumentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).FindDocument(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/FindDocument",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).FindDocument(ctx, req.(*DocumentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1112,6 +1158,24 @@ func _LibraryService_TokenizeSentence_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_SortSentenceGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SentenceGroups)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).SortSentenceGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/SortSentenceGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).SortSentenceGroup(ctx, req.(*SentenceGroups))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1126,6 +1190,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListDocument",
 			Handler:    _LibraryService_ListDocument_Handler,
+		},
+		{
+			MethodName: "FindDocument",
+			Handler:    _LibraryService_FindDocument_Handler,
 		},
 		{
 			MethodName: "ListParagraph",
@@ -1250,6 +1318,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TokenizeSentence",
 			Handler:    _LibraryService_TokenizeSentence_Handler,
+		},
+		{
+			MethodName: "SortSentenceGroup",
+			Handler:    _LibraryService_SortSentenceGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
