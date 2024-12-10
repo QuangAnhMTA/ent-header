@@ -233,7 +233,8 @@ message Paragraph {
   int64 paragraph_current_id = 29;
   // `gorm:"-"`
   int64 course_current_id = 30;
-
+  // `gorm:"-"`
+  string ParagraphCurrentTitle = 31;
 }
 
 message Paragraphs {
