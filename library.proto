@@ -1344,6 +1344,6 @@ message SentenceGroupRequest {
 }
 
 message SentenceGroups {
-  repeated SentenceGroup setence_groups = 1;
+  repeated SentenceGroup sentence_groups = 1;
   int32 total = 2;
 }
