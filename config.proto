@@ -748,7 +748,8 @@ message MemberExerciseRequest {
   repeated int64 member_ids = 16; 
   repeated int64 paragraph_ids = 15; 
   string token = 22;
-
+  int64 account_id = 23;
+  int64 group_id = 24;
 }
 
 message MemberExercises {
