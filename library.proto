@@ -198,7 +198,7 @@ message Paragraph {
   // `gorm:"text"`
   string keywords = 16;
   string model = 17;
-  int32 process_bbsev5 = 18;
+  // int32 process_bbsev5 = 18;
   int32 process_translate = 19;
   int32 process_sentence = 20;
   ProcessApprove process_approve= 21; // Duyệt nội dung / 1: Chưa, 2: Đã duyệt
@@ -222,7 +222,7 @@ message Paragraph {
   //   done =3;
   // }
 
-  int32 process_te3s = 32;
+  // int32 process_te3s = 32;
   int64 approve_at = 33;
   string goals = 34;
   int64 created_at = 23;
