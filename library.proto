@@ -223,7 +223,7 @@ message Paragraph {
   // }
 
   // int32 process_te3s = 32;
-  int64 approve_at = 33;
+  int64 approved_at = 33;
   string goals = 34;
   int64 created_at = 23;
   int64 duration = 35;
