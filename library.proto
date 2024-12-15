@@ -11,6 +11,7 @@ service LibraryService {
   rpc FindDocument(DocumentRequest) returns (Document);
   rpc ListParagraph(ParagraphRequest) returns (Paragraphs);
   rpc FindParagraph(ParagraphRequest) returns (Paragraph);
+  rpc CreateParagraph(Paragraph) returns (Paragraph);
   rpc GetDataSearchEngine(SearchEngineRequest) returns(SearchEngines);
   rpc ListSentence(SentenceRequest) returns (Sentences);
   rpc StartLearnListen(SentenceRequest) returns (Sentences);

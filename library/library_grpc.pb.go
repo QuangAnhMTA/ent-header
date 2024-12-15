@@ -28,6 +28,7 @@ type LibraryServiceClient interface {
 	FindDocument(ctx context.Context, in *DocumentRequest, opts ...grpc.CallOption) (*Document, error)
 	ListParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraphs, error)
 	FindParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error)
+	CreateParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error)
 	GetDataSearchEngine(ctx context.Context, in *SearchEngineRequest, opts ...grpc.CallOption) (*SearchEngines, error)
 	ListSentence(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
 	StartLearnListen(ctx context.Context, in *SentenceRequest, opts ...grpc.CallOption) (*Sentences, error)
@@ -107,6 +108,15 @@ func (c *libraryServiceClient) ListParagraph(ctx context.Context, in *ParagraphR
 func (c *libraryServiceClient) FindParagraph(ctx context.Context, in *ParagraphRequest, opts ...grpc.CallOption) (*Paragraph, error) {
 	out := new(Paragraph)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/FindParagraph", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *libraryServiceClient) CreateParagraph(ctx context.Context, in *Paragraph, opts ...grpc.CallOption) (*Paragraph, error) {
+	out := new(Paragraph)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/CreateParagraph", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -393,6 +403,7 @@ type LibraryServiceServer interface {
 	FindDocument(context.Context, *DocumentRequest) (*Document, error)
 	ListParagraph(context.Context, *ParagraphRequest) (*Paragraphs, error)
 	FindParagraph(context.Context, *ParagraphRequest) (*Paragraph, error)
+	CreateParagraph(context.Context, *Paragraph) (*Paragraph, error)
 	GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error)
 	ListSentence(context.Context, *SentenceRequest) (*Sentences, error)
 	StartLearnListen(context.Context, *SentenceRequest) (*Sentences, error)
@@ -443,6 +454,9 @@ func (UnimplementedLibraryServiceServer) ListParagraph(context.Context, *Paragra
 }
 func (UnimplementedLibraryServiceServer) FindParagraph(context.Context, *ParagraphRequest) (*Paragraph, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindParagraph not implemented")
+}
+func (UnimplementedLibraryServiceServer) CreateParagraph(context.Context, *Paragraph) (*Paragraph, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateParagraph not implemented")
 }
 func (UnimplementedLibraryServiceServer) GetDataSearchEngine(context.Context, *SearchEngineRequest) (*SearchEngines, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataSearchEngine not implemented")
@@ -632,6 +646,24 @@ func _LibraryService_FindParagraph_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LibraryServiceServer).FindParagraph(ctx, req.(*ParagraphRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LibraryService_CreateParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Paragraph)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).CreateParagraph(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/CreateParagraph",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).CreateParagraph(ctx, req.(*Paragraph))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1202,6 +1234,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindParagraph",
 			Handler:    _LibraryService_FindParagraph_Handler,
+		},
+		{
+			MethodName: "CreateParagraph",
+			Handler:    _LibraryService_CreateParagraph_Handler,
 		},
 		{
 			MethodName: "GetDataSearchEngine",
