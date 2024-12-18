@@ -54,10 +54,10 @@ type ConfigServiceClient interface {
 	ListAccountExercises(ctx context.Context, in *AccountExerciseRequest, opts ...grpc.CallOption) (*AccountExercises, error)
 	CreateMemberExercise(ctx context.Context, in *MemberExercise, opts ...grpc.CallOption) (*MemberExercises, error)
 	ListMemberMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercises, error)
-	ListGroupParagraph(ctx context.Context, in *GroupParagraphRequest, opts ...grpc.CallOption) (*GroupParagraphs, error)
-	CreateGroupParagraph(ctx context.Context, in *GroupParagraph, opts ...grpc.CallOption) (*GroupParagraph, error)
-	UpdateGroupParagraph(ctx context.Context, in *GroupParagraph, opts ...grpc.CallOption) (*GroupParagraph, error)
-	SortGroupParagraph(ctx context.Context, in *GroupParagraphs, opts ...grpc.CallOption) (*GroupParagraphs, error)
+	ListGroupDocument(ctx context.Context, in *GroupDocumentRequest, opts ...grpc.CallOption) (*GroupDocuments, error)
+	CreateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error)
+	UpdateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error)
+	SortGroupDocument(ctx context.Context, in *GroupDocuments, opts ...grpc.CallOption) (*GroupDocuments, error)
 }
 
 type configServiceClient struct {
@@ -329,36 +329,36 @@ func (c *configServiceClient) ListMemberMemberExercise(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *configServiceClient) ListGroupParagraph(ctx context.Context, in *GroupParagraphRequest, opts ...grpc.CallOption) (*GroupParagraphs, error) {
-	out := new(GroupParagraphs)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/ListGroupParagraph", in, out, opts...)
+func (c *configServiceClient) ListGroupDocument(ctx context.Context, in *GroupDocumentRequest, opts ...grpc.CallOption) (*GroupDocuments, error) {
+	out := new(GroupDocuments)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListGroupDocument", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *configServiceClient) CreateGroupParagraph(ctx context.Context, in *GroupParagraph, opts ...grpc.CallOption) (*GroupParagraph, error) {
-	out := new(GroupParagraph)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateGroupParagraph", in, out, opts...)
+func (c *configServiceClient) CreateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error) {
+	out := new(GroupDocument)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateGroupDocument", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *configServiceClient) UpdateGroupParagraph(ctx context.Context, in *GroupParagraph, opts ...grpc.CallOption) (*GroupParagraph, error) {
-	out := new(GroupParagraph)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/UpdateGroupParagraph", in, out, opts...)
+func (c *configServiceClient) UpdateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error) {
+	out := new(GroupDocument)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/UpdateGroupDocument", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *configServiceClient) SortGroupParagraph(ctx context.Context, in *GroupParagraphs, opts ...grpc.CallOption) (*GroupParagraphs, error) {
-	out := new(GroupParagraphs)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/SortGroupParagraph", in, out, opts...)
+func (c *configServiceClient) SortGroupDocument(ctx context.Context, in *GroupDocuments, opts ...grpc.CallOption) (*GroupDocuments, error) {
+	out := new(GroupDocuments)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/SortGroupDocument", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -401,10 +401,10 @@ type ConfigServiceServer interface {
 	ListAccountExercises(context.Context, *AccountExerciseRequest) (*AccountExercises, error)
 	CreateMemberExercise(context.Context, *MemberExercise) (*MemberExercises, error)
 	ListMemberMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error)
-	ListGroupParagraph(context.Context, *GroupParagraphRequest) (*GroupParagraphs, error)
-	CreateGroupParagraph(context.Context, *GroupParagraph) (*GroupParagraph, error)
-	UpdateGroupParagraph(context.Context, *GroupParagraph) (*GroupParagraph, error)
-	SortGroupParagraph(context.Context, *GroupParagraphs) (*GroupParagraphs, error)
+	ListGroupDocument(context.Context, *GroupDocumentRequest) (*GroupDocuments, error)
+	CreateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error)
+	UpdateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error)
+	SortGroupDocument(context.Context, *GroupDocuments) (*GroupDocuments, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -498,17 +498,17 @@ func (UnimplementedConfigServiceServer) CreateMemberExercise(context.Context, *M
 func (UnimplementedConfigServiceServer) ListMemberMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberMemberExercise not implemented")
 }
-func (UnimplementedConfigServiceServer) ListGroupParagraph(context.Context, *GroupParagraphRequest) (*GroupParagraphs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListGroupParagraph not implemented")
+func (UnimplementedConfigServiceServer) ListGroupDocument(context.Context, *GroupDocumentRequest) (*GroupDocuments, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGroupDocument not implemented")
 }
-func (UnimplementedConfigServiceServer) CreateGroupParagraph(context.Context, *GroupParagraph) (*GroupParagraph, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateGroupParagraph not implemented")
+func (UnimplementedConfigServiceServer) CreateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGroupDocument not implemented")
 }
-func (UnimplementedConfigServiceServer) UpdateGroupParagraph(context.Context, *GroupParagraph) (*GroupParagraph, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateGroupParagraph not implemented")
+func (UnimplementedConfigServiceServer) UpdateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateGroupDocument not implemented")
 }
-func (UnimplementedConfigServiceServer) SortGroupParagraph(context.Context, *GroupParagraphs) (*GroupParagraphs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SortGroupParagraph not implemented")
+func (UnimplementedConfigServiceServer) SortGroupDocument(context.Context, *GroupDocuments) (*GroupDocuments, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SortGroupDocument not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1044,74 +1044,74 @@ func _ConfigService_ListMemberMemberExercise_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_ListGroupParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GroupParagraphRequest)
+func _ConfigService_ListGroupDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupDocumentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).ListGroupParagraph(ctx, in)
+		return srv.(ConfigServiceServer).ListGroupDocument(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/ListGroupParagraph",
+		FullMethod: "/config.ConfigService/ListGroupDocument",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).ListGroupParagraph(ctx, req.(*GroupParagraphRequest))
+		return srv.(ConfigServiceServer).ListGroupDocument(ctx, req.(*GroupDocumentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_CreateGroupParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GroupParagraph)
+func _ConfigService_CreateGroupDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupDocument)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).CreateGroupParagraph(ctx, in)
+		return srv.(ConfigServiceServer).CreateGroupDocument(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/CreateGroupParagraph",
+		FullMethod: "/config.ConfigService/CreateGroupDocument",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).CreateGroupParagraph(ctx, req.(*GroupParagraph))
+		return srv.(ConfigServiceServer).CreateGroupDocument(ctx, req.(*GroupDocument))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_UpdateGroupParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GroupParagraph)
+func _ConfigService_UpdateGroupDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupDocument)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).UpdateGroupParagraph(ctx, in)
+		return srv.(ConfigServiceServer).UpdateGroupDocument(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/UpdateGroupParagraph",
+		FullMethod: "/config.ConfigService/UpdateGroupDocument",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).UpdateGroupParagraph(ctx, req.(*GroupParagraph))
+		return srv.(ConfigServiceServer).UpdateGroupDocument(ctx, req.(*GroupDocument))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_SortGroupParagraph_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GroupParagraphs)
+func _ConfigService_SortGroupDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupDocuments)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).SortGroupParagraph(ctx, in)
+		return srv.(ConfigServiceServer).SortGroupDocument(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/SortGroupParagraph",
+		FullMethod: "/config.ConfigService/SortGroupDocument",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).SortGroupParagraph(ctx, req.(*GroupParagraphs))
+		return srv.(ConfigServiceServer).SortGroupDocument(ctx, req.(*GroupDocuments))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1240,20 +1240,20 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ConfigService_ListMemberMemberExercise_Handler,
 		},
 		{
-			MethodName: "ListGroupParagraph",
-			Handler:    _ConfigService_ListGroupParagraph_Handler,
+			MethodName: "ListGroupDocument",
+			Handler:    _ConfigService_ListGroupDocument_Handler,
 		},
 		{
-			MethodName: "CreateGroupParagraph",
-			Handler:    _ConfigService_CreateGroupParagraph_Handler,
+			MethodName: "CreateGroupDocument",
+			Handler:    _ConfigService_CreateGroupDocument_Handler,
 		},
 		{
-			MethodName: "UpdateGroupParagraph",
-			Handler:    _ConfigService_UpdateGroupParagraph_Handler,
+			MethodName: "UpdateGroupDocument",
+			Handler:    _ConfigService_UpdateGroupDocument_Handler,
 		},
 		{
-			MethodName: "SortGroupParagraph",
-			Handler:    _ConfigService_SortGroupParagraph_Handler,
+			MethodName: "SortGroupDocument",
+			Handler:    _ConfigService_SortGroupDocument_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

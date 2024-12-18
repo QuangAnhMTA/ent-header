@@ -44,10 +44,10 @@ service ConfigService {
    rpc ListAccountExercises(AccountExerciseRequest) returns (AccountExercises);
    rpc CreateMemberExercise(MemberExercise) returns (MemberExercises);
    rpc ListMemberMemberExercise(MemberExerciseRequest) returns (MemberExercises);
-   rpc ListGroupParagraph(GroupParagraphRequest) returns (GroupParagraphs);
-   rpc CreateGroupParagraph(GroupParagraph) returns (GroupParagraph);
-   rpc UpdateGroupParagraph(GroupParagraph) returns (GroupParagraph);
-   rpc SortGroupParagraph(GroupParagraphs) returns (GroupParagraphs);
+   rpc ListGroupDocument(GroupDocumentRequest) returns (GroupDocuments);
+   rpc CreateGroupDocument(GroupDocument) returns (GroupDocument);
+   rpc UpdateGroupDocument(GroupDocument) returns (GroupDocument);
+   rpc SortGroupDocument(GroupDocuments) returns (GroupDocuments);
 
 } 
 
@@ -757,11 +757,11 @@ message MemberExercises {
   repeated MemberExercise member_exercises = 2;
 }
 
-message GroupParagraph {
+message GroupDocument {
     // `gorm:"primaryKey;not null;autoIncrement"`
     int64 id = 1; 
     int64 group_id = 2;
-    int64 paragraph_id = 3;
+    int64 document_id = 3;
     string title = 4;
     Status status = 5;  
     enum Status {
@@ -779,16 +779,16 @@ message GroupParagraph {
     // `gorm:"-"`
     Group group = 7;
     // `gorm:"-"`
-    library.Paragraph  paragraph = 8;
+    library.Document document = 8;
     int32 position = 9;
     int64 created_at = 10;
     int64 updated_at = 11;
 }
 
-message GroupParagraphRequest {
+message GroupDocumentRequest {
     int64 id = 1; 
     int64 group_id = 2;
-    int64 paragraph_id = 3;
+    int64 document_id = 3;
     string title = 4;
     int32 status = 5;
     int32 approve_process = 6;
@@ -798,11 +798,11 @@ message GroupParagraphRequest {
     repeated string cols = 11;
     repeated string includes =12;
     repeated int64 group_ids = 14;
-    repeated int64 paragraph_ids = 15;
+    repeated int64 document_ids = 15;
 }
 
-message GroupParagraphs {
-    repeated GroupParagraph group_paragraphs = 1;
+message GroupDocuments {
+    repeated GroupDocument group_documents = 1;
     int32 total = 2;
 }
 

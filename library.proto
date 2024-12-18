@@ -119,6 +119,7 @@ message DocumentRequest {
   repeated string includes =12;
   int64 current_id = 14;
   repeated int64 ids = 15;
+  int64 group_id = 16;
 
 }
 
@@ -1302,7 +1303,6 @@ message  Quizzes {
   int32 total = 1;
   repeated Quiz quizzes = 2;
 }
-
 
 message SentenceGroup {
     // `gorm:"primaryKey;not null;autoIncrement"`
