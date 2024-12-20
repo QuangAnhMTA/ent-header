@@ -735,7 +735,7 @@ message Voice {
     }
     string sample = 14;
     string voice_engine = 15;
-    string version = 16;
+    string model = 16;
 }
 
 message Phrase {
