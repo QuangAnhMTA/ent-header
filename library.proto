@@ -1329,6 +1329,8 @@ message SentenceGroup {
     int64 updated_at = 15;
     // `gorm:"-"`
     string content = 16;
+    // `gorm:"-"`
+    int64 pre_sentence_group_id = 17;
 }
 
 message SentenceGroupRequest {
