@@ -706,3 +706,5 @@ message ReportTokens {
 	repeated ReportToken report_tokens = 1;
 	int64 total = 2;
 }
+
+
