@@ -38,6 +38,7 @@ service TransactionService {
   rpc ListReportToken(ReportTokenRequest) returns(ReportTokens);
   rpc ListReportPoint(ReportPointRequest) returns(ReportPoints);
   rpc ListReportMember(ReportMemberRequest) returns(ReportMembers);
+  rpc CreateRecommend (AnswerRequest) returns (Answers);
 }
 
 message Listen {

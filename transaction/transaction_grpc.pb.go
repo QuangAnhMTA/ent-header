@@ -52,6 +52,7 @@ type TransactionServiceClient interface {
 	ListReportToken(ctx context.Context, in *ReportTokenRequest, opts ...grpc.CallOption) (*ReportTokens, error)
 	ListReportPoint(ctx context.Context, in *ReportPointRequest, opts ...grpc.CallOption) (*ReportPoints, error)
 	ListReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMembers, error)
+	CreateRecommend(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error)
 }
 
 type transactionServiceClient struct {
@@ -323,6 +324,15 @@ func (c *transactionServiceClient) ListReportMember(ctx context.Context, in *Rep
 	return out, nil
 }
 
+func (c *transactionServiceClient) CreateRecommend(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error) {
+	out := new(Answers)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateRecommend", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -357,6 +367,7 @@ type TransactionServiceServer interface {
 	ListReportToken(context.Context, *ReportTokenRequest) (*ReportTokens, error)
 	ListReportPoint(context.Context, *ReportPointRequest) (*ReportPoints, error)
 	ListReportMember(context.Context, *ReportMemberRequest) (*ReportMembers, error)
+	CreateRecommend(context.Context, *AnswerRequest) (*Answers, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -449,6 +460,9 @@ func (UnimplementedTransactionServiceServer) ListReportPoint(context.Context, *R
 }
 func (UnimplementedTransactionServiceServer) ListReportMember(context.Context, *ReportMemberRequest) (*ReportMembers, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListReportMember not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateRecommend(context.Context, *AnswerRequest) (*Answers, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRecommend not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -984,6 +998,24 @@ func _TransactionService_ListReportMember_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_CreateRecommend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AnswerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateRecommend(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateRecommend",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateRecommend(ctx, req.(*AnswerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1106,6 +1138,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListReportMember",
 			Handler:    _TransactionService_ListReportMember_Handler,
+		},
+		{
+			MethodName: "CreateRecommend",
+			Handler:    _TransactionService_CreateRecommend_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

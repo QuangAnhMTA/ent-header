@@ -166,6 +166,7 @@ message ParagraphRequest {
   string order_type = 17;
   string order_by = 18;
   string item = 26;
+  int64 group_id = 27;
 
 }
 
