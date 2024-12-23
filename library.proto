@@ -288,7 +288,7 @@ message SentenceRequest {
   int32 process_translate = 26;
   int32 position =31;
   string paragraph_content = 32;
-
+  int32 start_position = 33;
 }
 
 message Sentence {
@@ -366,6 +366,7 @@ message AudioRequest {
   int32 status = 15;
   int32 limit =17;
   int32 offset = 18;
+  string model = 21;
   repeated string cols = 16;
   repeated string includes =19;
   repeated int64 sentence_ids = 20;
@@ -378,21 +379,22 @@ message Audio {
   int64 sentence_id = 2;
   int64 voice_id = 3;
   string transcription_id = 4;
-  int32 speed = 5;
-  float duration = 9;
-  string url = 10;
-  int64 size = 11;
-  int32 process = 13;
-  int64 created_at = 14;
-  Status status = 15;  
+  string keyx = 5;
+  string format = 6;
+  int32 speed = 7;
+  float duration = 8;
+  string url = 9;
+  int64 size = 10;
+  string version = 11;
+  int32 process = 12;
+  int64 created_at = 13;
+  Status status = 14;  
   enum Status {
       default_state = 0;
       deactive = 1;
       active = 2;
   }
-  string keyx = 16;
-  string format = 17;
-  string version = 18;
+  string model = 15;
 }
 
 message Audios {
