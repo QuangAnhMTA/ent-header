@@ -1361,6 +1361,7 @@ message SentenceGroupRequest {
   repeated int64 ids = 21;
   repeated int64 sentence_ids = 23;
   int64 position = 22;
+  repeated int64 paragraph_ids = 24;
 
 }
 
