@@ -58,6 +58,7 @@ type ConfigServiceClient interface {
 	CreateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error)
 	UpdateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error)
 	SortGroupDocument(ctx context.Context, in *GroupDocuments, opts ...grpc.CallOption) (*GroupDocuments, error)
+	GetMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercise, error)
 }
 
 type configServiceClient struct {
@@ -365,6 +366,15 @@ func (c *configServiceClient) SortGroupDocument(ctx context.Context, in *GroupDo
 	return out, nil
 }
 
+func (c *configServiceClient) GetMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercise, error) {
+	out := new(MemberExercise)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/GetMemberExercise", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -405,6 +415,7 @@ type ConfigServiceServer interface {
 	CreateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error)
 	UpdateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error)
 	SortGroupDocument(context.Context, *GroupDocuments) (*GroupDocuments, error)
+	GetMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercise, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -509,6 +520,9 @@ func (UnimplementedConfigServiceServer) UpdateGroupDocument(context.Context, *Gr
 }
 func (UnimplementedConfigServiceServer) SortGroupDocument(context.Context, *GroupDocuments) (*GroupDocuments, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SortGroupDocument not implemented")
+}
+func (UnimplementedConfigServiceServer) GetMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercise, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberExercise not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1116,6 +1130,24 @@ func _ConfigService_SortGroupDocument_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_GetMemberExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberExerciseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).GetMemberExercise(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/GetMemberExercise",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).GetMemberExercise(ctx, req.(*MemberExerciseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1254,6 +1286,10 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SortGroupDocument",
 			Handler:    _ConfigService_SortGroupDocument_Handler,
+		},
+		{
+			MethodName: "GetMemberExercise",
+			Handler:    _ConfigService_GetMemberExercise_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
