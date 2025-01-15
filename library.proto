@@ -337,6 +337,8 @@ message Sentence {
   int32 position = 29;
   int64 created_at = 30;
   int64 updated_at = 31;
+  // `gorm:"-"`
+  SentenceGroup sentence_group = 32;
 }
 
 message Sentences {
@@ -601,7 +603,7 @@ message PosRequest {
   int32 position =22;
   int64 sentence_pos_ids = 23;
   repeated string tag_bcs = 24;
-
+  string member_exercise_token = 15;
 }
 
 message Poses {
