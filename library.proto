@@ -244,6 +244,8 @@ message Paragraph {
   int64 course_current_id = 30;
   // `gorm:"-"`
   string ParagraphCurrentTitle = 31;
+  // `gorm:"-"`
+  repeated SentenceGroup sentence_groups = 32; 
 }
 
 message Paragraphs {
