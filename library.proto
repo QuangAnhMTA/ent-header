@@ -42,7 +42,6 @@ service LibraryService {
   rpc UpsertSentence(Sentence) returns (Sentence);
   rpc TokenizeSentence(SentenceRequest) returns (Sentences);
   rpc SortSentenceGroup(SentenceGroups) returns (SentenceGroups);
-
  }
 
 

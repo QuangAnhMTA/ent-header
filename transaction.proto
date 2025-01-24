@@ -92,6 +92,7 @@ message Speak {
 
 message Speaks {
 	repeated Speak speaks = 1;
+	config.Member member = 3;
 	int64 total = 2;
 }
 
