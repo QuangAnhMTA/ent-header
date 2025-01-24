@@ -49,6 +49,7 @@ service ConfigService {
    rpc UpdateGroupDocument(GroupDocument) returns (GroupDocument);
    rpc SortGroupDocument(GroupDocuments) returns (GroupDocuments);
    rpc GetMemberExercise(MemberExerciseRequest) returns (MemberExercise);
+   rpc UpdateMemberExercise(MemberExerciseRequest) returns(MemberExercise);
 } 
 
 message Claims {
@@ -727,6 +728,7 @@ message MemberExercise {
     Member member = 17;
     string token = 18;
     int64 group_id = 19;
+    int64 updated_at = 20;
 }
 
 message MemberExerciseRequest {
@@ -752,6 +754,7 @@ message MemberExerciseRequest {
   string token = 22;
   int64 account_id = 23;
   int64 group_id = 24;
+  int64 updated_at = 25;
 }
 
 message MemberExercises {
