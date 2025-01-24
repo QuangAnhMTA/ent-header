@@ -64,6 +64,8 @@ message Listen {
 	int32 offset = 18;
 	repeated string cols = 16;
 	repeated string includes =19;
+	string member_exercise_token = 15;
+
   }
 
 message Speak {
@@ -116,6 +118,8 @@ message SpeakRequest {
 	repeated int64 character_ids = 21;
 	int64 current_id = 22;
 	repeated int64 ids = 23;
+	string member_exercise_token = 15;
+
 }
 
 
@@ -149,6 +153,8 @@ message LookupRequest {
 	repeated int64 ids = 23;
 	int64 quantity = 10;
 	int64 updated_at = 11;
+	string member_exercise_token = 15;
+
 }
 message Lookups {
 	repeated Lookup lookups = 1;
