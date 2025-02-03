@@ -90,11 +90,15 @@ message Speak {
 	string member_exercise_token = 15;
 	// `gorm:"-"`
 	string url = 16;
+	string template = 24;
+	// `gorm:"-"`
+	SpeakDetail speak_detail = 25;
 }
 
 message Speaks {
 	repeated Speak speaks = 1;
 	config.Member member = 3;
+	library.Paragraph paragraph = 4;
 	int64 total = 2;
 }
 
@@ -119,8 +123,44 @@ message SpeakRequest {
 	int64 current_id = 22;
 	repeated int64 ids = 23;
 	string member_exercise_token = 15;
+	string template = 24;
 
 }
+
+message SpeakDetail {
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id =3;
+	int64 speak_id = 4;
+	string word = 5;
+	float probability = 6;
+	float start = 7;
+	float end = 8;
+	int64 created_at = 9;
+}
+message SpeakDetailRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 sentence_id =3;
+	int64 speak_id = 4;
+	string word = 5;
+	float probability = 6;
+	float start = 7;
+	float end = 8;
+	int64 created_at = 9;
+	int32 limit =17;
+	int32 offset = 18;
+	repeated string cols = 16;
+	repeated string includes =19;
+	repeated int64 sentence_ids = 20;
+}
+message SpeakDetails {
+	repeated SpeakDetail speak_details = 1;
+	int32 total = 2;
+}
+
+
 
 
 
@@ -246,6 +286,8 @@ message ListenDisplay {
 	int64 paragraph_id = 4;
 	int64 created_at = 6;
 	int64 updated_at = 7;
+	string member_exercise_token = 15;
+
 }
 message ListenDisplayRequest {
 	int64 id = 1;
@@ -261,6 +303,8 @@ message ListenDisplayRequest {
 	int32 offset = 18;
 	repeated string cols = 16;
 	repeated string includes =19;
+	string member_exercise_token = 15;
+
 }
 message ListenDisplays {
 	repeated ListenDisplay listen_displays = 1;
@@ -274,6 +318,7 @@ message SpeakDisplay {
 	int64 paragraph_id = 4;
 	int64 character_id = 5;
 	int64 created_at = 6;
+	string member_exercise_token = 15;
 }
 message SpeakDisplayRequest {
 	int64 id = 1;
@@ -289,6 +334,7 @@ message SpeakDisplayRequest {
 	int32 offset = 18;
 	repeated string cols = 16;
 	repeated string includes =19;
+	string member_exercise_token = 15;
 
 }
 message SpeakDisplays {

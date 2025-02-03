@@ -291,6 +291,8 @@ message SentenceRequest {
   int32 position =31;
   string paragraph_content = 32;
   int32 start_position = 33;
+  string member_exercise_token = 34;
+
 }
 
 message Sentence {
