@@ -92,7 +92,7 @@ message Speak {
 	string url = 16;
 	string template = 24;
 	// `gorm:"-"`
-	SpeakDetail speak_detail = 25;
+	repeated SpeakDetail speak_details = 25;
 }
 
 message Speaks {
