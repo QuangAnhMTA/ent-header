@@ -50,7 +50,6 @@ service ConfigService {
    rpc SortGroupDocument(GroupDocuments) returns (GroupDocuments);
    rpc GetMemberExercise(MemberExerciseRequest) returns (MemberExercise);
    rpc UpdateMemberExercise(MemberExerciseRequest) returns(MemberExercise);
-
    
 } 
 

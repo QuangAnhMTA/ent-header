@@ -26,6 +26,7 @@ type TransactionServiceClient interface {
 	ListListen(ctx context.Context, in *ListenRequest, opts ...grpc.CallOption) (*Listen, error)
 	EndLearnListen(ctx context.Context, in *Listen, opts ...grpc.CallOption) (*Listen, error)
 	ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speaks, error)
+	UpdateSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error)
 	EndLearnSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error)
 	CreateSentence(ctx context.Context, in *Sentence, opts ...grpc.CallOption) (*Sentence, error)
 	CreateLookup(ctx context.Context, in *Lookup, opts ...grpc.CallOption) (*Lookup, error)
@@ -84,6 +85,15 @@ func (c *transactionServiceClient) EndLearnListen(ctx context.Context, in *Liste
 func (c *transactionServiceClient) ListSpeak(ctx context.Context, in *SpeakRequest, opts ...grpc.CallOption) (*Speaks, error) {
 	out := new(Speaks)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListSpeak", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) UpdateSpeak(ctx context.Context, in *Speak, opts ...grpc.CallOption) (*Speak, error) {
+	out := new(Speak)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/UpdateSpeak", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -341,6 +351,7 @@ type TransactionServiceServer interface {
 	ListListen(context.Context, *ListenRequest) (*Listen, error)
 	EndLearnListen(context.Context, *Listen) (*Listen, error)
 	ListSpeak(context.Context, *SpeakRequest) (*Speaks, error)
+	UpdateSpeak(context.Context, *Speak) (*Speak, error)
 	EndLearnSpeak(context.Context, *Speak) (*Speak, error)
 	CreateSentence(context.Context, *Sentence) (*Sentence, error)
 	CreateLookup(context.Context, *Lookup) (*Lookup, error)
@@ -382,6 +393,9 @@ func (UnimplementedTransactionServiceServer) EndLearnListen(context.Context, *Li
 }
 func (UnimplementedTransactionServiceServer) ListSpeak(context.Context, *SpeakRequest) (*Speaks, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSpeak not implemented")
+}
+func (UnimplementedTransactionServiceServer) UpdateSpeak(context.Context, *Speak) (*Speak, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSpeak not implemented")
 }
 func (UnimplementedTransactionServiceServer) EndLearnSpeak(context.Context, *Speak) (*Speak, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EndLearnSpeak not implemented")
@@ -526,6 +540,24 @@ func _TransactionService_ListSpeak_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionServiceServer).ListSpeak(ctx, req.(*SpeakRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_UpdateSpeak_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Speak)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).UpdateSpeak(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/UpdateSpeak",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).UpdateSpeak(ctx, req.(*Speak))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1034,6 +1066,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListSpeak",
 			Handler:    _TransactionService_ListSpeak_Handler,
+		},
+		{
+			MethodName: "UpdateSpeak",
+			Handler:    _TransactionService_UpdateSpeak_Handler,
 		},
 		{
 			MethodName: "EndLearnSpeak",

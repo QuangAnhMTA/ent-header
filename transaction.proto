@@ -12,6 +12,7 @@ service TransactionService {
   rpc ListListen(ListenRequest) returns (Listen);
   rpc EndLearnListen(Listen) returns (Listen);
   rpc ListSpeak(SpeakRequest) returns (Speaks);
+  rpc UpdateSpeak(Speak) returns (Speak);
   rpc EndLearnSpeak(Speak) returns (Speak);
   rpc CreateSentence(Sentence) returns (Sentence);
   rpc CreateLookup(Lookup) returns (Lookup);
@@ -39,6 +40,7 @@ service TransactionService {
   rpc ListReportPoint(ReportPointRequest) returns(ReportPoints);
   rpc ListReportMember(ReportMemberRequest) returns(ReportMembers);
   rpc CreateRecommend (AnswerRequest) returns (Answers);
+
 }
 
 message Listen {
@@ -93,6 +95,8 @@ message Speak {
 	string template = 24;
 	// `gorm:"-"`
 	repeated SpeakDetail speak_details = 25;
+	string comment = 26;
+	int64 updated_at = 27;
 }
 
 message Speaks {
@@ -124,7 +128,8 @@ message SpeakRequest {
 	repeated int64 ids = 23;
 	string member_exercise_token = 15;
 	string template = 24;
-
+	string comment = 26;
+	int64 updated_at = 27;
 }
 
 message SpeakDetail {

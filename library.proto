@@ -245,6 +245,8 @@ message Paragraph {
   string ParagraphCurrentTitle = 31;
   // `gorm:"-"`
   repeated SentenceGroup sentence_groups = 32; 
+  // `gorm:"-"`
+  Course course =36;
 }
 
 message Paragraphs {
