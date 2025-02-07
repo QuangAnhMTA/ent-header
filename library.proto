@@ -77,6 +77,8 @@ message CourseRequest {
   repeated string cols = 13;
   repeated string includes =14;
   repeated int64 ids = 15;
+  int32 study_type = 16;
+
 }
 
 message Course {
@@ -95,6 +97,7 @@ message Course {
   }
   // `gorm:"-"`
   repeated Document documents = 8;
+  int32 study_type = 9;
 }
 
 message Courses {
