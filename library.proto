@@ -42,6 +42,7 @@ service LibraryService {
   rpc UpsertSentence(Sentence) returns (Sentence);
   rpc TokenizeSentence(SentenceRequest) returns (Sentences);
   rpc SortSentenceGroup(SentenceGroups) returns (SentenceGroups);
+  rpc ListTranslation(TranslationRequest) returns (Translations);
  }
 
 
@@ -98,6 +99,8 @@ message Course {
   // `gorm:"-"`
   repeated Document documents = 8;
   int32 study_type = 9;
+  // `gorm:"-"`
+  string title_vi = 11;
 }
 
 message Courses {
@@ -142,6 +145,9 @@ message Document {
   repeated Paragraph paragraphs = 8;
   // `gorm:"-"`
   Course course = 9;
+  // `gorm:"-"`
+  string title_vi = 11;
+
 }
 
 message Documents {
@@ -250,6 +256,8 @@ message Paragraph {
   repeated SentenceGroup sentence_groups = 32; 
   // `gorm:"-"`
   Course course =36;
+  // `gorm:"-"`
+  string title_vi =37;
 }
 
 message Paragraphs {
