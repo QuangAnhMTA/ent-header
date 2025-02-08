@@ -663,6 +663,7 @@ message TranslationRequest {
   string lang_to = 8;
   int32 process = 9;
   int32 status = 10; 
+  string field = 15;
   repeated int64 ids = 11; 
   repeated int64 object_ids = 12;
   int32 limit =17;
