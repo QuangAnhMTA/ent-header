@@ -28,6 +28,7 @@ service LibraryService {
   rpc ListTagDetail (TagDetailRequest) returns(TagDetails);
   rpc ListQuestion (QuestionRequest) returns(Questions);
   rpc ListAnswer  (AnswerRequest) returns (Answers);
+  rpc GetAnswer(Answer) returns(Answer);
   rpc ListQuiz (QuizRequest) returns (Quizzes);
   rpc ListSentenceGroup(SentenceGroupRequest) returns (SentenceGroups);
   rpc ListTag(TagRequest) returns (Tags);
@@ -1245,7 +1246,9 @@ message QuestionRequest {
   repeated string keyxs = 20;
   repeated int64 ids = 21;
   repeated int64 quiz_ids = 22;
-
+  int64 paragraph_id = 23;
+  int64 course_id = 24;
+  int64 document_id = 25;
 }
 
 message Questions {
@@ -1272,6 +1275,7 @@ message Answer {
 	}
   // `gorm:"-"`
   Question question = 11;
+  int32 right = 12;
 }
 
 
@@ -1291,6 +1295,7 @@ message AnswerRequest {
   repeated string keyxs = 20;
   repeated int64 ids = 21;
   repeated int64 question_ids = 22;
+  int32 right = 12;
 }
 
 message Answers {

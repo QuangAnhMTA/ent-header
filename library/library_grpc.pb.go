@@ -45,6 +45,7 @@ type LibraryServiceClient interface {
 	ListTagDetail(ctx context.Context, in *TagDetailRequest, opts ...grpc.CallOption) (*TagDetails, error)
 	ListQuestion(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*Questions, error)
 	ListAnswer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error)
+	GetAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error)
 	ListQuiz(ctx context.Context, in *QuizRequest, opts ...grpc.CallOption) (*Quizzes, error)
 	ListSentenceGroup(ctx context.Context, in *SentenceGroupRequest, opts ...grpc.CallOption) (*SentenceGroups, error)
 	ListTag(ctx context.Context, in *TagRequest, opts ...grpc.CallOption) (*Tags, error)
@@ -268,6 +269,15 @@ func (c *libraryServiceClient) ListAnswer(ctx context.Context, in *AnswerRequest
 	return out, nil
 }
 
+func (c *libraryServiceClient) GetAnswer(ctx context.Context, in *Answer, opts ...grpc.CallOption) (*Answer, error) {
+	out := new(Answer)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/GetAnswer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *libraryServiceClient) ListQuiz(ctx context.Context, in *QuizRequest, opts ...grpc.CallOption) (*Quizzes, error) {
 	out := new(Quizzes)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/ListQuiz", in, out, opts...)
@@ -430,6 +440,7 @@ type LibraryServiceServer interface {
 	ListTagDetail(context.Context, *TagDetailRequest) (*TagDetails, error)
 	ListQuestion(context.Context, *QuestionRequest) (*Questions, error)
 	ListAnswer(context.Context, *AnswerRequest) (*Answers, error)
+	GetAnswer(context.Context, *Answer) (*Answer, error)
 	ListQuiz(context.Context, *QuizRequest) (*Quizzes, error)
 	ListSentenceGroup(context.Context, *SentenceGroupRequest) (*SentenceGroups, error)
 	ListTag(context.Context, *TagRequest) (*Tags, error)
@@ -516,6 +527,9 @@ func (UnimplementedLibraryServiceServer) ListQuestion(context.Context, *Question
 }
 func (UnimplementedLibraryServiceServer) ListAnswer(context.Context, *AnswerRequest) (*Answers, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAnswer not implemented")
+}
+func (UnimplementedLibraryServiceServer) GetAnswer(context.Context, *Answer) (*Answer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAnswer not implemented")
 }
 func (UnimplementedLibraryServiceServer) ListQuiz(context.Context, *QuizRequest) (*Quizzes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListQuiz not implemented")
@@ -970,6 +984,24 @@ func _LibraryService_ListAnswer_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_GetAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Answer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).GetAnswer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/GetAnswer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).GetAnswer(ctx, req.(*Answer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _LibraryService_ListQuiz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QuizRequest)
 	if err := dec(in); err != nil {
@@ -1334,6 +1366,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListAnswer",
 			Handler:    _LibraryService_ListAnswer_Handler,
+		},
+		{
+			MethodName: "GetAnswer",
+			Handler:    _LibraryService_GetAnswer_Handler,
 		},
 		{
 			MethodName: "ListQuiz",
