@@ -1313,6 +1313,10 @@ message Quiz {
 		deactive = 1;
 		active = 2;
 	}
+  int64 paragraph_id = 4;
+  int64 document_id = 5;
+  int64 course_id = 6;
+
 }
 
 message QuizRequest {
@@ -1325,6 +1329,9 @@ message QuizRequest {
   repeated string includes =19; 
   repeated string keyxs = 20;
   repeated int64 ids = 21; 
+  int64 paragraph_id = 4;
+  int64 document_id = 5;
+  int64 course_id = 6;
 }
 
 message  Quizzes {
