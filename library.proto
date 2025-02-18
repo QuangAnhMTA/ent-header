@@ -1216,8 +1216,8 @@ message Question {
     string translate = 5;
     string audio = 6;
     string image =7;
-    int32 int32 = 8;
-    string type =9;
+    int32 position = 8;
+    int32 type =9;
     Status status = 10;  
     enum Status {
 		default_state = 0;

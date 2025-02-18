@@ -54,6 +54,9 @@ type TransactionServiceClient interface {
 	ListReportPoint(ctx context.Context, in *ReportPointRequest, opts ...grpc.CallOption) (*ReportPoints, error)
 	ListReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMembers, error)
 	CreateRecommend(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*Answers, error)
+	BuyToken(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error)
+	PaymentCart(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error)
+	ListMemberTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*MemberTokenTransactions, error)
 }
 
 type transactionServiceClient struct {
@@ -343,6 +346,33 @@ func (c *transactionServiceClient) CreateRecommend(ctx context.Context, in *Answ
 	return out, nil
 }
 
+func (c *transactionServiceClient) BuyToken(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error) {
+	out := new(Cart)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/BuyToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) PaymentCart(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error) {
+	out := new(Cart)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/PaymentCart", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListMemberTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*MemberTokenTransactions, error) {
+	out := new(MemberTokenTransactions)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListMemberTokenTransaction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -379,6 +409,9 @@ type TransactionServiceServer interface {
 	ListReportPoint(context.Context, *ReportPointRequest) (*ReportPoints, error)
 	ListReportMember(context.Context, *ReportMemberRequest) (*ReportMembers, error)
 	CreateRecommend(context.Context, *AnswerRequest) (*Answers, error)
+	BuyToken(context.Context, *CartRequest) (*Cart, error)
+	PaymentCart(context.Context, *CartRequest) (*Cart, error)
+	ListMemberTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*MemberTokenTransactions, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -477,6 +510,15 @@ func (UnimplementedTransactionServiceServer) ListReportMember(context.Context, *
 }
 func (UnimplementedTransactionServiceServer) CreateRecommend(context.Context, *AnswerRequest) (*Answers, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRecommend not implemented")
+}
+func (UnimplementedTransactionServiceServer) BuyToken(context.Context, *CartRequest) (*Cart, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BuyToken not implemented")
+}
+func (UnimplementedTransactionServiceServer) PaymentCart(context.Context, *CartRequest) (*Cart, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PaymentCart not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListMemberTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*MemberTokenTransactions, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberTokenTransaction not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1048,6 +1090,60 @@ func _TransactionService_CreateRecommend_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_BuyToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).BuyToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/BuyToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).BuyToken(ctx, req.(*CartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_PaymentCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).PaymentCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/PaymentCart",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).PaymentCart(ctx, req.(*CartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ListMemberTokenTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberTokenTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListMemberTokenTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListMemberTokenTransaction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListMemberTokenTransaction(ctx, req.(*MemberTokenTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1178,6 +1274,18 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateRecommend",
 			Handler:    _TransactionService_CreateRecommend_Handler,
+		},
+		{
+			MethodName: "BuyToken",
+			Handler:    _TransactionService_BuyToken_Handler,
+		},
+		{
+			MethodName: "PaymentCart",
+			Handler:    _TransactionService_PaymentCart_Handler,
+		},
+		{
+			MethodName: "ListMemberTokenTransaction",
+			Handler:    _TransactionService_ListMemberTokenTransaction_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
