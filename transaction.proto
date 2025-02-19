@@ -567,7 +567,7 @@ message Answer {
 		active = 2;
 	}
 	string question_format = 14;
-	string anwser_format = 15;
+	string answer_format = 15;
   }
 
   message AnswerRequest {

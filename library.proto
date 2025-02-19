@@ -1229,7 +1229,7 @@ message Question {
     // `gorm:"-"`
 	  string question_format = 14;
 	  // `gorm:"-"`
-	  string anwser_format = 15;
+	  string answer_format = 15;
 }
 
 message QuestionRequest {
@@ -1283,7 +1283,7 @@ message Answer {
   // `gorm:"-"`
 	string question_format = 14;
 	// `gorm:"-"`
-	string anwser_format = 15;
+	string answer_format = 15;
 }
 
 
