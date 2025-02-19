@@ -1253,6 +1253,8 @@ message QuestionRequest {
   int64 paragraph_id = 23;
   int64 course_id = 24;
   int64 document_id = 25;
+  string question_format = 14;
+  string answer_format = 15;
 }
 
 message Questions {
