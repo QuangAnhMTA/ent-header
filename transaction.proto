@@ -566,6 +566,8 @@ message Answer {
 		deactive = 1;
 		active = 2;
 	}
+	string question_format = 14;
+	string anwser_format = 15;
   }
 
   message AnswerRequest {
@@ -593,6 +595,7 @@ message Answer {
   message Answers {
 	int32 total = 1;
 	repeated Answer answers = 2;
+	int64 is_correct = 3;
   }
 
 message MemberToken {

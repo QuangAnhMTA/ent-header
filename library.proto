@@ -1226,6 +1226,10 @@ message Question {
 	  }
     // `gorm:"-"`
     Quiz quiz = 11;
+    // `gorm:"-"`
+	  string question_format = 14;
+	  // `gorm:"-"`
+	  string anwser_format = 15;
 }
 
 message QuestionRequest {
@@ -1276,6 +1280,10 @@ message Answer {
   // `gorm:"-"`
   Question question = 11;
   int32 right = 12;
+  // `gorm:"-"`
+	string question_format = 14;
+	// `gorm:"-"`
+	string anwser_format = 15;
 }
 
 
@@ -1301,6 +1309,7 @@ message AnswerRequest {
 message Answers {
   int32 total = 1;
   repeated Answer answers = 2;
+  int64 is_correct = 3;
 }
 
 message Quiz {
