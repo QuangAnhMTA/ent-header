@@ -1306,6 +1306,8 @@ message AnswerRequest {
   repeated int64 ids = 21;
   repeated int64 question_ids = 22;
   int32 right = 12;
+  string question_format = 14;
+  string answer_format = 15;
 }
 
 message Answers {
