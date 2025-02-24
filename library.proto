@@ -1257,7 +1257,6 @@ message QuestionRequest {
   string question_format = 14;
   string answer_format = 15;
   int32 display = 26;
-
 }
 
 message Questions {
