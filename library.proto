@@ -1230,6 +1230,7 @@ message Question {
 	  string question_format = 14;
 	  // `gorm:"-"`
 	  string answer_format = 15;
+    int32 display = 16;
 }
 
 message QuestionRequest {
@@ -1255,6 +1256,8 @@ message QuestionRequest {
   int64 document_id = 25;
   string question_format = 14;
   string answer_format = 15;
+  int32 display = 26;
+
 }
 
 message Questions {
