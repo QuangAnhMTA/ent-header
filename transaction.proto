@@ -665,6 +665,12 @@ message MemberTokenTransaction {
 	int64 object_id = 10;
 	// `gorm:"-"`
 	config.Member member = 11;
+	// `gorm:"-"`
+	config.Account Account = 12;
+	// `gorm:"-"`
+	Cart Cart = 13;
+	// `gorm:"-"`
+	config.Token Token = 14;
 }
 
 message MemberTokenTransactionRequest {
@@ -672,7 +678,7 @@ message MemberTokenTransactionRequest {
     int64 member_id = 2;  
     int64 token_id = 3;
     int64 quantity = 4;
-	// int64 account_id =5;
+	int64 account_id =5;
 	int32 type = 6;  
 	int32 status = 7;  
 	int64 created_at = 8;
@@ -685,7 +691,8 @@ message MemberTokenTransactionRequest {
 	repeated int64 ids = 15;
 	repeated int64 token_ids = 16;
 	repeated int64 object_ids = 17;
-
+	int64 start_at = 18;
+	int64 end_at = 19;
 }
 
 message MemberTokenTransactions {
