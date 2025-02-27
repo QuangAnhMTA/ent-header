@@ -43,6 +43,20 @@ service TransactionService {
   rpc BuyToken(CartRequest) returns (Cart);
   rpc PaymentCart(CartRequest) returns (Cart);
   rpc ListMemberTokenTransaction(MemberTokenTransactionRequest) returns(MemberTokenTransactions);
+  rpc ListReportTokenTransaction(MemberTokenTransactionRequest) returns (ReportMemberTokenTransactionResponse);
+}
+
+
+message ReportMemberTokenTransactionResponse {
+	message report {
+		int64 day = 1;
+		int64 amount = 2;
+	}
+	repeated report listen_report = 1;
+	repeated report speak_report = 2;
+	repeated report total_report = 3;
+	config.Member member = 4;
+	config.Account account = 5;
 }
 
 message Listen {

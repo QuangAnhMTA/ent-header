@@ -57,6 +57,7 @@ type TransactionServiceClient interface {
 	BuyToken(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error)
 	PaymentCart(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error)
 	ListMemberTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*MemberTokenTransactions, error)
+	ListReportTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*ReportMemberTokenTransactionResponse, error)
 }
 
 type transactionServiceClient struct {
@@ -373,6 +374,15 @@ func (c *transactionServiceClient) ListMemberTokenTransaction(ctx context.Contex
 	return out, nil
 }
 
+func (c *transactionServiceClient) ListReportTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*ReportMemberTokenTransactionResponse, error) {
+	out := new(ReportMemberTokenTransactionResponse)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListReportTokenTransaction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -412,6 +422,7 @@ type TransactionServiceServer interface {
 	BuyToken(context.Context, *CartRequest) (*Cart, error)
 	PaymentCart(context.Context, *CartRequest) (*Cart, error)
 	ListMemberTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*MemberTokenTransactions, error)
+	ListReportTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*ReportMemberTokenTransactionResponse, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -519,6 +530,9 @@ func (UnimplementedTransactionServiceServer) PaymentCart(context.Context, *CartR
 }
 func (UnimplementedTransactionServiceServer) ListMemberTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*MemberTokenTransactions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberTokenTransaction not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListReportTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*ReportMemberTokenTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListReportTokenTransaction not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1144,6 +1158,24 @@ func _TransactionService_ListMemberTokenTransaction_Handler(srv interface{}, ctx
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_ListReportTokenTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberTokenTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListReportTokenTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListReportTokenTransaction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListReportTokenTransaction(ctx, req.(*MemberTokenTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1286,6 +1318,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMemberTokenTransaction",
 			Handler:    _TransactionService_ListMemberTokenTransaction_Handler,
+		},
+		{
+			MethodName: "ListReportTokenTransaction",
+			Handler:    _TransactionService_ListReportTokenTransaction_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
