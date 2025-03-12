@@ -72,6 +72,7 @@ message Listen {
 	string member_exercise_token = 15;
 	// `gorm:"-"`
 	float duration = 16;
+	int64 account_id = 29;
   }
   message ListenRequest {
 	int64 id = 1;
@@ -85,7 +86,7 @@ message Listen {
 	repeated string cols = 16;
 	repeated string includes =19;
 	string member_exercise_token = 15;
-
+	int64 account_id = 29;
   }
 
 message Speak {
@@ -117,6 +118,9 @@ message Speak {
 	int64 updated_at = 27;
 	// `gorm:"-"`
 	float duration = 28;
+	// `gorm:"-"`
+	int64 account_id = 29;
+
 }
 
 message Speaks {
@@ -150,6 +154,7 @@ message SpeakRequest {
 	string template = 24;
 	string comment = 26;
 	int64 updated_at = 27;
+	int64 account_id = 29;
 }
 
 message SpeakDetail {
@@ -581,7 +586,7 @@ message Answer {
 		active = 2;
 	}
 	string question_format = 14;
-	string answer_format = 15;
+	// string answer_format = 15;
   }
 
   message AnswerRequest {
@@ -610,6 +615,7 @@ message Answer {
 	int32 total = 1;
 	repeated Answer answers = 2;
 	int64 is_correct = 3;
+	int64 display = 4;
   }
 
 message MemberToken {
