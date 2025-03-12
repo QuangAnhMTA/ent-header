@@ -1231,6 +1231,7 @@ message Question {
 	  // `gorm:"-"`
 	  string answer_format = 15;
     int32 display = 16;
+    string extra = 17;
 }
 
 message QuestionRequest {
