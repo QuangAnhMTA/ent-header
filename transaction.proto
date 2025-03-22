@@ -73,6 +73,7 @@ message Listen {
 	string member_exercise_token = 15;
 	// `gorm:"-"`
 	float duration = 16;
+	// `gorm:"-"`
 	int64 account_id = 29;
 	// `gorm:"-"`
 	MemberToken member_token = 30;

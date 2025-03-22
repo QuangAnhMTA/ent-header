@@ -1306,8 +1306,9 @@ type Listen struct {
 	SentenceIds         []int64 `protobuf:"varint,20,rep,packed,name=sentence_ids,json=sentenceIds,proto3" json:"sentence_ids,omitempty" gorm:"-"`
 	MemberExerciseToken string  `protobuf:"bytes,15,opt,name=member_exercise_token,json=memberExerciseToken,proto3" json:"member_exercise_token,omitempty"`
 	// `gorm:"-"`
-	Duration  float32 `protobuf:"fixed32,16,opt,name=duration,proto3" json:"duration,omitempty" gorm:"-"`
-	AccountId int64   `protobuf:"varint,29,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	Duration float32 `protobuf:"fixed32,16,opt,name=duration,proto3" json:"duration,omitempty" gorm:"-"`
+	// `gorm:"-"`
+	AccountId int64 `protobuf:"varint,29,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty" gorm:"-"`
 	// `gorm:"-"`
 	MemberToken *MemberToken `protobuf:"bytes,30,opt,name=member_token,json=memberToken,proto3" json:"member_token,omitempty" gorm:"-"`
 }
