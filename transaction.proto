@@ -44,6 +44,7 @@ service TransactionService {
   rpc PaymentCart(CartRequest) returns (Cart);
   rpc ListMemberTokenTransaction(MemberTokenTransactionRequest) returns(MemberTokenTransactions);
   rpc ListReportTokenTransaction(MemberTokenTransactionRequest) returns (ReportMemberTokenTransactionResponse);
+  rpc GetMemberToken(MemberTokenRequest) returns (MemberToken);
 }
 
 
@@ -73,6 +74,8 @@ message Listen {
 	// `gorm:"-"`
 	float duration = 16;
 	int64 account_id = 29;
+	// `gorm:"-"`
+	MemberToken member_token = 30;
   }
   message ListenRequest {
 	int64 id = 1;
@@ -120,7 +123,8 @@ message Speak {
 	float duration = 28;
 	// `gorm:"-"`
 	int64 account_id = 29;
-
+	// `gorm:"-"`
+	MemberToken member_token = 30;
 }
 
 message Speaks {
@@ -649,6 +653,7 @@ message MemberTokenRequest {
 	repeated string includes =11;
 	repeated int64 ids = 12;
 	repeated int64 token_ids = 13;
+	int64 account_id = 14;
 }
 message MemberTokens {
 	repeated MemberToken member_tokens = 1;

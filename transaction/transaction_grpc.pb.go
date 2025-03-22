@@ -58,6 +58,7 @@ type TransactionServiceClient interface {
 	PaymentCart(ctx context.Context, in *CartRequest, opts ...grpc.CallOption) (*Cart, error)
 	ListMemberTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*MemberTokenTransactions, error)
 	ListReportTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*ReportMemberTokenTransactionResponse, error)
+	GetMemberToken(ctx context.Context, in *MemberTokenRequest, opts ...grpc.CallOption) (*MemberToken, error)
 }
 
 type transactionServiceClient struct {
@@ -383,6 +384,15 @@ func (c *transactionServiceClient) ListReportTokenTransaction(ctx context.Contex
 	return out, nil
 }
 
+func (c *transactionServiceClient) GetMemberToken(ctx context.Context, in *MemberTokenRequest, opts ...grpc.CallOption) (*MemberToken, error) {
+	out := new(MemberToken)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetMemberToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -423,6 +433,7 @@ type TransactionServiceServer interface {
 	PaymentCart(context.Context, *CartRequest) (*Cart, error)
 	ListMemberTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*MemberTokenTransactions, error)
 	ListReportTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*ReportMemberTokenTransactionResponse, error)
+	GetMemberToken(context.Context, *MemberTokenRequest) (*MemberToken, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -533,6 +544,9 @@ func (UnimplementedTransactionServiceServer) ListMemberTokenTransaction(context.
 }
 func (UnimplementedTransactionServiceServer) ListReportTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*ReportMemberTokenTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListReportTokenTransaction not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetMemberToken(context.Context, *MemberTokenRequest) (*MemberToken, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberToken not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1176,6 +1190,24 @@ func _TransactionService_ListReportTokenTransaction_Handler(srv interface{}, ctx
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_GetMemberToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetMemberToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/GetMemberToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetMemberToken(ctx, req.(*MemberTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1322,6 +1354,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListReportTokenTransaction",
 			Handler:    _TransactionService_ListReportTokenTransaction_Handler,
+		},
+		{
+			MethodName: "GetMemberToken",
+			Handler:    _TransactionService_GetMemberToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
