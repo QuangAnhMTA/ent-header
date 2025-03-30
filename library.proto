@@ -148,7 +148,8 @@ message Document {
   Course course = 9;
   // `gorm:"-"`
   string title_vi = 11;
-
+ // `gorm:"-"`
+ string description_vi = 12;
 }
 
 message Documents {

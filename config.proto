@@ -212,6 +212,8 @@ message RegisterAccountResponse {
 	  }
     string token = 11;
     string nickname = 12;
+    // `gorm:"-"`
+    int64 token_quantity = 14;
 }
   
   message Members {
