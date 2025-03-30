@@ -622,6 +622,8 @@ message Answer {
 	int64 is_correct = 3;
 	int64 display = 4;
 	MemberToken member_token = 5;
+	int64 account_id = 6;
+	int64 member_id = 7;
   }
 
 message MemberToken {

@@ -1321,6 +1321,7 @@ message Answers {
   int32 total = 1;
   repeated Answer answers = 2;
   int64 is_correct = 3;
+  int64 token_quantity = 4;
 }
 
 message Quiz {
