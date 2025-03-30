@@ -260,6 +260,8 @@ message Paragraph {
   Course course =36;
   // `gorm:"-"`
   string title_vi =37;
+   // `gorm:"-"`
+ string description_vi = 38;
 }
 
 message Paragraphs {
