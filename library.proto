@@ -255,6 +255,8 @@ message Paragraph {
   // `gorm:"-"`
   string ParagraphCurrentTitle = 31;
   // `gorm:"-"`
+  string ParagraphCurrentKeyx = 40;
+  // `gorm:"-"`
   repeated SentenceGroup sentence_groups = 32; 
   // `gorm:"-"`
   Course course =36;
