@@ -701,6 +701,8 @@ message Character {
   }
   // `gorm:"-"`
   int64 sentence_current_id = 15;
+  string characteristic = 16;
+  string role = 17;
 }
 
 message CharacterRequest {
