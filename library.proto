@@ -1350,6 +1350,7 @@ message Quiz {
   int64 paragraph_id = 4;
   int64 document_id = 5;
   int64 course_id = 6;
+  int32 type = 7;
 
 }
 
