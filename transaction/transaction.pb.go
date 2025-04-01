@@ -1588,8 +1588,7 @@ type Speak struct {
 	SpeakDetails []*SpeakDetail `protobuf:"bytes,25,rep,name=speak_details,json=speakDetails,proto3" json:"speak_details,omitempty" gorm:"-"`
 	Comment      string         `protobuf:"bytes,26,opt,name=comment,proto3" json:"comment,omitempty"`
 	UpdatedAt    int64          `protobuf:"varint,27,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	// `gorm:"-"`
-	Duration float32 `protobuf:"fixed32,28,opt,name=duration,proto3" json:"duration,omitempty" gorm:"-"`
+	Duration     float32        `protobuf:"fixed32,28,opt,name=duration,proto3" json:"duration,omitempty"`
 	// `gorm:"-"`
 	AccountId int64 `protobuf:"varint,29,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty" gorm:"-"`
 	// `gorm:"-"`

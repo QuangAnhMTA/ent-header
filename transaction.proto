@@ -121,7 +121,6 @@ message Speak {
 	repeated SpeakDetail speak_details = 25;
 	string comment = 26;
 	int64 updated_at = 27;
-	// `gorm:"-"`
 	float duration = 28;
 	// `gorm:"-"`
 	int64 account_id = 29;

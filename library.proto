@@ -1397,6 +1397,7 @@ message SentenceGroup {
     string content = 16;
     // `gorm:"-"`
     int64 pre_sentence_group_id = 17;
+    int64 image_time = 18;
 }
 
 message SentenceGroupRequest {
