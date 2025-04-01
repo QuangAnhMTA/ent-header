@@ -763,6 +763,14 @@ message Voice {
     string sample = 14;
     string voice_engine = 15;
     string model = 16;
+    string config = 17;
+    string provider = 18;
+    Status status = 19;
+    enum Status {
+      default_state = 0;
+      deactive = 1;
+      active = 2;
+  }
 }
 
 message Phrase {

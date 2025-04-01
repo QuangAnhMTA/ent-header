@@ -45,6 +45,7 @@ service TransactionService {
   rpc ListMemberTokenTransaction(MemberTokenTransactionRequest) returns(MemberTokenTransactions);
   rpc ListReportTokenTransaction(MemberTokenTransactionRequest) returns (ReportMemberTokenTransactionResponse);
   rpc GetMemberToken(MemberTokenRequest) returns (MemberToken);
+  rpc ListMemberToken(MemberTokenRequest) returns (MemberTokens);
 }
 
 
@@ -660,6 +661,8 @@ message MemberTokenRequest {
 	repeated int64 ids = 12;
 	repeated int64 token_ids = 13;
 	int64 account_id = 14;
+	repeated int64 member_ids = 15;  
+
 }
 message MemberTokens {
 	repeated MemberToken member_tokens = 1;
