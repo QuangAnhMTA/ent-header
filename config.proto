@@ -406,6 +406,8 @@ message Group {
     string token = 12;
     // `gorm:"-"`
     repeated MemberGroup member_groups = 13;
+    // `gorm:"-"`
+    Account account_manager = 14;
 }
 
 message GroupRequest {
