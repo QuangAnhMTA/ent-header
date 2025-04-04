@@ -1275,6 +1275,7 @@ message QuestionRequest {
   string answer_format = 15;
   int32 display = 26;
   string extra = 27;
+  repeated int64 not_ids = 28;
 }
 
 message Questions {
