@@ -46,6 +46,7 @@ service TransactionService {
   rpc ListReportTokenTransaction(MemberTokenTransactionRequest) returns (ReportMemberTokenTransactionResponse);
   rpc GetMemberToken(MemberTokenRequest) returns (MemberToken);
   rpc ListMemberToken(MemberTokenRequest) returns (MemberTokens);
+  rpc JobTopup(TopupRequest) returns (Topups);
 }
 
 
@@ -1067,3 +1068,74 @@ message NewConfigs {
 }
 
 
+
+message Topup {
+	// `gorm:"primaryKey;not null;autoIncrement"`
+	int64 id = 1;
+	string phone = 2;
+	string email = 3;
+	string fullname = 4;
+	int64 group_id = 5;
+	int64 token_id = 6;
+	int64 amount = 7;
+	enum ProcessConfig {
+		default_process_config = 0;
+		wait_process_config = 1;
+		success_process_config = 2;
+		fail_process_config = 3;
+	}
+	ProcessConfig process_config = 8;
+	enum ProcessTopup {
+		default_process_topup = 0;
+		wait_process_topup = 1;
+		success_process_topup = 2;
+		fail_process_topup = 3;
+	}
+	ProcessTopup process_topup = 9;
+	enum ProcessEmail {
+		default_process_email = 0;
+		wait_process_email = 1;
+		success_process_email = 2;
+		fail_process_email = 3;
+	}
+	ProcessEmail process_email = 10;
+	Status status = 11;
+	enum Status {
+		default_state = 0;
+		deactive = 1;
+		active = 2;
+	}
+	int64 created_at = 12;
+	int64 updated_at = 13;
+}
+
+
+message Topups {
+	repeated Topup topups = 1;
+	int64 total = 2;
+}
+
+message TopupRequest {
+	int64 id = 1;
+	string phone = 2;
+	string email = 3;
+	string fullname = 4;
+	int64 group_id = 5;
+	int64 token_id = 6;
+	int64 amount = 7;
+	int32 process_config = 8;
+	int32 process_topup = 9;
+	int32 process_email = 10;
+	int32 status = 11;
+	int32 limit = 12;
+	int32 offset = 13;
+	repeated string cols = 14;
+	repeated string includes = 15;
+	repeated int64 ids = 16;
+	repeated int64 group_ids = 17;
+	repeated int64 token_ids = 18;
+	int64 start_at = 19;
+	int64 end_at = 20;
+	int64 start_day = 21;
+	int64 end_day = 22;
+}	

@@ -60,6 +60,7 @@ type TransactionServiceClient interface {
 	ListReportTokenTransaction(ctx context.Context, in *MemberTokenTransactionRequest, opts ...grpc.CallOption) (*ReportMemberTokenTransactionResponse, error)
 	GetMemberToken(ctx context.Context, in *MemberTokenRequest, opts ...grpc.CallOption) (*MemberToken, error)
 	ListMemberToken(ctx context.Context, in *MemberTokenRequest, opts ...grpc.CallOption) (*MemberTokens, error)
+	JobTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topups, error)
 }
 
 type transactionServiceClient struct {
@@ -403,6 +404,15 @@ func (c *transactionServiceClient) ListMemberToken(ctx context.Context, in *Memb
 	return out, nil
 }
 
+func (c *transactionServiceClient) JobTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topups, error) {
+	out := new(Topups)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/JobTopup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -445,6 +455,7 @@ type TransactionServiceServer interface {
 	ListReportTokenTransaction(context.Context, *MemberTokenTransactionRequest) (*ReportMemberTokenTransactionResponse, error)
 	GetMemberToken(context.Context, *MemberTokenRequest) (*MemberToken, error)
 	ListMemberToken(context.Context, *MemberTokenRequest) (*MemberTokens, error)
+	JobTopup(context.Context, *TopupRequest) (*Topups, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -561,6 +572,9 @@ func (UnimplementedTransactionServiceServer) GetMemberToken(context.Context, *Me
 }
 func (UnimplementedTransactionServiceServer) ListMemberToken(context.Context, *MemberTokenRequest) (*MemberTokens, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMemberToken not implemented")
+}
+func (UnimplementedTransactionServiceServer) JobTopup(context.Context, *TopupRequest) (*Topups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JobTopup not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1240,6 +1254,24 @@ func _TransactionService_ListMemberToken_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_JobTopup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TopupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).JobTopup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/JobTopup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).JobTopup(ctx, req.(*TopupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1394,6 +1426,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMemberToken",
 			Handler:    _TransactionService_ListMemberToken_Handler,
+		},
+		{
+			MethodName: "JobTopup",
+			Handler:    _TransactionService_JobTopup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
