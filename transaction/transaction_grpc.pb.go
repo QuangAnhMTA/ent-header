@@ -61,8 +61,8 @@ type TransactionServiceClient interface {
 	GetMemberToken(ctx context.Context, in *MemberTokenRequest, opts ...grpc.CallOption) (*MemberToken, error)
 	ListMemberToken(ctx context.Context, in *MemberTokenRequest, opts ...grpc.CallOption) (*MemberTokens, error)
 	JobTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topups, error)
-	UpdateTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topup, error)
-	CreateMemberToken(ctx context.Context, in *MemberToken, opts ...grpc.CallOption) (*MemberToken, error)
+	//   rpc UpdateTopup(TopupRequest) returns (Topup);
+	CreateTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topup, error)
 }
 
 type transactionServiceClient struct {
@@ -415,18 +415,9 @@ func (c *transactionServiceClient) JobTopup(ctx context.Context, in *TopupReques
 	return out, nil
 }
 
-func (c *transactionServiceClient) UpdateTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topup, error) {
+func (c *transactionServiceClient) CreateTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topup, error) {
 	out := new(Topup)
-	err := c.cc.Invoke(ctx, "/transaction.TransactionService/UpdateTopup", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *transactionServiceClient) CreateMemberToken(ctx context.Context, in *MemberToken, opts ...grpc.CallOption) (*MemberToken, error) {
-	out := new(MemberToken)
-	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateMemberToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateTopup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -476,8 +467,8 @@ type TransactionServiceServer interface {
 	GetMemberToken(context.Context, *MemberTokenRequest) (*MemberToken, error)
 	ListMemberToken(context.Context, *MemberTokenRequest) (*MemberTokens, error)
 	JobTopup(context.Context, *TopupRequest) (*Topups, error)
-	UpdateTopup(context.Context, *TopupRequest) (*Topup, error)
-	CreateMemberToken(context.Context, *MemberToken) (*MemberToken, error)
+	//   rpc UpdateTopup(TopupRequest) returns (Topup);
+	CreateTopup(context.Context, *TopupRequest) (*Topup, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -598,11 +589,8 @@ func (UnimplementedTransactionServiceServer) ListMemberToken(context.Context, *M
 func (UnimplementedTransactionServiceServer) JobTopup(context.Context, *TopupRequest) (*Topups, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method JobTopup not implemented")
 }
-func (UnimplementedTransactionServiceServer) UpdateTopup(context.Context, *TopupRequest) (*Topup, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateTopup not implemented")
-}
-func (UnimplementedTransactionServiceServer) CreateMemberToken(context.Context, *MemberToken) (*MemberToken, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberToken not implemented")
+func (UnimplementedTransactionServiceServer) CreateTopup(context.Context, *TopupRequest) (*Topup, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTopup not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1300,38 +1288,20 @@ func _TransactionService_JobTopup_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TransactionService_UpdateTopup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TransactionService_CreateTopup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(TopupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TransactionServiceServer).UpdateTopup(ctx, in)
+		return srv.(TransactionServiceServer).CreateTopup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/transaction.TransactionService/UpdateTopup",
+		FullMethod: "/transaction.TransactionService/CreateTopup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).UpdateTopup(ctx, req.(*TopupRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TransactionService_CreateMemberToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MemberToken)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TransactionServiceServer).CreateMemberToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/transaction.TransactionService/CreateMemberToken",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).CreateMemberToken(ctx, req.(*MemberToken))
+		return srv.(TransactionServiceServer).CreateTopup(ctx, req.(*TopupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1496,12 +1466,8 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TransactionService_JobTopup_Handler,
 		},
 		{
-			MethodName: "UpdateTopup",
-			Handler:    _TransactionService_UpdateTopup_Handler,
-		},
-		{
-			MethodName: "CreateMemberToken",
-			Handler:    _TransactionService_CreateMemberToken_Handler,
+			MethodName: "CreateTopup",
+			Handler:    _TransactionService_CreateTopup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

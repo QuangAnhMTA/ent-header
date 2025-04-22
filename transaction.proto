@@ -47,8 +47,8 @@ service TransactionService {
   rpc GetMemberToken(MemberTokenRequest) returns (MemberToken);
   rpc ListMemberToken(MemberTokenRequest) returns (MemberTokens);
   rpc JobTopup(TopupRequest) returns (Topups);
-  rpc UpdateTopup(TopupRequest) returns (Topup);
-  rpc CreateMemberToken(MemberToken) returns (MemberToken);
+//   rpc UpdateTopup(TopupRequest) returns (Topup);
+  rpc CreateTopup(TopupRequest) returns (Topup);
 }
 
 
@@ -1140,4 +1140,6 @@ message TopupRequest {
 	int64 end_at = 20;
 	int64 start_day = 21;
 	int64 end_day = 22;
+	int64 member_id = 23;
+	int64 account_id = 24;
 }	
