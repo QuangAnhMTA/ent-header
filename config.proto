@@ -51,7 +51,7 @@ service ConfigService {
    rpc GetMemberExercise(MemberExerciseRequest) returns (MemberExercise);
    rpc UpdateMemberExercise(MemberExerciseRequest) returns(MemberExercise);
    rpc CreateMemberGroups(MemberGroupRequest) returns (MemberGroups);
-   
+   rpc CreateAccount(Account) returns (Account);
 } 
 
 message Claims {
@@ -100,6 +100,8 @@ message Account {
   int64 role_id = 10;
   // `gorm:"-"`
   Role role = 11;
+
+  Member member = 12;
 }
 
 message Accounts {

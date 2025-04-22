@@ -47,6 +47,8 @@ service TransactionService {
   rpc GetMemberToken(MemberTokenRequest) returns (MemberToken);
   rpc ListMemberToken(MemberTokenRequest) returns (MemberTokens);
   rpc JobTopup(TopupRequest) returns (Topups);
+  rpc UpdateTopup(TopupRequest) returns (Topup);
+  rpc CreateMemberToken(MemberToken) returns (MemberToken);
 }
 
 
