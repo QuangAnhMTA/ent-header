@@ -102,6 +102,8 @@ message Account {
   Role role = 11;
 
   Member member = 12;
+  // `gorm:"-"`
+  int64 group_id = 13;
 }
 
 message Accounts {

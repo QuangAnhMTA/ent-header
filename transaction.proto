@@ -696,6 +696,7 @@ message MemberTokenTransaction {
 		speak = 1;
 		listen = 2;
 		exercise = 3;
+		topup = 4;
   	}
 	Action action = 9;
 	int64 object_id = 10;
