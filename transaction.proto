@@ -130,7 +130,7 @@ message Speak {
 	int64 account_id = 29;
 	// `gorm:"-"`
 	MemberToken member_token = 30;
-
+	// `gorm:"-"`
 	int64 group_id = 31;
 }
 

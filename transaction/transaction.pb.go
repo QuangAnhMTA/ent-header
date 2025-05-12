@@ -1801,7 +1801,8 @@ type Speak struct {
 	AccountId int64 `protobuf:"varint,29,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty" gorm:"-"`
 	// `gorm:"-"`
 	MemberToken *MemberToken `protobuf:"bytes,30,opt,name=member_token,json=memberToken,proto3" json:"member_token,omitempty" gorm:"-"`
-	GroupId     int64        `protobuf:"varint,31,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// `gorm:"-"`
+	GroupId int64 `protobuf:"varint,31,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty" gorm:"-"`
 }
 
 func (x *Speak) Reset() {
