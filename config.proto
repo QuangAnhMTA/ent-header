@@ -52,6 +52,8 @@ service ConfigService {
    rpc UpdateMemberExercise(MemberExerciseRequest) returns(MemberExercise);
    rpc CreateMemberGroups(MemberGroupRequest) returns (MemberGroups);
    rpc CreateAccount(Account) returns (Account);
+   
+
 } 
 
 message Claims {

@@ -49,6 +49,7 @@ service TransactionService {
   rpc JobTopup(TopupRequest) returns (Topups);
 //   rpc UpdateTopup(TopupRequest) returns (Topup);
   rpc CreateTopup(TopupRequest) returns (Topup);
+  rpc CreateReportMember(ReportMemberRequest) returns (ReportMember);
 }
 
 
@@ -129,6 +130,8 @@ message Speak {
 	int64 account_id = 29;
 	// `gorm:"-"`
 	MemberToken member_token = 30;
+
+	int64 group_id = 31;
 }
 
 message Speaks {
@@ -928,6 +931,7 @@ message ReportMemberRequest {
 	int64 end_at = 21;
 	int64 start_day = 22;
 	int64 end_day = 23;
+	int64 parent_id = 24;
 }
 
 

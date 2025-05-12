@@ -63,6 +63,7 @@ type TransactionServiceClient interface {
 	JobTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topups, error)
 	//   rpc UpdateTopup(TopupRequest) returns (Topup);
 	CreateTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topup, error)
+	CreateReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMember, error)
 }
 
 type transactionServiceClient struct {
@@ -424,6 +425,15 @@ func (c *transactionServiceClient) CreateTopup(ctx context.Context, in *TopupReq
 	return out, nil
 }
 
+func (c *transactionServiceClient) CreateReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMember, error) {
+	out := new(ReportMember)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateReportMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -469,6 +479,7 @@ type TransactionServiceServer interface {
 	JobTopup(context.Context, *TopupRequest) (*Topups, error)
 	//   rpc UpdateTopup(TopupRequest) returns (Topup);
 	CreateTopup(context.Context, *TopupRequest) (*Topup, error)
+	CreateReportMember(context.Context, *ReportMemberRequest) (*ReportMember, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -591,6 +602,9 @@ func (UnimplementedTransactionServiceServer) JobTopup(context.Context, *TopupReq
 }
 func (UnimplementedTransactionServiceServer) CreateTopup(context.Context, *TopupRequest) (*Topup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTopup not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateReportMember(context.Context, *ReportMemberRequest) (*ReportMember, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateReportMember not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1306,6 +1320,24 @@ func _TransactionService_CreateTopup_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_CreateReportMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateReportMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateReportMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateReportMember(ctx, req.(*ReportMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1468,6 +1500,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateTopup",
 			Handler:    _TransactionService_CreateTopup_Handler,
+		},
+		{
+			MethodName: "CreateReportMember",
+			Handler:    _TransactionService_CreateReportMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
