@@ -43,7 +43,7 @@ service ConfigService {
    rpc CreateAccountExercise(AccountExercise) returns (AccountExercise);
    rpc ListAccountExercises(AccountExerciseRequest) returns (AccountExercises);
    rpc CreateMemberExercise(MemberExercise) returns (MemberExercises);
-   rpc ListMemberMemberExercise(MemberExerciseRequest) returns (MemberExercises);
+   rpc ListMemberExercise(MemberExerciseRequest) returns (MemberExercises);
    rpc ListGroupDocument(GroupDocumentRequest) returns (GroupDocuments);
    rpc CreateGroupDocument(GroupDocument) returns (GroupDocument);
    rpc UpdateGroupDocument(GroupDocument) returns (GroupDocument);
@@ -766,11 +766,13 @@ message MemberExerciseRequest {
   repeated int64 account_exercise_ids = 14;
   repeated int64 member_ids = 16; 
   repeated int64 paragraph_ids = 15; 
+  repeated int64 group_ids = 27;
   string token = 22;
   int64 account_id = 23;
   int64 group_id = 24;
   int64 updated_at = 25;
   int64 lookup = 21;
+  int64 group_parent_id = 26;
 }
 
 message MemberExercises {

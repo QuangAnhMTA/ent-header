@@ -53,7 +53,7 @@ type ConfigServiceClient interface {
 	CreateAccountExercise(ctx context.Context, in *AccountExercise, opts ...grpc.CallOption) (*AccountExercise, error)
 	ListAccountExercises(ctx context.Context, in *AccountExerciseRequest, opts ...grpc.CallOption) (*AccountExercises, error)
 	CreateMemberExercise(ctx context.Context, in *MemberExercise, opts ...grpc.CallOption) (*MemberExercises, error)
-	ListMemberMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercises, error)
+	ListMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercises, error)
 	ListGroupDocument(ctx context.Context, in *GroupDocumentRequest, opts ...grpc.CallOption) (*GroupDocuments, error)
 	CreateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error)
 	UpdateGroupDocument(ctx context.Context, in *GroupDocument, opts ...grpc.CallOption) (*GroupDocument, error)
@@ -324,9 +324,9 @@ func (c *configServiceClient) CreateMemberExercise(ctx context.Context, in *Memb
 	return out, nil
 }
 
-func (c *configServiceClient) ListMemberMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercises, error) {
+func (c *configServiceClient) ListMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercises, error) {
 	out := new(MemberExercises)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberMemberExercise", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberExercise", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -440,7 +440,7 @@ type ConfigServiceServer interface {
 	CreateAccountExercise(context.Context, *AccountExercise) (*AccountExercise, error)
 	ListAccountExercises(context.Context, *AccountExerciseRequest) (*AccountExercises, error)
 	CreateMemberExercise(context.Context, *MemberExercise) (*MemberExercises, error)
-	ListMemberMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error)
+	ListMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error)
 	ListGroupDocument(context.Context, *GroupDocumentRequest) (*GroupDocuments, error)
 	CreateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error)
 	UpdateGroupDocument(context.Context, *GroupDocument) (*GroupDocument, error)
@@ -539,8 +539,8 @@ func (UnimplementedConfigServiceServer) ListAccountExercises(context.Context, *A
 func (UnimplementedConfigServiceServer) CreateMemberExercise(context.Context, *MemberExercise) (*MemberExercises, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberExercise not implemented")
 }
-func (UnimplementedConfigServiceServer) ListMemberMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListMemberMemberExercise not implemented")
+func (UnimplementedConfigServiceServer) ListMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercises, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberExercise not implemented")
 }
 func (UnimplementedConfigServiceServer) ListGroupDocument(context.Context, *GroupDocumentRequest) (*GroupDocuments, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGroupDocument not implemented")
@@ -1082,20 +1082,20 @@ func _ConfigService_CreateMemberExercise_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_ListMemberMemberExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ConfigService_ListMemberExercise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberExerciseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).ListMemberMemberExercise(ctx, in)
+		return srv.(ConfigServiceServer).ListMemberExercise(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/ListMemberMemberExercise",
+		FullMethod: "/config.ConfigService/ListMemberExercise",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).ListMemberMemberExercise(ctx, req.(*MemberExerciseRequest))
+		return srv.(ConfigServiceServer).ListMemberExercise(ctx, req.(*MemberExerciseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1364,8 +1364,8 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ConfigService_CreateMemberExercise_Handler,
 		},
 		{
-			MethodName: "ListMemberMemberExercise",
-			Handler:    _ConfigService_ListMemberMemberExercise_Handler,
+			MethodName: "ListMemberExercise",
+			Handler:    _ConfigService_ListMemberExercise_Handler,
 		},
 		{
 			MethodName: "ListGroupDocument",
