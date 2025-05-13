@@ -711,6 +711,12 @@ message MemberTokenTransaction {
 	Cart Cart = 13;
 	// `gorm:"-"`
 	config.Token Token = 14;
+	enum IsReport {
+		default_is_report = 0;
+		no = 1;
+		yes = 2;
+	}
+	IsReport is_report = 15;
 }
 
 message MemberTokenTransactionRequest {
