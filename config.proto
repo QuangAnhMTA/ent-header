@@ -162,7 +162,7 @@ message RegisterAccountResponse {
    Account account = 4;
    repeated Member members = 5;
    string device_id = 6;
-   MemberCategory member_category = 7;
+   repeated MemberCategory member_categories = 7;
   }
 
   message LoginMemberResponse {
@@ -172,7 +172,7 @@ message RegisterAccountResponse {
     Account account = 4;
     Member member = 5;
     string device_id = 6;
-    MemberCategory member_category = 7;
+    repeated MemberCategory member_categories = 7;
    }
    
   
