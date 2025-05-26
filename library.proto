@@ -1386,6 +1386,8 @@ message SentenceGroup {
     string emoji = 7;
     string keyx = 8;
     string format = 9;
+    // `gorm:"-"`
+    string image = 10;
     Status status = 11;  
     enum Status {
       default_state = 0;
