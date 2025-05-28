@@ -748,6 +748,8 @@ message MemberExercise {
     string token = 18;
     int64 group_id = 19;
     int64 updated_at = 20;
+    int64 correct_total = 23;
+    int64 wrong_total = 22;
 }
 
 message MemberExerciseRequest {
@@ -777,6 +779,8 @@ message MemberExerciseRequest {
   int64 updated_at = 25;
   int64 lookup = 21;
   int64 group_parent_id = 26;
+  int64 correct_total = 29;
+  int64 wrong_total = 28;
 }
 
 message MemberExercises {
