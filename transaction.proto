@@ -1014,6 +1014,7 @@ message ReportMemberRequest {
 message ReportMembers {
 	int64 total = 1;
 	repeated ReportMember report_members = 2;
+	int64 total_class = 3;
 }
 
 
