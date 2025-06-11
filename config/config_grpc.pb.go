@@ -62,6 +62,8 @@ type ConfigServiceClient interface {
 	UpdateMemberExercise(ctx context.Context, in *MemberExerciseRequest, opts ...grpc.CallOption) (*MemberExercise, error)
 	CreateMemberGroups(ctx context.Context, in *MemberGroupRequest, opts ...grpc.CallOption) (*MemberGroups, error)
 	CreateAccount(ctx context.Context, in *Account, opts ...grpc.CallOption) (*Account, error)
+	CountGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error)
+	SumAllMemberGroup(ctx context.Context, in *SumAllMemberGroupRequest, opts ...grpc.CallOption) (*SumAllMemberGroupResponse, error)
 }
 
 type configServiceClient struct {
@@ -405,6 +407,24 @@ func (c *configServiceClient) CreateAccount(ctx context.Context, in *Account, op
 	return out, nil
 }
 
+func (c *configServiceClient) CountGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error) {
+	out := new(Groups)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CountGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *configServiceClient) SumAllMemberGroup(ctx context.Context, in *SumAllMemberGroupRequest, opts ...grpc.CallOption) (*SumAllMemberGroupResponse, error) {
+	out := new(SumAllMemberGroupResponse)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/SumAllMemberGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -449,6 +469,8 @@ type ConfigServiceServer interface {
 	UpdateMemberExercise(context.Context, *MemberExerciseRequest) (*MemberExercise, error)
 	CreateMemberGroups(context.Context, *MemberGroupRequest) (*MemberGroups, error)
 	CreateAccount(context.Context, *Account) (*Account, error)
+	CountGroup(context.Context, *GroupRequest) (*Groups, error)
+	SumAllMemberGroup(context.Context, *SumAllMemberGroupRequest) (*SumAllMemberGroupResponse, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -565,6 +587,12 @@ func (UnimplementedConfigServiceServer) CreateMemberGroups(context.Context, *Mem
 }
 func (UnimplementedConfigServiceServer) CreateAccount(context.Context, *Account) (*Account, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
+}
+func (UnimplementedConfigServiceServer) CountGroup(context.Context, *GroupRequest) (*Groups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) SumAllMemberGroup(context.Context, *SumAllMemberGroupRequest) (*SumAllMemberGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SumAllMemberGroup not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1244,6 +1272,42 @@ func _ConfigService_CreateAccount_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_CountGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).CountGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/CountGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).CountGroup(ctx, req.(*GroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConfigService_SumAllMemberGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SumAllMemberGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).SumAllMemberGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/SumAllMemberGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).SumAllMemberGroup(ctx, req.(*SumAllMemberGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1398,6 +1462,14 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAccount",
 			Handler:    _ConfigService_CreateAccount_Handler,
+		},
+		{
+			MethodName: "CountGroup",
+			Handler:    _ConfigService_CountGroup_Handler,
+		},
+		{
+			MethodName: "SumAllMemberGroup",
+			Handler:    _ConfigService_SumAllMemberGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

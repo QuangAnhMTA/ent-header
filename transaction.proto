@@ -51,9 +51,8 @@ service TransactionService {
   rpc CreateTopup(TopupRequest) returns (Topup);
   rpc CreateReportMember(ReportMemberRequest) returns (ReportMember);
   rpc BackSentence(BackSentenceRequest) returns (BackSentenceResponse);
+  rpc CreateReportMembers(ReportMembers) returns (ReportMembers);
 }
-
-
 
 message BackSentenceRequest {
 	int64 id = 1;

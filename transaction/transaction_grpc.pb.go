@@ -65,6 +65,7 @@ type TransactionServiceClient interface {
 	CreateTopup(ctx context.Context, in *TopupRequest, opts ...grpc.CallOption) (*Topup, error)
 	CreateReportMember(ctx context.Context, in *ReportMemberRequest, opts ...grpc.CallOption) (*ReportMember, error)
 	BackSentence(ctx context.Context, in *BackSentenceRequest, opts ...grpc.CallOption) (*BackSentenceResponse, error)
+	CreateReportMembers(ctx context.Context, in *ReportMembers, opts ...grpc.CallOption) (*ReportMembers, error)
 }
 
 type transactionServiceClient struct {
@@ -444,6 +445,15 @@ func (c *transactionServiceClient) BackSentence(ctx context.Context, in *BackSen
 	return out, nil
 }
 
+func (c *transactionServiceClient) CreateReportMembers(ctx context.Context, in *ReportMembers, opts ...grpc.CallOption) (*ReportMembers, error) {
+	out := new(ReportMembers)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateReportMembers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -491,6 +501,7 @@ type TransactionServiceServer interface {
 	CreateTopup(context.Context, *TopupRequest) (*Topup, error)
 	CreateReportMember(context.Context, *ReportMemberRequest) (*ReportMember, error)
 	BackSentence(context.Context, *BackSentenceRequest) (*BackSentenceResponse, error)
+	CreateReportMembers(context.Context, *ReportMembers) (*ReportMembers, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -619,6 +630,9 @@ func (UnimplementedTransactionServiceServer) CreateReportMember(context.Context,
 }
 func (UnimplementedTransactionServiceServer) BackSentence(context.Context, *BackSentenceRequest) (*BackSentenceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BackSentence not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateReportMembers(context.Context, *ReportMembers) (*ReportMembers, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateReportMembers not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1370,6 +1384,24 @@ func _TransactionService_BackSentence_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_CreateReportMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportMembers)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateReportMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateReportMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateReportMembers(ctx, req.(*ReportMembers))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1540,6 +1572,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BackSentence",
 			Handler:    _TransactionService_BackSentence_Handler,
+		},
+		{
+			MethodName: "CreateReportMembers",
+			Handler:    _TransactionService_CreateReportMembers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

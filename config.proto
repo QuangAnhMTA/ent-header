@@ -52,9 +52,29 @@ service ConfigService {
    rpc UpdateMemberExercise(MemberExerciseRequest) returns(MemberExercise);
    rpc CreateMemberGroups(MemberGroupRequest) returns (MemberGroups);
    rpc CreateAccount(Account) returns (Account);
-   
-
+   rpc CountGroup(GroupRequest) returns (Groups);
+   rpc SumAllMemberGroup(SumAllMemberGroupRequest) returns (SumAllMemberGroupResponse);
 } 
+
+message SumAllMemberGroupRequest {
+  int64 start_at = 1;
+  int64 end_at = 2;
+  int64 account_id = 3;
+  int64 group_id = 4;
+}
+
+message SumAllMemberGroupResponse {
+  message ReportMemberGroup {
+    int64 total = 1;
+    int64 total_member = 2;
+    int64 group_id = 3;
+    string item = 4;
+  }
+  repeated ReportMemberGroup report_member_groups = 1;
+}
+
+
+
 
 message Claims {
 	int64 account_id = 1;
