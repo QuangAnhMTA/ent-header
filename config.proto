@@ -64,15 +64,16 @@ message SumAllMemberGroupRequest {
 }
 
 message SumAllMemberGroupResponse {
-  message ReportMemberGroup {
-    int64 total = 1;
-    int64 total_member = 2;
-    int64 group_id = 3;
-    string item = 4;
-  }
-  repeated ReportMemberGroup report_member_groups = 1;
+  repeated ReportMember report_member_groups = 1;
 }
 
+
+  message ReportMember {
+    int64 total_member = 1;
+    int64 group_id = 3;
+    string item = 4;
+    
+  }
 
 
 
