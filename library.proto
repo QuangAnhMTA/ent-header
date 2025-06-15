@@ -265,6 +265,7 @@ message Paragraph {
    // `gorm:"-"`
  string description_vi = 38;
  string keyx = 39;
+ string link = 41;
 }
 
 message Paragraphs {
@@ -362,6 +363,8 @@ message Sentence {
   int64 updated_at = 31;
   // `gorm:"-"`
   SentenceGroup sentence_group = 32;
+  float start = 33;
+  float end = 34;
 }
 
 message Sentences {
