@@ -52,7 +52,65 @@ service TransactionService {
   rpc CreateReportMember(ReportMemberRequest) returns (ReportMember);
   rpc BackSentence(BackSentenceRequest) returns (BackSentenceResponse);
   rpc CreateReportMembers(ReportMembers) returns (ReportMembers);
+  rpc ListReportLearn(ReportLearnRequest) returns (ReportLearns);
 }
+
+message ReportLearn {
+	int64 id = 1;
+	int64 member_id = 2;
+	enum Status {
+		default_status = 0;
+		active = 2;
+		deactive = 1;
+	}
+	Status status = 3;
+	int64 created_at = 4;
+	int64 updated_at = 5;
+	int64 amount = 6;
+	// 1: Mức độ chăm chỉ, 2: Thời gian học tập 3: Số bài học hoàn thành, 4: Thời gian nghe, 5: Điểm nói, 6: Điểm bài tập
+	enum Type {
+		default_type = 0;
+		continuous_day = 1;
+		time_learn = 2;
+		count_paragraph_finish = 3;
+		time_listen = 4;
+		point_speak = 5;
+		point_exercise = 6;
+	}
+	Type type = 7;
+	enum Point {
+		default_point = 0;
+		red = 1;
+		orange = 2;
+		green = 3;
+	}
+	Point point = 8;
+}
+
+
+message ReportLearnRequest {
+	int64 id = 1;
+	int64 member_id = 2;
+	int64 type = 3;
+	int32 point = 4;
+	int32 amount = 5;
+	int64 created_at = 6;
+	int64 updated_at = 7;
+	int64 start_at = 8;
+	int64 end_at = 9;
+	int32 limit = 10;
+	int32 offset = 11;
+	repeated string cols = 12;
+	repeated string includes = 13;
+}
+
+message ReportLearns {
+	repeated ReportLearn report_learns = 1;
+	int64 total = 2;
+}
+
+
+
 
 message BackSentenceRequest {
 	int64 id = 1;
