@@ -107,8 +107,10 @@ message ReportLearnRequest {
 message ReportLearns {
 	repeated ReportLearn report_learns = 1;
 	int64 total = 2;
+	int64 continuous_day = 3;
+	int64 time_learn = 4;
+	int64 count_paragraph_finish = 5;
 }
-
 
 
 
