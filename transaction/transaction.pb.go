@@ -12106,7 +12106,7 @@ var file_transaction_proto_rawDesc = []byte{
 	0x12, 0x1b, 0x0a, 0x09, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x17, 0x20,
 	0x01, 0x28, 0x03, 0x52, 0x08, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1d, 0x0a,
 	0x0a, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x18, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49, 0x64, 0x32, 0xef, 0x17, 0x0a,
+	0x03, 0x52, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49, 0x64, 0x32, 0xbf, 0x18, 0x0a,
 	0x12, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76,
 	0x69, 0x63, 0x65, 0x12, 0x3d, 0x0a, 0x0a, 0x4c, 0x69, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x65,
 	0x6e, 0x12, 0x1a, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
@@ -12294,6 +12294,11 @@ var file_transaction_proto_rawDesc = []byte{
 	0x65, 0x72, 0x73, 0x1a, 0x1a, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f,
 	0x6e, 0x2e, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x12,
 	0x4d, 0x0a, 0x0f, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x4c, 0x65, 0x61,
+	0x72, 0x6e, 0x12, 0x1f, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x4c, 0x65, 0x61, 0x72, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x2e, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x4c, 0x65, 0x61, 0x72, 0x6e, 0x73, 0x12, 0x4e,
+	0x0a, 0x10, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x4c, 0x65, 0x61,
 	0x72, 0x6e, 0x12, 0x1f, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
 	0x2e, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x4c, 0x65, 0x61, 0x72, 0x6e, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f,
@@ -12573,51 +12578,53 @@ var file_transaction_proto_depIdxs = []int32{
 	35,  // 134: transaction.TransactionService.BackSentence:input_type -> transaction.BackSentenceRequest
 	93,  // 135: transaction.TransactionService.CreateReportMembers:input_type -> transaction.ReportMembers
 	33,  // 136: transaction.TransactionService.ListReportLearn:input_type -> transaction.ReportLearnRequest
-	38,  // 137: transaction.TransactionService.ListListen:output_type -> transaction.Listen
-	38,  // 138: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
-	41,  // 139: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
-	40,  // 140: transaction.TransactionService.UpdateSpeak:output_type -> transaction.Speak
-	40,  // 141: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
-	49,  // 142: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
-	46,  // 143: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
-	52,  // 144: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
-	52,  // 145: transaction.TransactionService.CompleteParagraph:output_type -> transaction.Paragraph
-	48,  // 146: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
-	51,  // 147: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
-	52,  // 148: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
-	54,  // 149: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
-	57,  // 150: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
-	60,  // 151: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
-	63,  // 152: transaction.TransactionService.ListFavourite:output_type -> transaction.Favourites
-	61,  // 153: transaction.TransactionService.CreateFavourite:output_type -> transaction.Favourite
-	61,  // 154: transaction.TransactionService.DeleteFavourite:output_type -> transaction.Favourite
-	52,  // 155: transaction.TransactionService.StartParagraph:output_type -> transaction.Paragraph
-	69,  // 156: transaction.TransactionService.ListNewDetail:output_type -> transaction.NewDetails
-	66,  // 157: transaction.TransactionService.ListNew:output_type -> transaction.News
-	70,  // 158: transaction.TransactionService.StartLearn:output_type -> transaction.Learn
-	70,  // 159: transaction.TransactionService.EndLearn:output_type -> transaction.Learn
-	73,  // 160: transaction.TransactionService.CreateMemberAnswer:output_type -> transaction.Answer
-	73,  // 161: transaction.TransactionService.UpdateMemberAnswer:output_type -> transaction.Answer
-	75,  // 162: transaction.TransactionService.ListMemberAnswer:output_type -> transaction.Answers
-	75,  // 163: transaction.TransactionService.CreateAnswers:output_type -> transaction.Answers
-	99,  // 164: transaction.TransactionService.ListReportToken:output_type -> transaction.ReportTokens
-	96,  // 165: transaction.TransactionService.ListReportPoint:output_type -> transaction.ReportPoints
-	93,  // 166: transaction.TransactionService.ListReportMember:output_type -> transaction.ReportMembers
-	75,  // 167: transaction.TransactionService.CreateRecommend:output_type -> transaction.Answers
-	85,  // 168: transaction.TransactionService.BuyToken:output_type -> transaction.Cart
-	85,  // 169: transaction.TransactionService.PaymentCart:output_type -> transaction.Cart
-	81,  // 170: transaction.TransactionService.ListMemberTokenTransaction:output_type -> transaction.MemberTokenTransactions
-	37,  // 171: transaction.TransactionService.ListReportTokenTransaction:output_type -> transaction.ReportMemberTokenTransactionResponse
-	76,  // 172: transaction.TransactionService.GetMemberToken:output_type -> transaction.MemberToken
-	78,  // 173: transaction.TransactionService.ListMemberToken:output_type -> transaction.MemberTokens
-	104, // 174: transaction.TransactionService.JobTopup:output_type -> transaction.Topups
-	103, // 175: transaction.TransactionService.CreateTopup:output_type -> transaction.Topup
-	91,  // 176: transaction.TransactionService.CreateReportMember:output_type -> transaction.ReportMember
-	36,  // 177: transaction.TransactionService.BackSentence:output_type -> transaction.BackSentenceResponse
-	93,  // 178: transaction.TransactionService.CreateReportMembers:output_type -> transaction.ReportMembers
-	34,  // 179: transaction.TransactionService.ListReportLearn:output_type -> transaction.ReportLearns
-	137, // [137:180] is the sub-list for method output_type
-	94,  // [94:137] is the sub-list for method input_type
+	33,  // 137: transaction.TransactionService.ReportTotalLearn:input_type -> transaction.ReportLearnRequest
+	38,  // 138: transaction.TransactionService.ListListen:output_type -> transaction.Listen
+	38,  // 139: transaction.TransactionService.EndLearnListen:output_type -> transaction.Listen
+	41,  // 140: transaction.TransactionService.ListSpeak:output_type -> transaction.Speaks
+	40,  // 141: transaction.TransactionService.UpdateSpeak:output_type -> transaction.Speak
+	40,  // 142: transaction.TransactionService.EndLearnSpeak:output_type -> transaction.Speak
+	49,  // 143: transaction.TransactionService.CreateSentence:output_type -> transaction.Sentence
+	46,  // 144: transaction.TransactionService.CreateLookup:output_type -> transaction.Lookup
+	52,  // 145: transaction.TransactionService.CreateParagraph:output_type -> transaction.Paragraph
+	52,  // 146: transaction.TransactionService.CompleteParagraph:output_type -> transaction.Paragraph
+	48,  // 147: transaction.TransactionService.ListLookup:output_type -> transaction.Lookups
+	51,  // 148: transaction.TransactionService.ListSentence:output_type -> transaction.Sentences
+	52,  // 149: transaction.TransactionService.GetParagraphMax:output_type -> transaction.Paragraph
+	54,  // 150: transaction.TransactionService.ListParagraph:output_type -> transaction.Paragraphs
+	57,  // 151: transaction.TransactionService.ListListenDisplay:output_type -> transaction.ListenDisplays
+	60,  // 152: transaction.TransactionService.ListSpeakDisplay:output_type -> transaction.SpeakDisplays
+	63,  // 153: transaction.TransactionService.ListFavourite:output_type -> transaction.Favourites
+	61,  // 154: transaction.TransactionService.CreateFavourite:output_type -> transaction.Favourite
+	61,  // 155: transaction.TransactionService.DeleteFavourite:output_type -> transaction.Favourite
+	52,  // 156: transaction.TransactionService.StartParagraph:output_type -> transaction.Paragraph
+	69,  // 157: transaction.TransactionService.ListNewDetail:output_type -> transaction.NewDetails
+	66,  // 158: transaction.TransactionService.ListNew:output_type -> transaction.News
+	70,  // 159: transaction.TransactionService.StartLearn:output_type -> transaction.Learn
+	70,  // 160: transaction.TransactionService.EndLearn:output_type -> transaction.Learn
+	73,  // 161: transaction.TransactionService.CreateMemberAnswer:output_type -> transaction.Answer
+	73,  // 162: transaction.TransactionService.UpdateMemberAnswer:output_type -> transaction.Answer
+	75,  // 163: transaction.TransactionService.ListMemberAnswer:output_type -> transaction.Answers
+	75,  // 164: transaction.TransactionService.CreateAnswers:output_type -> transaction.Answers
+	99,  // 165: transaction.TransactionService.ListReportToken:output_type -> transaction.ReportTokens
+	96,  // 166: transaction.TransactionService.ListReportPoint:output_type -> transaction.ReportPoints
+	93,  // 167: transaction.TransactionService.ListReportMember:output_type -> transaction.ReportMembers
+	75,  // 168: transaction.TransactionService.CreateRecommend:output_type -> transaction.Answers
+	85,  // 169: transaction.TransactionService.BuyToken:output_type -> transaction.Cart
+	85,  // 170: transaction.TransactionService.PaymentCart:output_type -> transaction.Cart
+	81,  // 171: transaction.TransactionService.ListMemberTokenTransaction:output_type -> transaction.MemberTokenTransactions
+	37,  // 172: transaction.TransactionService.ListReportTokenTransaction:output_type -> transaction.ReportMemberTokenTransactionResponse
+	76,  // 173: transaction.TransactionService.GetMemberToken:output_type -> transaction.MemberToken
+	78,  // 174: transaction.TransactionService.ListMemberToken:output_type -> transaction.MemberTokens
+	104, // 175: transaction.TransactionService.JobTopup:output_type -> transaction.Topups
+	103, // 176: transaction.TransactionService.CreateTopup:output_type -> transaction.Topup
+	91,  // 177: transaction.TransactionService.CreateReportMember:output_type -> transaction.ReportMember
+	36,  // 178: transaction.TransactionService.BackSentence:output_type -> transaction.BackSentenceResponse
+	93,  // 179: transaction.TransactionService.CreateReportMembers:output_type -> transaction.ReportMembers
+	34,  // 180: transaction.TransactionService.ListReportLearn:output_type -> transaction.ReportLearns
+	34,  // 181: transaction.TransactionService.ReportTotalLearn:output_type -> transaction.ReportLearns
+	138, // [138:182] is the sub-list for method output_type
+	94,  // [94:138] is the sub-list for method input_type
 	94,  // [94:94] is the sub-list for extension type_name
 	94,  // [94:94] is the sub-list for extension extendee
 	0,   // [0:94] is the sub-list for field type_name

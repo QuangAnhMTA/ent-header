@@ -53,6 +53,7 @@ service TransactionService {
   rpc BackSentence(BackSentenceRequest) returns (BackSentenceResponse);
   rpc CreateReportMembers(ReportMembers) returns (ReportMembers);
   rpc ListReportLearn(ReportLearnRequest) returns (ReportLearns);
+  rpc ReportTotalLearn(ReportLearnRequest) returns (ReportLearns);
 }
 
 message ReportLearn {

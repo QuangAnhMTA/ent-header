@@ -67,6 +67,7 @@ type TransactionServiceClient interface {
 	BackSentence(ctx context.Context, in *BackSentenceRequest, opts ...grpc.CallOption) (*BackSentenceResponse, error)
 	CreateReportMembers(ctx context.Context, in *ReportMembers, opts ...grpc.CallOption) (*ReportMembers, error)
 	ListReportLearn(ctx context.Context, in *ReportLearnRequest, opts ...grpc.CallOption) (*ReportLearns, error)
+	ReportTotalLearn(ctx context.Context, in *ReportLearnRequest, opts ...grpc.CallOption) (*ReportLearns, error)
 }
 
 type transactionServiceClient struct {
@@ -464,6 +465,15 @@ func (c *transactionServiceClient) ListReportLearn(ctx context.Context, in *Repo
 	return out, nil
 }
 
+func (c *transactionServiceClient) ReportTotalLearn(ctx context.Context, in *ReportLearnRequest, opts ...grpc.CallOption) (*ReportLearns, error) {
+	out := new(ReportLearns)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ReportTotalLearn", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -513,6 +523,7 @@ type TransactionServiceServer interface {
 	BackSentence(context.Context, *BackSentenceRequest) (*BackSentenceResponse, error)
 	CreateReportMembers(context.Context, *ReportMembers) (*ReportMembers, error)
 	ListReportLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error)
+	ReportTotalLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -647,6 +658,9 @@ func (UnimplementedTransactionServiceServer) CreateReportMembers(context.Context
 }
 func (UnimplementedTransactionServiceServer) ListReportLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListReportLearn not implemented")
+}
+func (UnimplementedTransactionServiceServer) ReportTotalLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReportTotalLearn not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1434,6 +1448,24 @@ func _TransactionService_ListReportLearn_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_ReportTotalLearn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportLearnRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ReportTotalLearn(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ReportTotalLearn",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ReportTotalLearn(ctx, req.(*ReportLearnRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1612,6 +1644,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListReportLearn",
 			Handler:    _TransactionService_ListReportLearn_Handler,
+		},
+		{
+			MethodName: "ReportTotalLearn",
+			Handler:    _TransactionService_ReportTotalLearn_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
