@@ -178,6 +178,8 @@ message ParagraphRequest {
   string item = 26;
   int64 group_id = 27;
   string keyx = 39;
+  int64 account_id = 40;
+  int64 approve_id = 41;
 }
 
 message Paragraph {
