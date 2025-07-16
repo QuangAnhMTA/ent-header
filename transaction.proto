@@ -757,7 +757,8 @@ message Answer {
 	int64 account_id = 6;
 	int64 member_id = 7;
 	string member_exercise_token = 8;
-	int64 duration = 9;
+	int64 time_duration = 9;
+	string duration = 10;
   }
 
 message MemberToken {
