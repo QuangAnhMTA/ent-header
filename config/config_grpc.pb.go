@@ -64,6 +64,7 @@ type ConfigServiceClient interface {
 	CreateAccount(ctx context.Context, in *Account, opts ...grpc.CallOption) (*Account, error)
 	CountGroup(ctx context.Context, in *GroupRequest, opts ...grpc.CallOption) (*Groups, error)
 	SumAllMemberGroup(ctx context.Context, in *SumAllMemberGroupRequest, opts ...grpc.CallOption) (*SumAllMemberGroupResponse, error)
+	ListProducts(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*Products, error)
 }
 
 type configServiceClient struct {
@@ -425,6 +426,15 @@ func (c *configServiceClient) SumAllMemberGroup(ctx context.Context, in *SumAllM
 	return out, nil
 }
 
+func (c *configServiceClient) ListProducts(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*Products, error) {
+	out := new(Products)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListProducts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfigServiceServer is the server API for ConfigService service.
 // All implementations should embed UnimplementedConfigServiceServer
 // for forward compatibility
@@ -471,6 +481,7 @@ type ConfigServiceServer interface {
 	CreateAccount(context.Context, *Account) (*Account, error)
 	CountGroup(context.Context, *GroupRequest) (*Groups, error)
 	SumAllMemberGroup(context.Context, *SumAllMemberGroupRequest) (*SumAllMemberGroupResponse, error)
+	ListProducts(context.Context, *ProductRequest) (*Products, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -593,6 +604,9 @@ func (UnimplementedConfigServiceServer) CountGroup(context.Context, *GroupReques
 }
 func (UnimplementedConfigServiceServer) SumAllMemberGroup(context.Context, *SumAllMemberGroupRequest) (*SumAllMemberGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SumAllMemberGroup not implemented")
+}
+func (UnimplementedConfigServiceServer) ListProducts(context.Context, *ProductRequest) (*Products, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProducts not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1308,6 +1322,24 @@ func _ConfigService_SumAllMemberGroup_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConfigService_ListProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfigServiceServer).ListProducts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/config.ConfigService/ListProducts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfigServiceServer).ListProducts(ctx, req.(*ProductRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConfigService_ServiceDesc is the grpc.ServiceDesc for ConfigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1470,6 +1502,10 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SumAllMemberGroup",
 			Handler:    _ConfigService_SumAllMemberGroup_Handler,
+		},
+		{
+			MethodName: "ListProducts",
+			Handler:    _ConfigService_ListProducts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

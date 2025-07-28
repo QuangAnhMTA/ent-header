@@ -180,6 +180,7 @@ message ParagraphRequest {
   string keyx = 39;
   int64 account_id = 40;
   int64 approve_id = 41;
+  int32 public = 42;
 }
 
 message Paragraph {
@@ -268,6 +269,12 @@ message Paragraph {
  string description_vi = 38;
  string keyx = 39;
  string link = 41;
+ enum Public {
+  default_public = 0;
+  yes = 2;
+  no = 1;
+ }
+ Public public = 42;
 }
 
 message Paragraphs {
@@ -315,6 +322,7 @@ message SentenceRequest {
   string paragraph_content = 32;
   int32 start_position = 33;
   string member_exercise_token = 34;
+  int32 public = 35;
 
 }
 
