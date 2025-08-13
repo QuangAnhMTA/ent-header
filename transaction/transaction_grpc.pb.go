@@ -68,6 +68,9 @@ type TransactionServiceClient interface {
 	CreateReportMembers(ctx context.Context, in *ReportMembers, opts ...grpc.CallOption) (*ReportMembers, error)
 	ListReportLearn(ctx context.Context, in *ReportLearnRequest, opts ...grpc.CallOption) (*ReportLearns, error)
 	ReportTotalLearn(ctx context.Context, in *ReportLearnRequest, opts ...grpc.CallOption) (*ReportLearns, error)
+	CreateOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Order, error)
+	ListOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Orders, error)
+	ConfirmOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Order, error)
 }
 
 type transactionServiceClient struct {
@@ -474,6 +477,33 @@ func (c *transactionServiceClient) ReportTotalLearn(ctx context.Context, in *Rep
 	return out, nil
 }
 
+func (c *transactionServiceClient) CreateOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Order, error) {
+	out := new(Order)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/CreateOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ListOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Orders, error) {
+	out := new(Orders)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ListOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) ConfirmOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Order, error) {
+	out := new(Order)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/ConfirmOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -524,6 +554,9 @@ type TransactionServiceServer interface {
 	CreateReportMembers(context.Context, *ReportMembers) (*ReportMembers, error)
 	ListReportLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error)
 	ReportTotalLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error)
+	CreateOrder(context.Context, *OrderRequest) (*Order, error)
+	ListOrder(context.Context, *OrderRequest) (*Orders, error)
+	ConfirmOrder(context.Context, *OrderRequest) (*Order, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -661,6 +694,15 @@ func (UnimplementedTransactionServiceServer) ListReportLearn(context.Context, *R
 }
 func (UnimplementedTransactionServiceServer) ReportTotalLearn(context.Context, *ReportLearnRequest) (*ReportLearns, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReportTotalLearn not implemented")
+}
+func (UnimplementedTransactionServiceServer) CreateOrder(context.Context, *OrderRequest) (*Order, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
+}
+func (UnimplementedTransactionServiceServer) ListOrder(context.Context, *OrderRequest) (*Orders, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrder not implemented")
+}
+func (UnimplementedTransactionServiceServer) ConfirmOrder(context.Context, *OrderRequest) (*Order, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConfirmOrder not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1466,6 +1508,60 @@ func _TransactionService_ReportTotalLearn_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).CreateOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/CreateOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).CreateOrder(ctx, req.(*OrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ListOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ListOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ListOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ListOrder(ctx, req.(*OrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_ConfirmOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).ConfirmOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/ConfirmOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).ConfirmOrder(ctx, req.(*OrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1648,6 +1744,18 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReportTotalLearn",
 			Handler:    _TransactionService_ReportTotalLearn_Handler,
+		},
+		{
+			MethodName: "CreateOrder",
+			Handler:    _TransactionService_CreateOrder_Handler,
+		},
+		{
+			MethodName: "ListOrder",
+			Handler:    _TransactionService_ListOrder_Handler,
+		},
+		{
+			MethodName: "ConfirmOrder",
+			Handler:    _TransactionService_ConfirmOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
