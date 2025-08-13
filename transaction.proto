@@ -111,7 +111,7 @@ message ReportLearns {
 	int64 continuous_day = 3;
 	int64 time_learn = 4;
 	int64 count_paragraph_finish = 5;
-	int64 total_listen_good = 6;
+	int64 total_speak_good = 6;
 	int64 total_word_good =7;
 }
 
