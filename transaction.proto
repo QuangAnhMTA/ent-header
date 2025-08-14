@@ -1303,21 +1303,33 @@ message Order {
 	// `gorm:"primaryKey;not null;autoIncrement"`
 	int64 id = 1;
 	string transaction_id = 2;
-	int64 product_id = 3;
-	int64 token_id = 4;
-	int64 money = 5;
-	int64 money_product = 6;
-	int64 money_discount = 7;
-	int64 quantity = 8;
-	int64 payed_at = 9;
-	int64 created_at = 10;
-	int64 updated_at = 11;
-	Status status = 12;
+	string pay_transaction_id = 3;
+	int64 member_id = 4;
+	int64 product_id = 5;
+	int64 token_id = 7;
+	int64 money = 8;
+	int64 money_product = 9;
+	int64 money_discount = 10;
+	enum Process {
+		default_process = 0;
+		wait_payment = 1;
+		success_payment = 2;
+		increase_token = 3;
+	}
+	Process process = 11;
+	int64 quantity = 12;
+	string hash = 13;
+	int64 payed_at = 14;
+	int64 created_at = 15;
+	int64 updated_at = 16;
+	Status status = 17;
 	enum Status {
 		default_state = 0;
 		deactive = 1;
 		active = 2;
 	}
+	// `gorm:"-"`
+	string qr_code = 18;
 }
 
 message Orders {
@@ -1347,6 +1359,10 @@ message OrderRequest {
 	repeated int64 token_ids = 19;
 	int64 start_at = 20;
 	int64 end_at = 21;
+	string pay_transaction_id = 22;
+	int32 member_id = 23;
+	int32 process = 24;
+
 }
 
 message ReportWord {

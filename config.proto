@@ -55,6 +55,7 @@ service ConfigService {
    rpc CountGroup(GroupRequest) returns (Groups);
    rpc SumAllMemberGroup(SumAllMemberGroupRequest) returns (SumAllMemberGroupResponse);
    rpc ListProducts(ProductRequest) returns (Products);
+   rpc GetProduct(ProductRequest) returns (Product);
 } 
 
 message SumAllMemberGroupRequest {

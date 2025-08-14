@@ -8400,7 +8400,7 @@ var file_config_proto_rawDesc = []byte{
 	0x75, 0x70, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x0e, 0x67, 0x72, 0x6f, 0x75,
 	0x70, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f,
 	0x74, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c,
-	0x32, 0x97, 0x15, 0x0a, 0x0d, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x32, 0xce, 0x15, 0x0a, 0x0d, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x12, 0x61, 0x0a, 0x14, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x67, 0x69, 0x73,
 	0x74, 0x65, 0x72, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x23, 0x2e, 0x63, 0x6f, 0x6e,
 	0x66, 0x69, 0x67, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65,
@@ -8569,10 +8569,14 @@ var file_config_proto_rawDesc = []byte{
 	0x12, 0x38, 0x0a, 0x0c, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73,
 	0x12, 0x16, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63,
 	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69,
-	0x67, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x42, 0x2a, 0x5a, 0x28, 0x67, 0x69,
-	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e,
-	0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65, 0x6e, 0x74, 0x2d, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f,
-	0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x67, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x12, 0x35, 0x0a, 0x0a, 0x47, 0x65,
+	0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x16, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69,
+	0x67, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x0f, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x42, 0x2a, 0x5a, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x51, 0x75, 0x61, 0x6e, 0x67, 0x41, 0x6e, 0x68, 0x4d, 0x54, 0x41, 0x2f, 0x65, 0x6e, 0x74, 0x2d,
+	0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -8782,48 +8786,50 @@ var file_config_proto_depIdxs = []int32{
 	51,  // 102: config.ConfigService.CountGroup:input_type -> config.GroupRequest
 	18,  // 103: config.ConfigService.SumAllMemberGroup:input_type -> config.SumAllMemberGroupRequest
 	63,  // 104: config.ConfigService.ListProducts:input_type -> config.ProductRequest
-	26,  // 105: config.ConfigService.CheckRegisterAccount:output_type -> config.CheckRegisterAccountResponse
-	28,  // 106: config.ConfigService.VerifyOtpRegister:output_type -> config.VerifyOtpRegisterResponse
-	23,  // 107: config.ConfigService.RegisterAccount:output_type -> config.Account
-	32,  // 108: config.ConfigService.Login:output_type -> config.LoginAccountResponse
-	33,  // 109: config.ConfigService.MemberLogin:output_type -> config.LoginMemberResponse
-	36,  // 110: config.ConfigService.ChangeMemberPassword:output_type -> config.Member
-	24,  // 111: config.ConfigService.ListAccounts:output_type -> config.Accounts
-	23,  // 112: config.ConfigService.UpdateAccount:output_type -> config.Account
-	37,  // 113: config.ConfigService.ListMembers:output_type -> config.Members
-	36,  // 114: config.ConfigService.CreateMember:output_type -> config.Member
-	36,  // 115: config.ConfigService.GetMember:output_type -> config.Member
-	40,  // 116: config.ConfigService.ListCategories:output_type -> config.Categories
-	47,  // 117: config.ConfigService.CreateMemberCategory:output_type -> config.MemberCategory
-	47,  // 118: config.ConfigService.GetMemberCategory:output_type -> config.MemberCategory
-	49,  // 119: config.ConfigService.ListMemberCategories:output_type -> config.MemberCategories
-	72,  // 120: config.ConfigService.ListMemberPractice:output_type -> config.MemberPractices
-	70,  // 121: config.ConfigService.CreateMemberPractice:output_type -> config.MemberPractice
-	52,  // 122: config.ConfigService.ListGroup:output_type -> config.Groups
-	58,  // 123: config.ConfigService.ListMemberGroup:output_type -> config.MemberGroups
-	50,  // 124: config.ConfigService.GetGroup:output_type -> config.Group
-	50,  // 125: config.ConfigService.CreateGroup:output_type -> config.Group
-	56,  // 126: config.ConfigService.CreateMemberGroup:output_type -> config.MemberGroup
-	56,  // 127: config.ConfigService.ApproveMemberToGroup:output_type -> config.MemberGroup
-	55,  // 128: config.ConfigService.ListAccountGroup:output_type -> config.AccountGroups
-	53,  // 129: config.ConfigService.CreateAccountGroup:output_type -> config.AccountGroup
-	73,  // 130: config.ConfigService.CreateAccountExercise:output_type -> config.AccountExercise
-	75,  // 131: config.ConfigService.ListAccountExercises:output_type -> config.AccountExercises
-	78,  // 132: config.ConfigService.CreateMemberExercise:output_type -> config.MemberExercises
-	78,  // 133: config.ConfigService.ListMemberExercise:output_type -> config.MemberExercises
-	81,  // 134: config.ConfigService.ListGroupDocument:output_type -> config.GroupDocuments
-	79,  // 135: config.ConfigService.CreateGroupDocument:output_type -> config.GroupDocument
-	79,  // 136: config.ConfigService.UpdateGroupDocument:output_type -> config.GroupDocument
-	81,  // 137: config.ConfigService.SortGroupDocument:output_type -> config.GroupDocuments
-	76,  // 138: config.ConfigService.GetMemberExercise:output_type -> config.MemberExercise
-	76,  // 139: config.ConfigService.UpdateMemberExercise:output_type -> config.MemberExercise
-	58,  // 140: config.ConfigService.CreateMemberGroups:output_type -> config.MemberGroups
-	23,  // 141: config.ConfigService.CreateAccount:output_type -> config.Account
-	52,  // 142: config.ConfigService.CountGroup:output_type -> config.Groups
-	19,  // 143: config.ConfigService.SumAllMemberGroup:output_type -> config.SumAllMemberGroupResponse
-	64,  // 144: config.ConfigService.ListProducts:output_type -> config.Products
-	105, // [105:145] is the sub-list for method output_type
-	65,  // [65:105] is the sub-list for method input_type
+	63,  // 105: config.ConfigService.GetProduct:input_type -> config.ProductRequest
+	26,  // 106: config.ConfigService.CheckRegisterAccount:output_type -> config.CheckRegisterAccountResponse
+	28,  // 107: config.ConfigService.VerifyOtpRegister:output_type -> config.VerifyOtpRegisterResponse
+	23,  // 108: config.ConfigService.RegisterAccount:output_type -> config.Account
+	32,  // 109: config.ConfigService.Login:output_type -> config.LoginAccountResponse
+	33,  // 110: config.ConfigService.MemberLogin:output_type -> config.LoginMemberResponse
+	36,  // 111: config.ConfigService.ChangeMemberPassword:output_type -> config.Member
+	24,  // 112: config.ConfigService.ListAccounts:output_type -> config.Accounts
+	23,  // 113: config.ConfigService.UpdateAccount:output_type -> config.Account
+	37,  // 114: config.ConfigService.ListMembers:output_type -> config.Members
+	36,  // 115: config.ConfigService.CreateMember:output_type -> config.Member
+	36,  // 116: config.ConfigService.GetMember:output_type -> config.Member
+	40,  // 117: config.ConfigService.ListCategories:output_type -> config.Categories
+	47,  // 118: config.ConfigService.CreateMemberCategory:output_type -> config.MemberCategory
+	47,  // 119: config.ConfigService.GetMemberCategory:output_type -> config.MemberCategory
+	49,  // 120: config.ConfigService.ListMemberCategories:output_type -> config.MemberCategories
+	72,  // 121: config.ConfigService.ListMemberPractice:output_type -> config.MemberPractices
+	70,  // 122: config.ConfigService.CreateMemberPractice:output_type -> config.MemberPractice
+	52,  // 123: config.ConfigService.ListGroup:output_type -> config.Groups
+	58,  // 124: config.ConfigService.ListMemberGroup:output_type -> config.MemberGroups
+	50,  // 125: config.ConfigService.GetGroup:output_type -> config.Group
+	50,  // 126: config.ConfigService.CreateGroup:output_type -> config.Group
+	56,  // 127: config.ConfigService.CreateMemberGroup:output_type -> config.MemberGroup
+	56,  // 128: config.ConfigService.ApproveMemberToGroup:output_type -> config.MemberGroup
+	55,  // 129: config.ConfigService.ListAccountGroup:output_type -> config.AccountGroups
+	53,  // 130: config.ConfigService.CreateAccountGroup:output_type -> config.AccountGroup
+	73,  // 131: config.ConfigService.CreateAccountExercise:output_type -> config.AccountExercise
+	75,  // 132: config.ConfigService.ListAccountExercises:output_type -> config.AccountExercises
+	78,  // 133: config.ConfigService.CreateMemberExercise:output_type -> config.MemberExercises
+	78,  // 134: config.ConfigService.ListMemberExercise:output_type -> config.MemberExercises
+	81,  // 135: config.ConfigService.ListGroupDocument:output_type -> config.GroupDocuments
+	79,  // 136: config.ConfigService.CreateGroupDocument:output_type -> config.GroupDocument
+	79,  // 137: config.ConfigService.UpdateGroupDocument:output_type -> config.GroupDocument
+	81,  // 138: config.ConfigService.SortGroupDocument:output_type -> config.GroupDocuments
+	76,  // 139: config.ConfigService.GetMemberExercise:output_type -> config.MemberExercise
+	76,  // 140: config.ConfigService.UpdateMemberExercise:output_type -> config.MemberExercise
+	58,  // 141: config.ConfigService.CreateMemberGroups:output_type -> config.MemberGroups
+	23,  // 142: config.ConfigService.CreateAccount:output_type -> config.Account
+	52,  // 143: config.ConfigService.CountGroup:output_type -> config.Groups
+	19,  // 144: config.ConfigService.SumAllMemberGroup:output_type -> config.SumAllMemberGroupResponse
+	64,  // 145: config.ConfigService.ListProducts:output_type -> config.Products
+	62,  // 146: config.ConfigService.GetProduct:output_type -> config.Product
+	106, // [106:147] is the sub-list for method output_type
+	65,  // [65:106] is the sub-list for method input_type
 	65,  // [65:65] is the sub-list for extension type_name
 	65,  // [65:65] is the sub-list for extension extendee
 	0,   // [0:65] is the sub-list for field type_name
