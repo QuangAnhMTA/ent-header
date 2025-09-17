@@ -1330,6 +1330,7 @@ message Order {
 	}
 	// `gorm:"-"`
 	string qr_code = 18;
+	int64 account_id = 19;
 }
 
 message Orders {
@@ -1362,7 +1363,7 @@ message OrderRequest {
 	string pay_transaction_id = 22;
 	int32 member_id = 23;
 	int32 process = 24;
-
+	int64 account_id = 25;
 }
 
 message ReportWord {
