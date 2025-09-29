@@ -44,6 +44,7 @@ service LibraryService {
   rpc TokenizeSentence(SentenceRequest) returns (Sentences);
   rpc SortSentenceGroup(SentenceGroups) returns (SentenceGroups);
   rpc ListTranslation(TranslationRequest) returns (Translations);
+  rpc GetSentencePos(SentencePosRequest) returns (SentencePos);
  }
 
 
@@ -1263,6 +1264,10 @@ message Question {
     Quiz quiz = 18;
     int64 created_at = 19;
     int64 updated_at = 20;
+    // `gorm:"-"`
+    string question_format = 21;
+    // `gorm:"-"`
+    string answer_format = 22;
 }
 
 message QuestionRequest {

@@ -57,7 +57,7 @@ service TransactionService {
   rpc CreateOrder(OrderRequest) returns (Order);
   rpc ListOrder(OrderRequest) returns (Orders);
   rpc ConfirmOrder(OrderRequest) returns (Order);
-  rpc CreaetReportWord(ReportWord) returns (ReportWord);
+  rpc CreateReportWord(ReportWord) returns (ReportWord);
 }
 
 message ReportLearn {
@@ -1392,6 +1392,8 @@ message ReportWord {
 		deactive = 1;
 		active = 2;
 	}
+	// `gorm:"-"`
+	int64 sentence_id = 14;
 }
 message ReportWords {
 	repeated ReportWord report_words = 1;
