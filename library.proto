@@ -1236,31 +1236,33 @@ message Labels {
 message Question {
     // `gorm:"primaryKey;not null;autoIncrement"`
     int64 id = 1;
-    int64 quiz_id = 2;
+    int64 course_id = 2;
+    int64 document_id = 3;
+    int64 paragraph_id = 4;
+    int64 sentence_id = 5;
+    int64 quiz_id = 6;
     // `gorm:"text"`
-    string content = 3;
+    string content = 7;
     // `gorm:"text"`
-    string description = 4;
-    // `gorm:"text"`
-    string translate = 5;
-    string audio = 6;
-    string image =7;
-    int32 position = 8;
-    int32 type =9;
-    Status status = 10;  
+    string extra = 8;
+    string audio = 9;
+    string image =10;
+    int32 position = 11;
+    int32 display_content = 12;
+    int32 display_answer = 13;
+    int32 display_input = 14;
+    int32 display = 15;
+    int32 type =16;
+    Status status = 17;  
     enum Status {
 		default_state = 0;
 		deactive = 1;
 		active = 2;
 	  }
     // `gorm:"-"`
-    Quiz quiz = 11;
-    // `gorm:"-"`
-	  string question_format = 14;
-	  // `gorm:"-"`
-	  string answer_format = 15;
-    int32 display = 16;
-    string extra = 17;
+    Quiz quiz = 18;
+    int64 created_at = 19;
+    int64 updated_at = 20;
 }
 
 message QuestionRequest {
@@ -1289,6 +1291,11 @@ message QuestionRequest {
   int32 display = 26;
   string extra = 27;
   repeated int64 not_ids = 28;
+  int32 position = 29;
+  int32 display_content = 30;
+  int32 display_answer = 31;
+  int32 display_input = 32;
+  int64 sentence_id = 33;
 }
 
 message Questions {

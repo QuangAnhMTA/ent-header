@@ -57,6 +57,7 @@ service TransactionService {
   rpc CreateOrder(OrderRequest) returns (Order);
   rpc ListOrder(OrderRequest) returns (Orders);
   rpc ConfirmOrder(OrderRequest) returns (Order);
+  rpc CreaetReportWord(ReportWord) returns (ReportWord);
 }
 
 message ReportLearn {
@@ -1335,6 +1336,8 @@ message Order {
 	// `gorm:"-"`
 	string qr_code = 18;
 	int64 account_id = 19;
+	// `gorm:"-"`
+	MemberToken member_token = 20;
 }
 
 message Orders {
