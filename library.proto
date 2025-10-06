@@ -1268,6 +1268,8 @@ message Question {
     string question_format = 21;
     // `gorm:"-"`
     string answer_format = 22;
+    string title = 23;
+    string title_vi = 24;
 }
 
 message QuestionRequest {

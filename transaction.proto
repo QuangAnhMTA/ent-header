@@ -854,7 +854,6 @@ message MemberTokenTransaction {
 	IsReport is_report = 15;
 	int64 group_id = 16;
 	int64 updated_at = 17;
-	int64 order_id = 18;
 	// `gorm:"-"`
 	Order order = 19;
 }
