@@ -6633,7 +6633,8 @@ type Answer struct {
 	// string answer_format = 15;
 	DisplayInput   int32 `protobuf:"varint,14,opt,name=display_input,json=displayInput,proto3" json:"display_input,omitempty"`
 	DisplayContent int32 `protobuf:"varint,15,opt,name=display_content,json=displayContent,proto3" json:"display_content,omitempty"`
-	QuestionType   int32 `protobuf:"varint,16,opt,name=question_type,json=questionType,proto3" json:"question_type,omitempty"`
+	// `gorm:"-"`
+	QuestionType int32 `protobuf:"varint,16,opt,name=question_type,json=questionType,proto3" json:"question_type,omitempty" gorm:"-"`
 }
 
 func (x *Answer) Reset() {

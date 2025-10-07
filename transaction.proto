@@ -732,6 +732,7 @@ message Answer {
 	// string answer_format = 15;
 	int32 display_input = 14;
     int32 display_content = 15;
+	// `gorm:"-"`
 	int32 question_type = 16;
   }
 
