@@ -728,8 +728,10 @@ message Answer {
 		deactive = 1;
 		active = 2;
 	}
-	string question_format = 14;
+	// string question_format = 14;
 	// string answer_format = 15;
+	int32 display_input = 14;
+    int32 display_content = 15;
   }
 
   message AnswerRequest {
@@ -750,6 +752,8 @@ message Answer {
 	repeated string cols = 16;
 	repeated string includes =17;
 	repeated int64 ids = 18;
+	int32 display_input = 19;
+    int32 display_content = 20;
   }
 
 

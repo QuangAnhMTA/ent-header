@@ -1250,7 +1250,7 @@ message Question {
     string image =10;
     int32 position = 11;
     int32 display_content = 12;
-    int32 display_answer = 13;
+    // int32 display_answer = 13;
     int32 display_input = 14;
     int32 display = 15;
     int32 type =16;
