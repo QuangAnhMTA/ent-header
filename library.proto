@@ -45,6 +45,7 @@ service LibraryService {
   rpc SortSentenceGroup(SentenceGroups) returns (SentenceGroups);
   rpc ListTranslation(TranslationRequest) returns (Translations);
   rpc GetSentencePos(SentencePosRequest) returns (SentencePos);
+  rpc ListPoses(SentencePosRequest) returns (Poses);
  }
 
 
@@ -529,6 +530,7 @@ message SentencePos {
   string phonetic = 12; 
   // `gorm:"-"`
   string audio = 13; 
+  int64 paragraph_id = 14;
 }
 
 message SentencePosRequest {
@@ -541,10 +543,13 @@ message SentencePosRequest {
   int32 position =7;
   int32 status = 8;
   repeated int64 ids= 9;
+  repeated int64 sentence_ids = 10;
   int32 limit =17;
   int32 offset = 18;
   repeated string cols = 16;
   repeated string includes =19;
+  int64 paragraph_id = 14;
+  repeated int64 pos_groups = 15;
 }
 
 message SentencePoses {
@@ -1568,4 +1573,44 @@ message MediaRequest {
 message Medias {
    int32 total = 1;
   repeated Media medias = 2;
+}
+
+
+message MediaPosition{
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 media_id = 2;
+  int64 position = 3;
+  // int64 created_at = 4;
+  // int64 updated_at = 5;
+  Status status = 6;  
+  enum Status {
+    default_state = 0;
+    deactive = 1;
+    active = 2;
+  }
+  string lemma = 7;
+  string pos_group = 8;
+  // `gorm:"-"`
+  string image = 9;
+}
+
+message MediaPositionRequest {
+  int64 id = 1;
+  int64 media_id = 2;
+  int64 position = 3;
+  int32 status = 4;
+  int32 limit = 17;
+  int32 offset = 18;
+  repeated string cols = 16;
+  repeated string includes =19;
+  repeated int64 ids = 21;
+  repeated int64 media_ids = 22;
+  repeated string pos_groups = 23;
+}
+
+
+message MediaPositions {
+  int32 total = 1;
+  repeated MediaPosition media_positions = 2;
 }
