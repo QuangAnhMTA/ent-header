@@ -625,6 +625,8 @@ message Pos {
   int64 sentence_pos_id = 10;
   // `gorm:"-"`
   string audio = 11;
+  // `gorm:"-"`
+  repeated MediaPosition media_positions = 12;
 }
 
 message PosRequest {
