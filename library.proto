@@ -1275,8 +1275,9 @@ message Question {
     string question_format = 21;
     // `gorm:"-"`
     string answer_format = 22;
-    string title = 23;
-    string title_vi = 24;
+    // `gorm:"-"`
+    string QuestionGroup = 25;
+    int64 question_group_id = 26;
 }
 
 message QuestionRequest {
@@ -1310,6 +1311,8 @@ message QuestionRequest {
   int32 display_answer = 31;
   int32 display_input = 32;
   int64 sentence_id = 33;
+  repeated int64 question_group_ids = 34;
+  int64 question_group_id = 35;
 }
 
 message Questions {
@@ -1618,4 +1621,58 @@ message MediaPositionRequest {
 message MediaPositions {
   int32 total = 1;
   repeated MediaPosition media_positions = 2;
+}
+
+
+message QuestionGroup {
+  // `gorm:"primaryKey;not null;autoIncrement"`
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 document_id = 3;
+  int64 paragraph_id = 4;
+  int64 sentence_id = 5;
+  int64 quiz_id = 6;
+  // `gorm:"text"`
+  string title = 7;
+  // `gorm:"text"`
+  string title_vi = 8;
+  // `gorm:"text"`
+  string content = 9;
+  int64 created_at = 11;
+  int64 updated_at = 12;
+  Status status = 13;
+  enum Status {
+    default_state = 0;
+      deactive = 1;
+      active = 2;
+    }
+}
+
+message QuestionGroupRequest {
+  int64 id = 1;
+  int64 course_id = 2;
+  int64 document_id = 3;
+  int64 paragraph_id = 4;
+  int64 sentence_id = 5;
+  int64 quiz_id = 6;
+  string title = 7;
+  string title_vi = 8;
+  string content = 9;
+  int32 status = 11;
+  int32 limit = 12;
+  int32 offset = 13;
+  repeated string cols = 14;
+  repeated string includes = 15;
+  repeated int64 ids = 16;
+  repeated int64 course_ids = 17;
+  repeated int64 document_ids = 18;
+  repeated int64 paragraph_ids = 19;
+  repeated int64 sentence_ids = 20;
+  repeated int64 quiz_ids = 21;
+  repeated int64 question_ids = 22;
+}
+
+message QuestionGroups {
+  int32 total = 1;
+  repeated QuestionGroup question_groups = 2;
 }
