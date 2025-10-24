@@ -1276,7 +1276,7 @@ message Question {
     // `gorm:"-"`
     string answer_format = 22;
     // `gorm:"-"`
-    string QuestionGroup = 25;
+    QuestionGroup question_group = 25;
     int64 question_group_id = 26;
 }
 
