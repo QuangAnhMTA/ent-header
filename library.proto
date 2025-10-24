@@ -1630,7 +1630,6 @@ message QuestionGroup {
   int64 course_id = 2;
   int64 document_id = 3;
   int64 paragraph_id = 4;
-  int64 sentence_id = 5;
   int64 quiz_id = 6;
   // `gorm:"text"`
   string title = 7;
@@ -1638,6 +1637,7 @@ message QuestionGroup {
   string title_vi = 8;
   // `gorm:"text"`
   string content = 9;
+  int64 position = 5;
   int64 created_at = 11;
   int64 updated_at = 12;
   Status status = 13;
