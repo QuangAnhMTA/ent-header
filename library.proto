@@ -46,6 +46,7 @@ service LibraryService {
   rpc ListTranslation(TranslationRequest) returns (Translations);
   rpc GetSentencePos(SentencePosRequest) returns (SentencePos);
   rpc ListPoses(SentencePosRequest) returns (Poses);
+  rpc ListQuestionGroups(QuestionGroupRequest) returns (QuestionGroups);
  }
 
 
@@ -1440,6 +1441,8 @@ message SentenceGroup {
     // `gorm:"-"`
     int64 pre_sentence_group_id = 17;
     int64 image_time = 18;
+    // `gorm:"-"`
+    repeated SentenceGroupPosition sentence_group_positions = 19;
 }
 
 message SentenceGroupRequest {
@@ -1646,6 +1649,8 @@ message QuestionGroup {
       deactive = 1;
       active = 2;
     }
+  // `gorm:"-"`
+  repeated Question questions = 14;
 }
 
 message QuestionGroupRequest {
@@ -1675,4 +1680,37 @@ message QuestionGroupRequest {
 message QuestionGroups {
   int32 total = 1;
   repeated QuestionGroup question_groups = 2;
+}
+
+message SentenceGroupPosition {
+  int64 id = 1;
+  int64 sentence_group_id = 2;
+  int64 position = 3;
+  Status status = 4;
+  enum Status {
+    default_state = 0;
+    deactive = 1;
+    active = 2;
+  }
+  string pos_group = 5;
+  string lemma = 6;
+  // `gorm:"-"`
+  string audio_url = 7;
+}
+
+message SentenceGroupPositionRequest {
+  int64 id = 1;
+  int64 sentence_group_id = 2;
+  int64 position = 3;
+  int32 status = 4;
+  int32 limit = 5;
+  int32 offset = 6;
+  repeated string cols = 7;
+  repeated string includes = 8;
+  repeated int64 ids = 9;
+}
+
+message SentenceGroupPositions {
+  int32 total = 1;
+  repeated SentenceGroupPosition sentence_group_positions = 2;
 }
