@@ -1685,7 +1685,8 @@ message QuestionGroups {
 message SentenceGroupPosition {
   int64 id = 1;
   int64 sentence_group_id = 2;
-  int64 position = 3;
+  // `gorm:"text"`
+  string position = 3;
   Status status = 4;
   enum Status {
     default_state = 0;
@@ -1701,13 +1702,14 @@ message SentenceGroupPosition {
 message SentenceGroupPositionRequest {
   int64 id = 1;
   int64 sentence_group_id = 2;
-  int64 position = 3;
+  string position = 3;
   int32 status = 4;
   int32 limit = 5;
   int32 offset = 6;
   repeated string cols = 7;
   repeated string includes = 8;
   repeated int64 ids = 9;
+  repeated int64 sentence_group_ids = 10;
 }
 
 message SentenceGroupPositions {
