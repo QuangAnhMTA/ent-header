@@ -72,6 +72,7 @@ type TransactionServiceClient interface {
 	ListOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Orders, error)
 	ConfirmOrder(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*Order, error)
 	CreateReportWord(ctx context.Context, in *ReportWord, opts ...grpc.CallOption) (*ReportWord, error)
+	GetProgressCourse(ctx context.Context, in *ProgressCourseRequest, opts ...grpc.CallOption) (*ProgressCourse, error)
 }
 
 type transactionServiceClient struct {
@@ -514,6 +515,15 @@ func (c *transactionServiceClient) CreateReportWord(ctx context.Context, in *Rep
 	return out, nil
 }
 
+func (c *transactionServiceClient) GetProgressCourse(ctx context.Context, in *ProgressCourseRequest, opts ...grpc.CallOption) (*ProgressCourse, error) {
+	out := new(ProgressCourse)
+	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetProgressCourse", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations should embed UnimplementedTransactionServiceServer
 // for forward compatibility
@@ -568,6 +578,7 @@ type TransactionServiceServer interface {
 	ListOrder(context.Context, *OrderRequest) (*Orders, error)
 	ConfirmOrder(context.Context, *OrderRequest) (*Order, error)
 	CreateReportWord(context.Context, *ReportWord) (*ReportWord, error)
+	GetProgressCourse(context.Context, *ProgressCourseRequest) (*ProgressCourse, error)
 }
 
 // UnimplementedTransactionServiceServer should be embedded to have forward compatible implementations.
@@ -717,6 +728,9 @@ func (UnimplementedTransactionServiceServer) ConfirmOrder(context.Context, *Orde
 }
 func (UnimplementedTransactionServiceServer) CreateReportWord(context.Context, *ReportWord) (*ReportWord, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateReportWord not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetProgressCourse(context.Context, *ProgressCourseRequest) (*ProgressCourse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProgressCourse not implemented")
 }
 
 // UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1594,6 +1608,24 @@ func _TransactionService_CreateReportWord_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_GetProgressCourse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProgressCourseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetProgressCourse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/transaction.TransactionService/GetProgressCourse",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetProgressCourse(ctx, req.(*ProgressCourseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1792,6 +1824,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateReportWord",
 			Handler:    _TransactionService_CreateReportWord_Handler,
+		},
+		{
+			MethodName: "GetProgressCourse",
+			Handler:    _TransactionService_GetProgressCourse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

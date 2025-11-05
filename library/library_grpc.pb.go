@@ -64,6 +64,7 @@ type LibraryServiceClient interface {
 	GetSentencePos(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*SentencePos, error)
 	ListPoses(ctx context.Context, in *SentencePosRequest, opts ...grpc.CallOption) (*Poses, error)
 	ListQuestionGroups(ctx context.Context, in *QuestionGroupRequest, opts ...grpc.CallOption) (*QuestionGroups, error)
+	FindCourse(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Course, error)
 }
 
 type libraryServiceClient struct {
@@ -443,6 +444,15 @@ func (c *libraryServiceClient) ListQuestionGroups(ctx context.Context, in *Quest
 	return out, nil
 }
 
+func (c *libraryServiceClient) FindCourse(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Course, error) {
+	out := new(Course)
+	err := c.cc.Invoke(ctx, "/library.LibraryService/FindCourse", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -489,6 +499,7 @@ type LibraryServiceServer interface {
 	GetSentencePos(context.Context, *SentencePosRequest) (*SentencePos, error)
 	ListPoses(context.Context, *SentencePosRequest) (*Poses, error)
 	ListQuestionGroups(context.Context, *QuestionGroupRequest) (*QuestionGroups, error)
+	FindCourse(context.Context, *CourseRequest) (*Course, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -617,6 +628,9 @@ func (UnimplementedLibraryServiceServer) ListPoses(context.Context, *SentencePos
 }
 func (UnimplementedLibraryServiceServer) ListQuestionGroups(context.Context, *QuestionGroupRequest) (*QuestionGroups, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListQuestionGroups not implemented")
+}
+func (UnimplementedLibraryServiceServer) FindCourse(context.Context, *CourseRequest) (*Course, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindCourse not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1368,6 +1382,24 @@ func _LibraryService_ListQuestionGroups_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibraryService_FindCourse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibraryServiceServer).FindCourse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/library.LibraryService/FindCourse",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibraryServiceServer).FindCourse(ctx, req.(*CourseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1538,6 +1570,10 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListQuestionGroups",
 			Handler:    _LibraryService_ListQuestionGroups_Handler,
+		},
+		{
+			MethodName: "FindCourse",
+			Handler:    _LibraryService_FindCourse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

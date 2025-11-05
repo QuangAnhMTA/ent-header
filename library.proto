@@ -47,6 +47,7 @@ service LibraryService {
   rpc GetSentencePos(SentencePosRequest) returns (SentencePos);
   rpc ListPoses(SentencePosRequest) returns (Poses);
   rpc ListQuestionGroups(QuestionGroupRequest) returns (QuestionGroups);
+  rpc FindCourse(CourseRequest) returns (Course);
  }
 
 
