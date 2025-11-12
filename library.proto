@@ -1444,6 +1444,8 @@ message SentenceGroup {
     int64 image_time = 18;
     // `gorm:"-"`
     repeated SentenceGroupPosition sentence_group_positions = 19;
+    int64 width = 20;
+    int64 height = 21;
 }
 
 message SentenceGroupRequest {
@@ -1603,6 +1605,8 @@ message MediaPosition{
   string pos_group = 8;
   // `gorm:"-"`
   string image = 9;
+  // `gorm:"-"`
+  Media media = 10;
 }
 
 message MediaPositionRequest {
