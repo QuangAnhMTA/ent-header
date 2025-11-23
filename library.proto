@@ -581,6 +581,8 @@ message Mean {
   }
   string example_vi = 12;
   string example = 13;
+  // `gorm:"-"`
+  string audio_url = 14;
 }
 
 message MeanRequest {
@@ -1346,6 +1348,7 @@ message Answer {
 	string question_format = 14;
 	// `gorm:"-"`
 	string answer_format = 15;
+  int32 position = 16;
 }
 
 
@@ -1368,6 +1371,7 @@ message AnswerRequest {
   int32 right = 12;
   string question_format = 14;
   string answer_format = 15;
+  int32 position = 25;
 }
 
 message Answers {
