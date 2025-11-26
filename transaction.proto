@@ -1077,7 +1077,6 @@ message ReportMember {
     int64 id = 1; 
 	string item = 2; // organization or class
     int64 object_id = 3; // id của item
-    int64 day = 4; // ngày thứ x của timestamp
 	Status status = 5;  
 	enum Status {
 		  default_state = 0;
@@ -1121,7 +1120,6 @@ message ReportPoint {
 	int64 id = 1; 
 	string item = 2; // class, member
     int64 object_id = 3; // id của item
-    int64 day = 4; 
 	Status status = 5;  
 	enum Status {
 		  default_state = 0;
@@ -1166,7 +1164,6 @@ message ReportToken {
 	int64 id = 1; 
 	string item = 2; // organization, class, member
     int64 object_id = 3; // id của item
-    int64 day = 4;
 	Status status = 5;  
 	enum Status {
 		  default_state = 0;
