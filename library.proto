@@ -48,6 +48,8 @@ service LibraryService {
   rpc ListPoses(SentencePosRequest) returns (Poses);
   rpc ListQuestionGroups(QuestionGroupRequest) returns (QuestionGroups);
   rpc FindCourse(CourseRequest) returns (Course);
+  rpc CreateDocument(Document) returns (Document);
+  rpc CreateCourse(Course) returns (Course);
  }
 
 
@@ -138,8 +140,9 @@ message Document {
   int64 id = 1;
   int64 course_id = 2;
   string title = 3;
-  string image = 4;
-  string content = 5;
+  // `gorm:"text"`
+  string description = 4;
+  string keywords = 5;
   Status status = 6;  
   enum Status {
       default_state = 0;
@@ -154,6 +157,10 @@ message Document {
   string title_vi = 11;
  // `gorm:"-"`
  string description_vi = 12;
+ string level = 13;
+ float score = 14; 
+ int64 created_at = 15;
+ int64 updated_at = 16;
 }
 
 message Documents {
