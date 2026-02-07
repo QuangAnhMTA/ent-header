@@ -132,6 +132,14 @@ message DocumentRequest {
   int64 current_id = 14;
   repeated int64 ids = 15;
   int64 group_id = 16;
+  int64 account_id = 17;
+  int64 approve_id = 18;
+  int32 public = 19;
+  string order_type = 20;
+  string order_by = 21;
+  string item = 22;
+  string keyx = 23;
+  string link = 24;
 
 }
 
