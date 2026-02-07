@@ -161,6 +161,7 @@ message Document {
  float score = 14; 
  int64 created_at = 15;
  int64 updated_at = 16;
+ int64 account_id = 17;
 }
 
 message Documents {
