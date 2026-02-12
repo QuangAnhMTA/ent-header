@@ -59,6 +59,7 @@ service TransactionService {
   rpc ConfirmOrder(OrderRequest) returns (Order);
   rpc CreateReportWord(ReportWord) returns (ReportWord);
   rpc GetProgressCourse(ProgressCourseRequest) returns (ProgressCourse);
+
 }
 message ProgressCourseRequest {
   int64 id = 1;
@@ -754,6 +755,7 @@ message Answer {
     int32 display_content = 15;
 	// `gorm:"-"`
 	int32 question_type = 16;
+	int64 member_quiz_id = 17;
   }
 
   message AnswerRequest {
@@ -776,6 +778,7 @@ message Answer {
 	repeated int64 ids = 18;
 	int32 display_input = 19;
     int32 display_content = 20;
+	int64 member_quiz_id = 21;
   }
 
 
@@ -1436,3 +1439,9 @@ message ReportWordRequest {
 	int64 updated_at = 11;
 	int64 status = 12;
 }		
+
+
+
+
+
+
