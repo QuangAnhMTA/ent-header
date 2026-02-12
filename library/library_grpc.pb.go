@@ -67,7 +67,7 @@ type LibraryServiceClient interface {
 	FindCourse(ctx context.Context, in *CourseRequest, opts ...grpc.CallOption) (*Course, error)
 	CreateDocument(ctx context.Context, in *Document, opts ...grpc.CallOption) (*Document, error)
 	CreateCourse(ctx context.Context, in *Course, opts ...grpc.CallOption) (*Course, error)
-	ListQuestionForExam(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*QuestionGroups, error)
+	ListQuestionForExam(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*Questions, error)
 }
 
 type libraryServiceClient struct {
@@ -474,8 +474,8 @@ func (c *libraryServiceClient) CreateCourse(ctx context.Context, in *Course, opt
 	return out, nil
 }
 
-func (c *libraryServiceClient) ListQuestionForExam(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*QuestionGroups, error) {
-	out := new(QuestionGroups)
+func (c *libraryServiceClient) ListQuestionForExam(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*Questions, error) {
+	out := new(Questions)
 	err := c.cc.Invoke(ctx, "/library.LibraryService/ListQuestionForExam", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -532,7 +532,7 @@ type LibraryServiceServer interface {
 	FindCourse(context.Context, *CourseRequest) (*Course, error)
 	CreateDocument(context.Context, *Document) (*Document, error)
 	CreateCourse(context.Context, *Course) (*Course, error)
-	ListQuestionForExam(context.Context, *QuestionRequest) (*QuestionGroups, error)
+	ListQuestionForExam(context.Context, *QuestionRequest) (*Questions, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -671,7 +671,7 @@ func (UnimplementedLibraryServiceServer) CreateDocument(context.Context, *Docume
 func (UnimplementedLibraryServiceServer) CreateCourse(context.Context, *Course) (*Course, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCourse not implemented")
 }
-func (UnimplementedLibraryServiceServer) ListQuestionForExam(context.Context, *QuestionRequest) (*QuestionGroups, error) {
+func (UnimplementedLibraryServiceServer) ListQuestionForExam(context.Context, *QuestionRequest) (*Questions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListQuestionForExam not implemented")
 }
 

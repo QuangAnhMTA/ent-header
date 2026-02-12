@@ -66,9 +66,9 @@ type ConfigServiceClient interface {
 	SumAllMemberGroup(ctx context.Context, in *SumAllMemberGroupRequest, opts ...grpc.CallOption) (*SumAllMemberGroupResponse, error)
 	ListProducts(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*Products, error)
 	GetProduct(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*Product, error)
-	CreateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error)
-	ListQuizMembers(ctx context.Context, in *MemberQuizRequest, opts ...grpc.CallOption) (*MemberQuizzes, error)
-	UpdateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error)
+	CreateMemberQuiz(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error)
+	ListMemberQuizzes(ctx context.Context, in *MemberQuizRequest, opts ...grpc.CallOption) (*MemberQuizzes, error)
+	UpdateMemberQuiz(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error)
 }
 
 type configServiceClient struct {
@@ -448,27 +448,27 @@ func (c *configServiceClient) GetProduct(ctx context.Context, in *ProductRequest
 	return out, nil
 }
 
-func (c *configServiceClient) CreateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error) {
+func (c *configServiceClient) CreateMemberQuiz(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error) {
 	out := new(MemberQuiz)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateQuizMember", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/CreateMemberQuiz", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *configServiceClient) ListQuizMembers(ctx context.Context, in *MemberQuizRequest, opts ...grpc.CallOption) (*MemberQuizzes, error) {
+func (c *configServiceClient) ListMemberQuizzes(ctx context.Context, in *MemberQuizRequest, opts ...grpc.CallOption) (*MemberQuizzes, error) {
 	out := new(MemberQuizzes)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/ListQuizMembers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/ListMemberQuizzes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *configServiceClient) UpdateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error) {
+func (c *configServiceClient) UpdateMemberQuiz(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error) {
 	out := new(MemberQuiz)
-	err := c.cc.Invoke(ctx, "/config.ConfigService/UpdateQuizMember", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/config.ConfigService/UpdateMemberQuiz", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -523,9 +523,9 @@ type ConfigServiceServer interface {
 	SumAllMemberGroup(context.Context, *SumAllMemberGroupRequest) (*SumAllMemberGroupResponse, error)
 	ListProducts(context.Context, *ProductRequest) (*Products, error)
 	GetProduct(context.Context, *ProductRequest) (*Product, error)
-	CreateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error)
-	ListQuizMembers(context.Context, *MemberQuizRequest) (*MemberQuizzes, error)
-	UpdateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error)
+	CreateMemberQuiz(context.Context, *MemberQuiz) (*MemberQuiz, error)
+	ListMemberQuizzes(context.Context, *MemberQuizRequest) (*MemberQuizzes, error)
+	UpdateMemberQuiz(context.Context, *MemberQuiz) (*MemberQuiz, error)
 }
 
 // UnimplementedConfigServiceServer should be embedded to have forward compatible implementations.
@@ -655,14 +655,14 @@ func (UnimplementedConfigServiceServer) ListProducts(context.Context, *ProductRe
 func (UnimplementedConfigServiceServer) GetProduct(context.Context, *ProductRequest) (*Product, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProduct not implemented")
 }
-func (UnimplementedConfigServiceServer) CreateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateQuizMember not implemented")
+func (UnimplementedConfigServiceServer) CreateMemberQuiz(context.Context, *MemberQuiz) (*MemberQuiz, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberQuiz not implemented")
 }
-func (UnimplementedConfigServiceServer) ListQuizMembers(context.Context, *MemberQuizRequest) (*MemberQuizzes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListQuizMembers not implemented")
+func (UnimplementedConfigServiceServer) ListMemberQuizzes(context.Context, *MemberQuizRequest) (*MemberQuizzes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMemberQuizzes not implemented")
 }
-func (UnimplementedConfigServiceServer) UpdateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateQuizMember not implemented")
+func (UnimplementedConfigServiceServer) UpdateMemberQuiz(context.Context, *MemberQuiz) (*MemberQuiz, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberQuiz not implemented")
 }
 
 // UnsafeConfigServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1414,56 +1414,56 @@ func _ConfigService_GetProduct_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_CreateQuizMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ConfigService_CreateMemberQuiz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberQuiz)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).CreateQuizMember(ctx, in)
+		return srv.(ConfigServiceServer).CreateMemberQuiz(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/CreateQuizMember",
+		FullMethod: "/config.ConfigService/CreateMemberQuiz",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).CreateQuizMember(ctx, req.(*MemberQuiz))
+		return srv.(ConfigServiceServer).CreateMemberQuiz(ctx, req.(*MemberQuiz))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_ListQuizMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ConfigService_ListMemberQuizzes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberQuizRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).ListQuizMembers(ctx, in)
+		return srv.(ConfigServiceServer).ListMemberQuizzes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/ListQuizMembers",
+		FullMethod: "/config.ConfigService/ListMemberQuizzes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).ListQuizMembers(ctx, req.(*MemberQuizRequest))
+		return srv.(ConfigServiceServer).ListMemberQuizzes(ctx, req.(*MemberQuizRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ConfigService_UpdateQuizMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ConfigService_UpdateMemberQuiz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberQuiz)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfigServiceServer).UpdateQuizMember(ctx, in)
+		return srv.(ConfigServiceServer).UpdateMemberQuiz(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/config.ConfigService/UpdateQuizMember",
+		FullMethod: "/config.ConfigService/UpdateMemberQuiz",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServiceServer).UpdateQuizMember(ctx, req.(*MemberQuiz))
+		return srv.(ConfigServiceServer).UpdateMemberQuiz(ctx, req.(*MemberQuiz))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1640,16 +1640,16 @@ var ConfigService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ConfigService_GetProduct_Handler,
 		},
 		{
-			MethodName: "CreateQuizMember",
-			Handler:    _ConfigService_CreateQuizMember_Handler,
+			MethodName: "CreateMemberQuiz",
+			Handler:    _ConfigService_CreateMemberQuiz_Handler,
 		},
 		{
-			MethodName: "ListQuizMembers",
-			Handler:    _ConfigService_ListQuizMembers_Handler,
+			MethodName: "ListMemberQuizzes",
+			Handler:    _ConfigService_ListMemberQuizzes_Handler,
 		},
 		{
-			MethodName: "UpdateQuizMember",
-			Handler:    _ConfigService_UpdateQuizMember_Handler,
+			MethodName: "UpdateMemberQuiz",
+			Handler:    _ConfigService_UpdateMemberQuiz_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

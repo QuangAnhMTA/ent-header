@@ -50,8 +50,7 @@ service LibraryService {
   rpc FindCourse(CourseRequest) returns (Course);
   rpc CreateDocument(Document) returns (Document);
   rpc CreateCourse(Course) returns (Course);
-  rpc ListQuestionForExam(QuestionRequest) returns (QuestionGroups);
-
+  rpc ListQuestionForExam(QuestionRequest) returns (Questions);
  }
 
 

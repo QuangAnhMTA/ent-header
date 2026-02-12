@@ -56,9 +56,9 @@ service ConfigService {
    rpc SumAllMemberGroup(SumAllMemberGroupRequest) returns (SumAllMemberGroupResponse);
    rpc ListProducts(ProductRequest) returns (Products);
    rpc GetProduct(ProductRequest) returns (Product);
-   rpc CreateQuizMember(MemberQuiz) returns (MemberQuiz);
-   rpc ListQuizMembers(MemberQuizRequest) returns (MemberQuizzes);
-   rpc UpdateQuizMember(MemberQuiz) returns (MemberQuiz);
+   rpc CreateMemberQuiz(MemberQuiz) returns (MemberQuiz);
+   rpc ListMemberQuizzes(MemberQuizRequest) returns (MemberQuizzes);
+   rpc UpdateMemberQuiz(MemberQuiz) returns (MemberQuiz);
 } 
 
 message SumAllMemberGroupRequest {
