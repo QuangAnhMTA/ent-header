@@ -68,9 +68,6 @@ type LibraryServiceClient interface {
 	CreateDocument(ctx context.Context, in *Document, opts ...grpc.CallOption) (*Document, error)
 	CreateCourse(ctx context.Context, in *Course, opts ...grpc.CallOption) (*Course, error)
 	ListQuestionForExam(ctx context.Context, in *QuestionRequest, opts ...grpc.CallOption) (*QuestionGroups, error)
-	CreateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error)
-	ListQuizMembers(ctx context.Context, in *MemberQuizRequest, opts ...grpc.CallOption) (*MemberQuizzes, error)
-	UpdateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error)
 }
 
 type libraryServiceClient struct {
@@ -486,33 +483,6 @@ func (c *libraryServiceClient) ListQuestionForExam(ctx context.Context, in *Ques
 	return out, nil
 }
 
-func (c *libraryServiceClient) CreateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error) {
-	out := new(MemberQuiz)
-	err := c.cc.Invoke(ctx, "/library.LibraryService/CreateQuizMember", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *libraryServiceClient) ListQuizMembers(ctx context.Context, in *MemberQuizRequest, opts ...grpc.CallOption) (*MemberQuizzes, error) {
-	out := new(MemberQuizzes)
-	err := c.cc.Invoke(ctx, "/library.LibraryService/ListQuizMembers", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *libraryServiceClient) UpdateQuizMember(ctx context.Context, in *MemberQuiz, opts ...grpc.CallOption) (*MemberQuiz, error) {
-	out := new(MemberQuiz)
-	err := c.cc.Invoke(ctx, "/library.LibraryService/UpdateQuizMember", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // LibraryServiceServer is the server API for LibraryService service.
 // All implementations should embed UnimplementedLibraryServiceServer
 // for forward compatibility
@@ -563,9 +533,6 @@ type LibraryServiceServer interface {
 	CreateDocument(context.Context, *Document) (*Document, error)
 	CreateCourse(context.Context, *Course) (*Course, error)
 	ListQuestionForExam(context.Context, *QuestionRequest) (*QuestionGroups, error)
-	CreateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error)
-	ListQuizMembers(context.Context, *MemberQuizRequest) (*MemberQuizzes, error)
-	UpdateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error)
 }
 
 // UnimplementedLibraryServiceServer should be embedded to have forward compatible implementations.
@@ -706,15 +673,6 @@ func (UnimplementedLibraryServiceServer) CreateCourse(context.Context, *Course) 
 }
 func (UnimplementedLibraryServiceServer) ListQuestionForExam(context.Context, *QuestionRequest) (*QuestionGroups, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListQuestionForExam not implemented")
-}
-func (UnimplementedLibraryServiceServer) CreateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateQuizMember not implemented")
-}
-func (UnimplementedLibraryServiceServer) ListQuizMembers(context.Context, *MemberQuizRequest) (*MemberQuizzes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListQuizMembers not implemented")
-}
-func (UnimplementedLibraryServiceServer) UpdateQuizMember(context.Context, *MemberQuiz) (*MemberQuiz, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateQuizMember not implemented")
 }
 
 // UnsafeLibraryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1538,60 +1496,6 @@ func _LibraryService_ListQuestionForExam_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LibraryService_CreateQuizMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MemberQuiz)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LibraryServiceServer).CreateQuizMember(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/library.LibraryService/CreateQuizMember",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibraryServiceServer).CreateQuizMember(ctx, req.(*MemberQuiz))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _LibraryService_ListQuizMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MemberQuizRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LibraryServiceServer).ListQuizMembers(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/library.LibraryService/ListQuizMembers",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibraryServiceServer).ListQuizMembers(ctx, req.(*MemberQuizRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _LibraryService_UpdateQuizMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MemberQuiz)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LibraryServiceServer).UpdateQuizMember(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/library.LibraryService/UpdateQuizMember",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibraryServiceServer).UpdateQuizMember(ctx, req.(*MemberQuiz))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // LibraryService_ServiceDesc is the grpc.ServiceDesc for LibraryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1778,18 +1682,6 @@ var LibraryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListQuestionForExam",
 			Handler:    _LibraryService_ListQuestionForExam_Handler,
-		},
-		{
-			MethodName: "CreateQuizMember",
-			Handler:    _LibraryService_CreateQuizMember_Handler,
-		},
-		{
-			MethodName: "ListQuizMembers",
-			Handler:    _LibraryService_ListQuizMembers_Handler,
-		},
-		{
-			MethodName: "UpdateQuizMember",
-			Handler:    _LibraryService_UpdateQuizMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

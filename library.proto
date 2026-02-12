@@ -51,9 +51,7 @@ service LibraryService {
   rpc CreateDocument(Document) returns (Document);
   rpc CreateCourse(Course) returns (Course);
   rpc ListQuestionForExam(QuestionRequest) returns (QuestionGroups);
-  rpc CreateQuizMember(MemberQuiz) returns (MemberQuiz);
-  rpc ListQuizMembers(MemberQuizRequest) returns (MemberQuizzes);
-  rpc UpdateQuizMember(MemberQuiz) returns (MemberQuiz);
+
  }
 
 
@@ -1751,54 +1749,3 @@ message SentenceGroupPositions {
 
 
 
-message MemberQuiz {
-	// `gorm:"primaryKey;not null;autoIncrement"`
-	int64 id = 1;
-	int64 account_id = 2;
-	int64 member_id = 3;
-	int64 quiz_id = 4;
-	int64 point = 5;
-	int64 point_total = 6;
-	int64 begin_at = 7;
-	int64 end_at = 8;
-	int64 started_at = 9;
-	int64 finished_at = 10;
-	int64 created_at = 11;
-	int64 updated_at = 12;
-	Status status = 13;
-	enum Status {
-		default_state = 0;
-		deactive = 1;
-		active = 2;
-	}
-}
-message MemberQuizzes {
-	repeated MemberQuiz member_quizzes = 1;
-	int64 total = 2;
-}
-
-message MemberQuizRequest {
-	int64 id = 1;
-	int64 account_id = 2;
-	int64 member_id = 3;
-	int64 quiz_id = 4;
-	int64 point = 5;
-	int64 point_total = 6;
-	int64 begin_at = 7;
-	int64 end_at = 8;
-	int64 started_at = 9;
-	int64 finished_at = 10;
-	int64 created_at = 11;
-	int64 updated_at = 12;
-	int32 status = 13;
-	int32 limit = 14;
-	int32 offset = 15;
-	repeated string cols = 16;
-	repeated string includes = 17;
-	repeated int64 ids = 18;
-	repeated int64 account_ids = 19;
-	repeated int64 member_ids = 20;
-	repeated int64 quiz_ids = 21;
-	int64 start_day = 24;
-	int64 end_day = 25;
-}
